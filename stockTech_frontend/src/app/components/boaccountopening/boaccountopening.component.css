@@ -1,0 +1,63 @@
+            * {
+              box-sizing: border-box;
+            }
+
+
+            #regForm {
+              background-color: #ffffff;
+              margin: 100px auto;
+              font-family: Raleway;
+              padding: 40px;
+              width: 80%;
+              min-width: 300px;
+            }
+
+            #otpForm {
+              background-color: #ffffff;
+              margin: 100px auto;
+              font-family: Raleway;
+              padding: 40px;
+              width: 80%;
+              min-width: 300px;
+            }
+
+            h1,h2,
+            h3 {
+              text-align: center;
+            }
+
+            label {
+              display: inline-block;
+              margin: 1px;
+              width: 25%;
+              text-align: right;
+              font-family: Arial, sans-serif;
+              font-weight: bold;
+            }
+
+            input {
+              padding: 10px;
+              margin: 2px;
+              width: 69%;
+              font-size: 17px;
+              font-family: Arial, sans-serif;
+              border: 1px solid #aaaaaa;
+              display: inline-block;
+
+            }
+
+
+            button {
+              background-color: #04AA6D;
+              color: #ffffff;
+              border: none;
+              padding: 10px 20px;
+              font-size: 17px;
+              font-family: Arial, sans-serif;
+              cursor: pointer;
+            }
+
+
+            button:hover {
+              opacity: 0.8;
+            }

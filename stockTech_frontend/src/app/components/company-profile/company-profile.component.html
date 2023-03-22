@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<div>
+    <h1>{{basicData.Fullname}}</h1>
+</div>
+
+<div id="left1">
+  <h3>{{basicData.Fullname}}</h3>
+    <h4>{{basicData.Scrip}}</h4>
+</div>
+<div id="right1">
+    <h4>Basic data</h4>
+</div>
+
+<div id="left2">
+    <h3>Performance graph</h3>
+    <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" 
+  [xaxis]="lineGraph.xaxis"></apx-chart>
+</div>
+<div id="right2">
+    <h3>Company Data</h3>
+    <h4>{{basicData.LastTrade}}</h4>
+    <h4>{{basicData.Volume}}</h4>
+    <h4>{{basicData.ClosePrice}}</h4>
+    <h4>{{basicData.OpenPrice}}</h4>
+</div>
+
+
+<div id="left3">
+    <h3>Technical Data</h3>
+</div>
+
+
+<div id="right3">
+    <h3>Capital portion graph</h3>
+    <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"
+  [xaxis]="pieChart.xaxis" [colors]="pieChart.colors"></apx-chart>
+</div>
+
+
+<div id="total1">
+    <h3>Corporate action</h3>
+</div>
+
+<div id="left4">
+    <h3>Shareholding pattern</h3>
+    <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart" [labels]="pieChart2.labels"
+  [xaxis]="pieChart2.xaxis" [colors]="pieChart2.colors"></apx-chart>
+</div>
+
+
+<div id="right4">
+    <h3>News</h3>
+    <div *ngFor="let news of newsData.articles">
+        <div id="article">       
+            <h2>{{ news.title }}</h2>
+            <p>{{ news.content }}</p>
+          <br>
+        </div>
+      </div>
+</div>
+
+<div id="total2">
+    <h3>Financial Statement Summary</h3>
+</div>

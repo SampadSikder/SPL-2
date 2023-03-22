@@ -1,0 +1,33 @@
+<div id="left">
+
+</div>
+
+<div id="right">
+        <form action="/action_page.php">
+                <h1>Sign Up</h1>
+                <div id="beforeOTP" *ngIf="!verified">
+                        <p><label for="bo">BO Account Number: </label> <input type="text" [(ngModel)]="bo" id="bo"
+                                        name="bo" pattern="[0-9]{20}" required></p>
+                      
+                        <p><label for="phone">Phone Number: </label> <input type="tel" [(ngModel)]="phone" id="phone"
+                                        name="phone" pattern="[0-9]{11}" required></p>
+                        <p id="txt"><input type="checkbox" > Agree the terms and policy</p>
+                        <p id="txt">Already have account ? <a routerLink="login"> Sign in</a></p><br>
+                        <p *ngIf="showOtp"><label for="otp">OTP: </label> <input type="text" [(ngModel)]="OTP" id="otp"
+                                        name="otp" required></p>
+                        <button (click)="checkBO()" id="send" *ngIf="!showOtp">Send OTP</button>
+                        <button (click)="checkOtp()" id="send" *ngIf="showOtp">Verify OTP</button>
+                       
+                </div>
+
+                <div id="afterOTP" *ngIf="verified">
+                        <p><label for="password">Password:</label> <input type="password" [(ngModel)]="password"
+                                        id="password" name="password" required></p>
+                        <p><label for="password">Confirm Password:</label> <input type="password"
+                                        [(ngModel)]="password2" id="password" name="password" required></p>
+                        <button (click)="matchPassword()" type="submit">Sign Up</button>
+
+                </div>
+
+        </form>
+</div>

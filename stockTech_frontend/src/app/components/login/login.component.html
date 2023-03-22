@@ -1,0 +1,17 @@
+<div id="left">
+
+</div>
+
+<div id="right">
+    <form>
+        <h1>Sign In</h1>
+        <div>
+            <p><label for="bo">BO Account Number: </label> <input type="text" id="bo" [(ngModel)]="bo" name="bo"
+                    pattern="[0-9]{20}" required></p>
+            <p><label for="password">Password:</label> <input type="password" id="password" [(ngModel)]="password"
+                    name="password" required></p>
+            <p id="txt"><input type="checkbox"> remember me</p>
+            <button type="submit" (click)="matchInfo()">Sign In</button>
+        </div>
+    </form>
+</div>

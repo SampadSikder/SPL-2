@@ -1,0 +1,196 @@
+<form id="otpForm" *ngIf="!otpVerified">
+  <h1>Phone Number Verification</h1>
+
+  <p><label for="phone">Phone Number </label> <input type="text" [(ngModel)]="Phone" id="phone" name="phone" required>
+  </p>
+
+  <p *ngIf="showOtp"><label for="otp">OTP </label> <input type="text" [(ngModel)]="OTP" id="otp" name="otp" required>
+  </p>
+  <button (click)="sendPhone()" id="send" *ngIf="showPhone">Send OTP</button>
+  <button (click)="sendOtp()" id="send" *ngIf="showOtp">Verify OTP</button>
+  <p *ngIf="!verifyOtp">OTP did not match. Try again!</p>
+
+</form>
+
+<form id="regForm" *ngIf="otpVerified">
+  <h1>Open BO Account</h1>
+
+  <br>
+  <div>
+    <p><label>Type of account</label> <br>
+      <input type="radio" name="type" value="individual" [(ngModel)]="accountType" style="width: auto;margin-left: 25%;"
+        required>
+      <label style="text-align: left;">Individual Account</label><br>
+      <input type="radio" name="type" value="joint" [(ngModel)]="accountType" style="width: auto;margin-left: 25%;">
+      <label style="text-align: left;">Joint Account</label><br>
+    </p>
+  </div>
+
+  <div>
+    <p><label>Statement Cycle</label> <br>
+      <select required [(ngModel)]="cycle" [ngModelOptions]="{standalone: true}"
+        style="font-size: 17px;width: auto;margin-left: 25%;">
+        <option value="">-- Select an option --</option>
+        <option value="monthly">End of Month</option>
+        <option value="yearly">End of Year</option>
+        <option value="weekly">End of Week</option>
+        <option value="none">No Statement</option>
+      </select>
+    </p>
+  </div>
+
+  <div *ngIf="accountType==='joint'">
+    <p><label>Operator</label> <br>
+      <select [(ngModel)]="operator" [ngModelOptions]="{standalone: true}" required
+        style="font-size: 17px;width: auto;margin-left: 25%;">
+        <option value="">-- Select an option --</option>
+        <option value="first">First Holder</option>
+        <option value="second">Second Holder</option>
+        <option value="any">Any One</option>
+      </select>
+    </p>
+  </div>
+
+  <br>
+  <div class="tab1">
+    <h2>First Holder Information</h2>
+    <h3>Personal Information:</h3>
+    <p><label>Type of NID</label> <br>
+      <input type="radio" value="10d" name="nidlength" [(ngModel)]="fhnidLength" style="width: auto;margin-left: 25%;"
+        required>
+      <label style="text-align: left;">10 digit (Smart card)</label><br>
+      <input type="radio" value="17d" name="nidlength" [(ngModel)]="fhnidLength" style="width: auto;margin-left: 25%;">
+      <label style="text-align: left;">17 digit (Old card)</label><br>
+    </p>
+
+    <p><label>NID number </label> <input type="text" [(ngModel)]="fhnid" [ngModelOptions]="{standalone: true}" required>
+    </p>
+    <p><label>Name </label> <input type="text" [(ngModel)]="fhname" [ngModelOptions]="{standalone: true}" required></p>
+    <p><label>Father/Husband's Name </label> <input type="text" [(ngModel)]="fhFatHusname"
+        [ngModelOptions]="{standalone: true}" required></p>
+    <p><label>Mother's Name </label> <input type="text" [(ngModel)]="fhMotname" [ngModelOptions]="{standalone: true}"
+        required></p>
+    <p><label>Date of Birth: </label> <input type="date" [(ngModel)]="fhDob" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Gender</label><br>
+      <input type="radio" name="gender" value="male" style="width: auto; margin-left: 25%;" required
+        [(ngModel)]="fhSex">
+      <label style="text-align: left;">Male</label><br>
+      <input type="radio" name="gender" value="female" style="width: auto;margin-left: 25%;" [(ngModel)]="fhSex">
+      <label style="text-align: left;">Female</label><br>
+      <input type="radio" name="gender" value="other" [(ngModel)]="fhSex" style="width: auto;margin-left: 25%;">
+      <label style="text-align: left;">Others</label><br>
+    <p><label>Passport Number </label> <input type="text" [(ngModel)]="fhPassport"
+        [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Issue Place of Passport </label> <input type="text" [(ngModel)]="fhPassportIssuePlace"
+        [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Issue Date of Passport </label> <input type="date" [(ngModel)]="fhPassportIssueDate"
+        [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Expiry Date of Passport </label> <input type="date" [(ngModel)]="fhPassportExpiryDate"
+        [ngModelOptions]="{standalone: true}"></p>
+    <br>
+
+    <h3>Contact Info:</h3>
+    <p><label>E-mail </label> <input type="email" [(ngModel)]="fhEmail" [ngModelOptions]="{standalone: true}" required>
+    </p>
+    <p><label>Phone number </label> <input type="tel" [(ngModel)]="fhPhone" [ngModelOptions]="{standalone: true}"
+        pattern="[0-9]{11}"></p>
+    <p><label>Address </label> <input type="text" [(ngModel)]="fhAddress" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>City </label> <input type="text" [(ngModel)]="fhCity" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Division </label> <input type="text" [(ngModel)]="fhDiv" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>ZIP </label> <input type="text" [(ngModel)]="fhZip" [ngModelOptions]="{standalone: true}"></p>
+
+
+
+    <h3>Other Information:</h3>
+    <p><label>Occupation </label> <input type="text" [(ngModel)]="fhOccup" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>TIN number </label> <input type="text" [(ngModel)]="fhTin" [ngModelOptions]="{standalone: true}"></p>
+    <br>
+
+    <h3>Upload Documents:</h3>
+    <p><label>First holder photo </label> <input type="file" (change)="onfhPhotoSelected($event)" required></p>
+    <p><label>First holder sign </label> <input type="file" (change)="onfhSignSelected($event)" required></p>
+    <br>
+  </div>
+
+
+  <div class="tab2" *ngIf="accountType === 'joint'">
+
+    <h2>Second Holder Information</h2>
+    <h3>Personal Information:</h3>
+    <p><label>Type of NID</label> <br>
+      <input type="radio" value="10d" name="nidlength1" [(ngModel)]="shnidLength" style="width: auto;margin-left: 25%;"
+        required>
+      <label style="text-align: left;">10 digit (Smart card)</label><br>
+      <input type="radio" value="17d" name="nidlength1" [(ngModel)]="shnidLength" style="width: auto;margin-left: 25%;">
+      <label style="text-align: left;">17 digit (Old card)</label><br>
+    </p>
+
+    <p><label>NID number </label> <input type="text" [(ngModel)]="shnid" [ngModelOptions]="{standalone: true}" required>
+    </p>
+    <p><label>Name </label> <input type="text" [(ngModel)]="shname" [ngModelOptions]="{standalone: true}" required></p>
+    <p><label>Father/Husband's Name </label> <input type="text" [(ngModel)]="shFatHusname"
+        [ngModelOptions]="{standalone: true}" required></p>
+    <p><label>Mother's Name </label> <input type="text" [(ngModel)]="shMotname" [ngModelOptions]="{standalone: true}"
+        required></p>
+    <p><label>Date of Birth: </label> <input type="date" [(ngModel)]="shDob" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Gender</label><br>
+      <input type="radio" name="gender1" value="male" style="width: auto; margin-left: 25%;" required
+        [(ngModel)]="shSex">
+      <label style="text-align: left;">Male</label><br>
+      <input type="radio" name="gender1" value="female" style="width: auto;margin-left: 25%;" [(ngModel)]="shSex">
+      <label style="text-align: left;">Female</label><br>
+      <input type="radio" name="gender1" value="other" [(ngModel)]="shSex" style="width: auto;margin-left: 25%;">
+      <label style="text-align: left;">Others</label><br>
+    <p><label>Passport Number </label> <input type="text" [(ngModel)]="shPassport"
+        [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Issue Place of Passport </label> <input type="text" [(ngModel)]="shPassportIssuePlace"
+        [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Issue Date of Passport </label> <input type="date" [(ngModel)]="shPassportIssueDate"
+        [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Expiry Date of Passport </label> <input type="date" [(ngModel)]="shPassportExpiryDate"
+        [ngModelOptions]="{standalone: true}"></p>
+    <br>
+
+    <h3>Contact Info:</h3>
+    <p><label>E-mail </label> <input type="email" [(ngModel)]="shEmail" [ngModelOptions]="{standalone: true}" required>
+    </p>
+    <p><label>Phone number </label> <input type="tel" [(ngModel)]="shPhone" [ngModelOptions]="{standalone: true}"
+        pattern="[0-9]{11}"></p>
+    <p><label>Address </label> <input type="text" [(ngModel)]="shAddress" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>City </label> <input type="text" [(ngModel)]="shCity" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>Division </label> <input type="text" [(ngModel)]="shDiv" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>ZIP </label> <input type="text" [(ngModel)]="shZip" [ngModelOptions]="{standalone: true}"></p>
+
+
+
+    <h3>Other Information:</h3>
+    <p><label>Occupation </label> <input type="text" [(ngModel)]="shOccup" [ngModelOptions]="{standalone: true}"></p>
+    <p><label>TIN number </label> <input type="text" [(ngModel)]="shTin" [ngModelOptions]="{standalone: true}"></p>
+    <br>
+
+    <h3>Upload Documents:</h3>
+
+    <p><label>Second holder photo </label> <input type="file" (change)="onshPhotoSelected($event)" required></p>
+    <p><label>Second holder sign </label> <input type="file" (change)="onshSignSelected($event)" required></p>
+    <br>
+  </div>
+
+  <br>
+  <h3>Bank Details:</h3>
+  <p><label>Routing Number </label> <input type="text" [(ngModel)]="routingNo" [ngModelOptions]="{standalone: true}"
+      required></p>
+  <p><label>Bank Name </label> <input type="text" [(ngModel)]="bankName" [ngModelOptions]="{standalone: true}" required>
+  </p>
+  <p><label>Branch Name </label> <input type="text" [(ngModel)]="branchName" [ngModelOptions]="{standalone: true}"
+      required></p>
+  <p><label>Bank Account Number </label> <input type="text" [(ngModel)]="accountNo"
+      [ngModelOptions]="{standalone: true}" required></p>
+  <p><label>Cheque</label> <input type="file" (change)="onChequeSelected($event)" required></p>
+  <br>
+
+  <br><br>
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="submit" id="submit" (click)="submit()">Submit</button>
+    </div>
+  </div>
