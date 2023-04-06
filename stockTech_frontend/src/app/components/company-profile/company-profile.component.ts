@@ -3,10 +3,11 @@ import { Observable } from 'rxjs';
 import { company, MarketDataService } from 'src/app/services/market-data.service';
 import { ChartOptions } from '../home/home.component';
 import { TechnicalIndicatorsService } from 'src/app/services/technical-indicators.service';
-
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { NewsService } from 'src/app/services/news.service';
 
-const baseUrl = 'http://localhost:4000/api/companyprofile';
+
 
 
 @Component({
@@ -21,25 +22,46 @@ export class CompanyProfileComponent implements OnInit {
   y: number[] = Array(3).fill(0);
   dtOptions: DataTables.Settings = {};
   newsData: any;
-  NewsService: any;
-  code: string='';
+  code: string = '';
+  financialData: any;
   basicData: any;
+  graphdata: any;
+  graphdata2: any;
+  trading_code: any;
 
   constructor(private MarketDataService: MarketDataService,
-    private http: HttpClient,
-    private TechnicalIndicatorsService: TechnicalIndicatorsService) { }
+    private marketdatasservice: MarketDataService,
+    private newsService: NewsService,
+    route: ActivatedRoute) { 
+      route.params.subscribe((params) => {
+        this.code = params["trading_code"];
+      });
+    }
 
 
   ngOnInit(): void {
-    //this.renderIndiceGraph("dsex");
+    this.showData();
     this.renderPieChart();
+    this.renderPieChart2();
+    this.renderDataTable();
     this.receiveNews();
+    this.receiveFinance()
+    .subscribe((data) => {
+      this.dtOptions.data = data;
+      this.financialData=data;
+     // console.log(this.financialData);
+    });
+
+  } 
+  receiveFinance(): Observable<any> {
+    return this.MarketDataService.getFinance();
   }
 
 
-//   getProfile(code: string): Observable<any>{
-//     //return this.TechnicalIndicatorsService.getProfile(code);
-// }
+  getData(): Observable<any> {
+    return this.marketdatasservice.getProfile();
+  }
+
 
   receiveMarketData(): Observable<any> {
     return this.MarketDataService.getMarketData();
@@ -50,28 +72,29 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   receiveNews(): void {  
-    this.NewsService.getNews()
+    this.newsService.getCompanyNews()
       .subscribe({
-        next: (res: any) => {
-          console.log(res);
+        next: (res) => {
           this.newsData = res;         
         },
-        error: (e: any) => console.error(e)
+        error: (e) => console.error(e)
       });
   }
 
-  showData(): void{
-    // this.TechnicalIndicatorsService.getProfile(this.code)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.basicData=res;     
-    //     },
-    //     error: (e) => console.error(e)
-    //   });
+
+  showData(): void {
+    this.getData()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.basicData = res;
+        },
+        error: (e) => console.error(e)
+      });
   }
 
-  
+
+
   // renderIndiceGraph(index: string): void {
 
   //   this.getProfile(this.code).subscribe((data1) => {
@@ -83,36 +106,15 @@ export class CompanyProfileComponent implements OnInit {
   //         type: 'area',
   //         height: '140%',
   //         width: '100%',
-  //         zoom: {
-  //           type: 'x',
-  //           enabled: true,
-  //           autoScaleYaxis: true,
-  //         },
+  //        
   //       },
   //       series: [{
   //         name: 'Index',
   //         data: data,
   //       }],
-  //       xaxis: {
-  //         type: 'datetime',
-  //         labels: {
-  //           format: 'h:mm',
-  //         }
-  //       },
-  //       fill: {
-  //         colors: ['#ffffff'],
-  //         type: 'gradient',
-  //         gradient: {
-  //           shadeIntensity: 1,
-  //           inverseColors: false,
-  //           opacityFrom: 0.7,
-  //           opacityTo: 0.6,
-  //           stops: [0, 90, 100],
-  //         },
-  //       },
-  //       grid: {
-  //         borderColor: '#f1f1f1',
-  //       },
+  //      
+  //      
+  //      
 
   //     };
   //     this.lineGraph.render();
@@ -121,93 +123,68 @@ export class CompanyProfileComponent implements OnInit {
   // }
 
   renderPieChart(): void {
-    this.receiveMarketData().subscribe((data: company[]) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].change > 0) {
-          this.y[0]++;
-        }
-        else if (data[i].change < 0) {
-          this.y[1]++;
-        }
-        else { this.y[2]++; }
-      }
-
-      const categories = ['Gainers', 'Losers', 'Neutral'];
-      const colours = ['#00FF00', '#FF0000', '#0000FF'];
-      console.log(this.y);
-      this.pieChart = {
-        chart: {
-          type: 'pie',
-          height: '100%',
-          width: '100%',
+    this.getData().subscribe ((data)=> {
+          const categories = ['Institute', 'Foreign', 'Public'];
+          this.graphdata=data;        
+          this.pieChart = {
+            chart: {
+              type: 'pie',
+               width: '55%',
+            },
+            theme: {
+              monochrome: {
+                enabled: true
+              }
+            },
+            series:[this.graphdata.Institute,this.graphdata.Foreign, this.graphdata.Public], 
+           labels: categories,            
+          };
         },
-        series: this.y,
-        labels: categories,
-        colors: colours
-      };
-    })
-  }
+       );
+     }
 
-  
-  renderPieChart2(): void {
-    this.receiveMarketData().subscribe((data: company[]) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].change > 0) {
-          this.y[0]++;
-        }
-        else if (data[i].change < 0) {
-          this.y[1]++;
-        }
-        else { this.y[2]++; }
-      }
+     renderPieChart2(): void {
+      this.getData().subscribe ((data)=> {
+        const categories = ['Authorized Capital: '+this.graphdata.AuthorizedCap, 'Paid Up Capital: '+this.graphdata.PaidUpCap];
+            
+            this.graphdata2=data;
+            
+            this.pieChart2 = {
+              chart: {
+                type: 'pie',
+                 width: '70%',
+              },
+              theme: {
+                monochrome: {
+                  enabled: true
+                }
+              },
+              series:[this.graphdata.AuthorizedCap,this.graphdata.PaidUpCap],
+             labels: categories,            
+            };
+          },
+         );
+       }
 
-      const categories = ['Gainers', 'Losers', 'Neutral'];
-      const colours = ['#00FF00', '#FF0000', '#0000FF'];
-      console.log(this.y);
-      this.pieChart2 = {
-        chart: {
-          type: 'pie',
-          height: '100%',
-          width: '100%',
-        },
-        series: this.y,
-        labels: categories,
-        colors: colours
-      };
-    })
-  }
 
   renderDataTable(): void {
     this.dtOptions = {
+      searching: false,
+      ordering:  false,
+      
       columnDefs: [
-        { width: '60em', targets: 0 },
+        { width: '90em', targets: 0 },
         { width: '30em', targets: [1, 2, 3, 4, 5] },
 
       ],
+      
       columns: [
-        {
-          title: 'Particulars',
-          data: '',
-        },
-        {
-          title: '2022',
-          data: '2022',
-        },
-        {
-          title: '2021',
-          data: '2021',
-        },
-        {
-          title: '2020',
-          data: '2020',
-        },
-        {
-          title: '2019',
-          data: '2019',
-        }, {
-          title: '2018',
-          data: '2018',
-        },
+        {title: 'Particulars', data: ''},
+        {title: '2022', data: '2022'},
+        {title: '2021', data: '2021'},
+        {title: '2020', data: '2020'},
+        {title: '2019', data: '2019'}, 
+        {title: '2018', data: '2018'},
       ],
     };
   }

@@ -14,6 +14,7 @@ import {
   ApexFill,
   ApexTooltip,
 } from 'ng-apexcharts';
+import { Router } from '@angular/router';
 
 
 export type ChartOptions = {
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
   public pieChart: Partial<ChartOptions> | any;
   public barGraph: Partial<ChartOptions> | any;
 
-  constructor(private MarketDataService: MarketDataService) { }
+  constructor(private MarketDataService: MarketDataService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -60,6 +61,7 @@ export class HomeComponent implements OnInit {
       this.dtOptions.data = data;
       this.dataAvail = true;
     });
+
 
     this.renderIndiceGraph("dsex");
     this.renderIndiceGraph2("dses");
@@ -81,6 +83,10 @@ export class HomeComponent implements OnInit {
     return this.MarketDataService.getSectorWiseData();
 
   }
+  someClickHandler(info: any): void {
+    //console.log(info.ltp);
+    this.router.navigate(["companyProfile/" + info.trading_code]);
+  }
 
 
   renderDataTable(): void {
@@ -91,16 +97,16 @@ export class HomeComponent implements OnInit {
         searchPlaceholder: "Search...",
         search: ""
       },
-      pageLength: 20,
+       pageLength: 20,
       columnDefs: [
         { width: '30em', targets: [0, 1, 2, 3, 4] },
         { name: 'some name', targets: 0 },
         { orderable: true, targets: [0, 1] },
       ],
+
       columns: [
         {
-          title: 'CODE',
-          data: 'trading_code',
+          title: 'CODE', data: 'trading_code',
           render: function (data, type, row) {
             row.trading_code = row.trading_code.replace(/ /g, '-');
             if (type === 'display') {
@@ -137,17 +143,9 @@ export class HomeComponent implements OnInit {
             return data;
           },
         },
-        {
-          title: 'LTP',
-          data: 'ltp',
-        },
-        {
-          title: 'CLOSEP',
-          data: 'closep',
-        },
-        {
-          title: 'CHANGE',
-          data: 'change',
+        { title: 'LTP', data: 'ltp' },
+        { title: 'CLOSEP', data: 'closep' },
+        { title: 'CHANGE', data: 'change',
           render: function (data, type, row) {
             if (type === 'display') {
               if (row.change < 0) {
@@ -162,12 +160,19 @@ export class HomeComponent implements OnInit {
             return data;
           },
         },
-        {
-          title: 'YCP',
-          data: 'ycp',
-        },
+        { title: 'YCP', data: 'ycp' },
       ],
-    };
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+        const self = this;
+
+        $('td', row).off('click');
+        $('td', row).on('click', () => {
+          self.someClickHandler(data);
+        });
+      
+        return row;
+      }
+    }
   }
 
   renderIndiceGraph(index: string): void {
@@ -315,81 +320,81 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  
 
 
- renderSectorGraph(): void {
-  this.receiveSectors().subscribe((data1) => {
-   
 
-  this.barGraph = {
-    series: [{
-      name: 'Gainer',
-      data: data1["Winner"],
-      color: '#0B6623',
-           
-    }, {
-      name: 'Loser',
-      data: data1["Loser"],
-      color: '#d32f2f',
-      
-    }, {
-      name: 'Neutral',
-      data: data1["Neutral"],
-      color: '#2196f3',
-      
-      
-    }],
-      chart: {
-      type: 'bar',
-      height: 500,
-      stacked: true,
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-        dataLabels: {
-          total: {
-            enabled: true,
-            offsetX: 0,
-            style: {
-              fontSize: '13px',
-              fontWeight: 900,
-             
+  renderSectorGraph(): void {
+    this.receiveSectors().subscribe((data1) => {
+
+
+      this.barGraph = {
+        series: [{
+          name: 'Gainer',
+          data: data1["Winner"],
+          color: '#0B6623',
+
+        }, {
+          name: 'Loser',
+          data: data1["Loser"],
+          color: '#d32f2f',
+
+        }, {
+          name: 'Neutral',
+          data: data1["Neutral"],
+          color: '#2196f3',
+
+
+        }],
+        chart: {
+          type: 'bar',
+          height: 500,
+          stacked: true,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            dataLabels: {
+              total: {
+                enabled: true,
+                offsetX: 0,
+                style: {
+                  fontSize: '13px',
+                  fontWeight: 900,
+
+                },
+              },
             },
+
           },
         },
-        
-      },
-    },
-    stroke: {
-      width: 1,
-      colors: ['#fff']
-    },
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
 
-    xaxis: {
-      categories: data1["Category"],
-     
-      
-    },
-    yaxis: {
-      title: {
-        text: undefined
-      },
-      
-    },
-    
-    fill: {
-      opacity: 1,
-      colors: ['#0B6623', '#d32f2f', '#2196f3']// set colors for each series,
-    },
-    legend: {
-      position: 'top',
-      horizontalAlign: 'left',
-      offsetX: 40,
-    }, 
-    };
-  this.barGraph.render();
-})
-}
+        xaxis: {
+          categories: data1["Category"],
+
+
+        },
+        yaxis: {
+          title: {
+            text: undefined
+          },
+
+        },
+
+        fill: {
+          opacity: 1,
+          colors: ['#0B6623', '#d32f2f', '#2196f3']// set colors for each series,
+        },
+        legend: {
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: 40,
+        },
+      };
+      this.barGraph.render();
+    })
+  }
 }

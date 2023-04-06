@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 
 const baseUrl = 'http://localhost:4000/api/news';
+const baseUrl2 = 'http://localhost:4000/api/companyNews';
 
 
 @Injectable({
@@ -15,5 +16,8 @@ export class NewsService {
 
   getNews(): Observable<any>{
     return this.http.get<any>(baseUrl);
+}
+  getCompanyNews(): Observable<any>{
+  return this.http.get<any>(baseUrl2);
 }
 }

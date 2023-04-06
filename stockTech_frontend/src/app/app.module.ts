@@ -13,7 +13,7 @@ import { BoaccountopeningComponent } from './components/boaccountopening/boaccou
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { Graph2Component } from './components/graph2/graph2.component';
 @NgModule({

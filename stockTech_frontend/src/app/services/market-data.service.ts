@@ -6,6 +6,11 @@ import { Observable } from 'rxjs';
 const baseUrl = 'http://localhost:4000/api/marketData';
 const baseUrl1 = 'http://localhost:4000/api/indices';
 const baseUrl2 = 'http://localhost:4000/api/sectorwise';
+const baseUrl3 = 'http://localhost:4000/api/companyprofile';
+const baseUrl4 = 'http://localhost:4000/api/companyFinance';
+
+
+
 
 export class company {
   trading_code: string;
@@ -21,7 +26,7 @@ export class company {
     this.closep = 0;
     this.change = 0;
     this.ycp = 0;
-    this.full_name='';
+    this.full_name = '';
   }
 }
 
@@ -41,14 +46,14 @@ export class sector {
     this.yvalue = [];
     this.volume = [];
     this.gainer = [];
-    this.loser=[];
-    this.neutral=[];
-    this.total=[];
+    this.loser = [];
+    this.neutral = [];
+    this.total = [];
   }
 }
 
 
-export class index{
+export class index {
   dsex: string;
   dses: string;
   ds30: string;
@@ -67,14 +72,25 @@ export class MarketDataService {
 
   constructor(private http: HttpClient) { }
 
-  getMarketData(): Observable<company[]>{
+  getMarketData(): Observable<company[]> {
     return this.http.get<any>(baseUrl);
-}
+  }
 
-getSectorWiseData(): Observable<sector>{
-  return this.http.get<any>(baseUrl2);
-}
+  getFinance(): Observable<any> {
+    return this.http.get<any>(baseUrl4);
+  }
 
-getIndices(): Observable<index>{
-  return this.http.get<any>(baseUrl1);
-}}
+  getSectorWiseData(): Observable<sector> {
+    return this.http.get<any>(baseUrl2);
+  }
+
+  getIndices(): Observable<index> {
+    return this.http.get<any>(baseUrl1);
+  }
+
+  getProfile(): Observable<any> {
+    return this.http.get<any>(baseUrl3);
+   // return this.http.post(baseUrl3,code);
+  }
+
+}
