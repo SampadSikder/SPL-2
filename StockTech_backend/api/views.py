@@ -102,7 +102,7 @@ def indices(request):
 
 @api_view(['GET'])
 def companyprofile(request):
-    return Response(data=getProfile(request))
+    return JsonResponse(data=getProfile(request))
 
 @api_view(['GET'])
 def price(request):
