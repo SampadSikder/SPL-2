@@ -7,8 +7,8 @@ import { BoaccountopeningComponent } from './components/boaccountopening/boaccou
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
-import { GraphComponent } from './components/graph/graph.component';
 import { Graph2Component } from './components/graph2/graph2.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 
 const routes: Routes = [
@@ -20,7 +20,8 @@ const routes: Routes = [
   {path: 'boaccount', component: BoaccountopeningComponent},
   {path: 'login', component: LoginComponent},
   {path: 'companyProfile', component: CompanyProfileComponent},
-  {path: 'graph', component: Graph2Component}
+  {path: 'graph', component: Graph2Component},
+  {path: 'portfolio', component: PortfolioComponent}
 ]
 
 @NgModule({

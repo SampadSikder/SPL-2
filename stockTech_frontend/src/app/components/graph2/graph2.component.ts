@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { TechnicalIndicatorsService } from 'src/app/services/technical-indicators.service';
 import { company, sector } from 'src/app/services/market-data.service';
 import { Observable } from 'rxjs';

@@ -95,33 +95,6 @@ export class CompanyProfileComponent implements OnInit {
 
 
 
-  // renderIndiceGraph(index: string): void {
-
-  //   this.getProfile(this.code).subscribe((data1) => {
-  //     const data2 = data1[index];
-  //     const data = Object.entries(data2).map(([x, y]) => ({ x: parseInt(x), y: y }));
-
-  //     this.lineGraph = {
-  //       chart: {
-  //         type: 'area',
-  //         height: '140%',
-  //         width: '100%',
-  //        
-  //       },
-  //       series: [{
-  //         name: 'Index',
-  //         data: data,
-  //       }],
-  //      
-  //      
-  //      
-
-  //     };
-  //     this.lineGraph.render();
-
-  //   })
-  // }
-
   renderPieChart(): void {
     this.getData().subscribe ((data)=> {
           const categories = ['Institute', 'Foreign', 'Public'];

@@ -1,20 +1,48 @@
 <!DOCTYPE html>
+
 <div>
-    <h1>My Portfolio</h1>
+    <h1>Portfolio</h1>
 </div>
 
 <div id="left1">
-    <h4>Name</h4>
+    <br><br>
+    <h4>Name: {{user.name}}</h4>
+    <p>BO Account no: {{user.BO_account_no}}</p>
+    <p>Phone no: {{user.phone}}</p>
+    <p>Email: {{user.email}}</p>
+
 </div>
 <div id="right1">
     <h4>Shareholding Ratio</h4>
-    <!-- pie chart -->
+    <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"
+  [xaxis]="pieChart.xaxis" [colors]="pieChart.colors"></apx-chart>
 </div>
 
 <div id="total1">
     <h3>My shares</h3>
+    <br><br>
     <table>
-
+        <tr>
+            <th>Trade Code</th>
+            <th>Buying Date</th>
+            <th>Buying Price</th>
+            <th>LTP</th>
+            <th>Volume</th>
+            <th>Profit</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let company of list">
+            <td>{{company.tradeCode}}</td>
+            <td>{{company.buyingDate  | date: "dd-MM-yyyy"}}</td>
+            <td>{{company.BuyingPrice}}</td>
+            <td>{{company.LTP}}</td>
+            <td>{{company.volume}}</td>
+            <td [ngClass]="{'text-danger': company.profit < 0, 'text-success': company.profit > 0}">
+                {{company.profit | number : '1.2-2'}}
+              </td>
+            
+            <td><button (click)="sell()" class="btn btn-warning">Sell</button></td>
+        </tr>
     </table>
 </div>
 

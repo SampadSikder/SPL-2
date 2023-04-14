@@ -1,5 +1,4 @@
-export class News{
-   
+export class News {
     author: string='';
     content: string='';
     description: string='';

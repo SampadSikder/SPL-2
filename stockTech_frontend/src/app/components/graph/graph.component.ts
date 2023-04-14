@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MarketDataService } from 'src/app/services/market-data.service';
-import { company, sector } from 'src/app/services/market-data.service';
 import { Observable } from 'rxjs';
 import {
   ApexAxisChartSeries,
