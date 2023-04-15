@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { Graph2Component } from './components/graph2/graph2.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { WatchlistComponent } from './components/watchlist/watchlist.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'companyProfile', component: CompanyProfileComponent},
   {path: 'graph', component: Graph2Component},
-  {path: 'portfolio', component: PortfolioComponent}
+  {path: 'portfolio', component: PortfolioComponent},
+  {path: 'watchlist', component: WatchlistComponent}
 ]
 
 @NgModule({

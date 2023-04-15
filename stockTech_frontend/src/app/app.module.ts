@@ -16,6 +16,8 @@ import { LoginComponent } from './components/login/login.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { Graph2Component } from './components/graph2/graph2.component';
+import { WatchlistComponent } from './components/watchlist/watchlist.component';
+import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { Graph2Component } from './components/graph2/graph2.component';
     LoginComponent,
     PortfolioComponent,
     GraphComponent,
-    Graph2Component
+    Graph2Component,
+    WatchlistComponent,
+    CashDepositComponent
   ],
   imports: [FormsModule,
     BrowserModule,

@@ -14,6 +14,7 @@ export class PortfolioComponent implements OnInit{
   list: Portfolio[]=[];
   user: Investor=new Investor();
   public pieChart: Partial<ChartOptions> | any;
+  totalProfit: number=0;
 
 
   ngOnInit(): void {
@@ -21,8 +22,12 @@ export class PortfolioComponent implements OnInit{
 
     this.user.name="Abu Tabu";
     this.user.BO_account_no=123456789012345679n;
-    this.user.phone=88016276527652864n;
+    this.user.phone=16276527652864n;
     this.user.email="bsse1216@iit.du.ac.bd";
+
+    for(let company of this.list){
+      this.totalProfit+=company.profit;
+    }
 
 
     this.renderPieChart();
@@ -34,22 +39,17 @@ export class PortfolioComponent implements OnInit{
           this.pieChart = {
             chart: {
               type: 'pie',
-               width: '55%',
+               width: '65%',
             },
-            theme: {
-              monochrome: {
-                enabled: true
-              }
-            },
-        
-          series:  this.list.map((d) => d.volume), 
-           labels: this.list.map((d) => d.tradeCode),            
+          
+            series:  this.list.map((d) => d.volume), 
+            labels: this.list.map((d) => d.tradeCode),            
           };
      }
 
 
-     sell(){
-      
+     sell(i: number){
+
      }
 
 }

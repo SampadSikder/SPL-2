@@ -1,43 +1,56 @@
-
-  <header>
-    <div id="total">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-6 col-md-4">
-            <div id="logo">
-              <img src="assets/logo6.png" alt="Logo" class="img-fluid" class="logo-image">
-            </div>
-            <small>
-              <pre>         StockTech</pre>
-            </small>
+<header>
+  <div id="total">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6 col-md-4">
+          <div id="logo">
+            <img src="assets/logo6.png" alt="Logo" class="img-fluid" class="logo-image">
           </div>
-          <div class="col-6 col-md-8">
-            <nav class="navbar navbar-expand-md">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="home">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="news">News</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="FAQs">FAQs</a>
-                  </li>
-                 
-                </ul>
+          <small>
+            <pre>     StockTech</pre>
+          </small>
+        </div>
+        <div class="col-6 col-md-8">
+          <nav class="navbar navbar-expand-md">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="home">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="news">News</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="FAQs">FAQs</a>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="!isAuthenticated" id="options" class="options ml-auto">
+              <a routerLink="signUp" class="btn btn-outline-primary">Sign Up</a>
+              <a routerLink="login" class="btn btn-outline-primary">Sign In</a>
+              <a routerLink="phone" class="btn btn-outline-primary">Open BO Account</a>
+            </div>
+
+            <div *ngIf="isAuthenticated" id="signInMenu" class="pos-f-t nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img src="assets/avatar.png" alt="Avatar" style="width:40px;" class="rounded-pill">
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">View Profile</a></li>
+                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                <li><a class="dropdown-item" routerLink="portfolio">Portfolio</a></li>
+                <li><a class="dropdown-item" routerLink="watchlist">Watchlist</a></li>
+                <li><a class="dropdown-item" href="#">Notification</a></li>
+                <li><a class="dropdown-item" routerLink="home">Logout</a></li>
               </div>
-  
-              <div id="options" class="options ml-auto">
-                <a routerLink="signUp" class="btn btn-outline-primary">Sign Up</a>
-                <a routerLink="login" class="btn btn-outline-primary">Sign In</a>
-                <a routerLink="phone" class="btn btn-outline-primary">Open BO Account</a>
-              </div>
-            </nav>
-            <!-- <div class="col-12">
+            </div>
+          </nav>
+          <!-- <div class="col-12">
             <div class="search_bar">
               <form id="search-form" class="form-inline">
                 <input type="text" id="searchBar" class="form-control mr-sm-2" placeholder="Search...">
@@ -45,62 +58,65 @@
               </form>
             </div>
           </div> -->
-          </div>
-  
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<router-outlet></router-outlet>
+
+<hr>
+<div>
+  <footer class="py-5">
+    <div class="container-fluid">
+      <div class="row dark-footer">
+        <div class="col-md-4 mb-3 mb-md-0 ">
+          <h5 class="mb-3">About StockTech</h5>
+          <p>StockTech is committed to providing you with accurate information and resources to help you make informed
+            investment decisions. Let us help you achieve your financial goals.</p>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0">
+          <h5 class="mb-3">Important Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="https://www.sec.gov.bd/">BSEC(Bangladesh Securities and Exchange Commission)</a></li>
+            <li><a href="https://www.dsebd.org/">DSE(Dhaka Stock Exchange)</a></li>
+            <li><a href="https://www.cdbl.com.bd/">CDBL(Central Depository Bangladesh Limited)</a></li>
+            <li><a href="https://www.bb.org.bd/en/index.php">BB(Bangladesh Bank)</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <img src="assets/contact.png" style="width: 50px;">
+          <h5 class="mb-3">Contact Us</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt mr-2"></i>Suhrawardi Udyan Rd, Dhaka 1200</li>
+            <li><i class="fas fa-phone-alt mr-2"></i>(+880)1779-482994</li>
+            <li><i class="fas fa-envelope mr-2"></i>info@StockTech.com</li>
+          </ul>
+        </div>
+        <hr class="my-4">
+      </div>
+
+      <div class="row align-items-center  dark-footer">
+        <div class="col-md-6 text-md-left text-center mb-3 mb-md-0">
+          <p>&copy; 2023 StockTech. All rights reserved.</p>
+        </div>
+
+        <div class="col-md-6 text-md-right text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="#">
+                <h5>Privacy Policy</h5>
+              </a></li>
+            <li class="list-inline-item"><a href="#">
+                <h5>Terms of Use</h5>
+              </a></li>
+            <li class="list-inline-item"><a href="#">
+                <h5>Cookie Policy</h5>
+              </a></li>
+          </ul>
         </div>
       </div>
     </div>
-  </header>
-  
-
-
-    <router-outlet></router-outlet>
-
-    <hr>
-    <div>
-      <footer class="py-5">
-        <div class="container-fluid">
-          <div class="row dark-footer" >
-            <div class="col-md-4 mb-3 mb-md-0 ">
-              <h5 class="mb-3">About StockTech</h5>
-              <p>StockTech is committed to providing you with accurate information and resources to help you make informed investment decisions. Let us help you achieve your financial goals.</p>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h5 class="mb-3">Important Links</h5>
-              <ul class="list-unstyled">
-                <li><a href="https://www.sec.gov.bd/">BSEC(Bangladesh Securities and Exchange Commission)</a></li>
-                <li><a href="https://www.dsebd.org/">DSE(Dhaka Stock Exchange)</a></li>
-                <li><a href="https://www.cdbl.com.bd/">CDBL(Central Depository Bangladesh Limited)</a></li>
-                <li><a href="https://www.bb.org.bd/en/index.php">BB(Bangladesh Bank)</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <img src="assets/contact.png" style="width: 50px;">
-              <h5 class="mb-3">Contact Us</h5>
-              <ul class="list-unstyled">
-                <li><i class="fas fa-map-marker-alt mr-2"></i>Suhrawardi Udyan Rd, Dhaka 1200</li>
-                <li><i class="fas fa-phone-alt mr-2"></i>(+880)1779-482994</li>
-                <li><i class="fas fa-envelope mr-2"></i>info@StockTech.com</li>
-              </ul>
-            </div>
-            <hr class="my-4">
-          </div>
-          
-          <div class="row align-items-center  dark-footer">
-            <div class="col-md-6 text-md-left text-center mb-3 mb-md-0">
-              <p>&copy; 2023 StockTech. All rights reserved.</p>
-            </div>
-            
-            <div class="col-md-6 text-md-right text-center">
-              <ul class="list-inline mb-0">
-                <li class="list-inline-item"><a href="#"><h5>Privacy Policy</h5></a></li>
-                <li class="list-inline-item"><a href="#"><h5>Terms of Use</h5></a></li>
-                <li class="list-inline-item"><a href="#"><h5>Cookie Policy</h5></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-
-       
+  </footer>
+</div>
