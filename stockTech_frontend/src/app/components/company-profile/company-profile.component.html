@@ -11,6 +11,7 @@
       <br><br>
       <p><strong>Full Name:</strong> {{basicData.FullName}}</p>
       <p><strong>Trade Code:</strong> {{basicData.Scrip}}</p>
+      <button class="btn btn-success" (click)="open(content)">Buy Shares</button>
     </div>
     <div class="col-sm-6">
       <h4 class="text-right">Basic data</h4>
@@ -90,17 +91,17 @@
           <tr *ngFor="let row of financialData">
             <td *ngIf="row.r=='cash-flow-statement'">{{row.k}}</td>
             <!-- <td *ngIf="row.r=='balance-sheet' && row.y=='2021'">{{ row.l }}</td> -->
-           
+
             <ng-container *ngFor="let row2 of financialData">
               <ng-container *ngIf="row2.k==row.k && row2!=row && row2.r=='cash-flow-statement'">
-                <td  *ngIf="row2.y=='2021'">{{row2.l}}</td>
-                <td  *ngIf="row2.y!='2021'">-</td>
-                <td  *ngIf="row2.y=='2020'">{{row2.l}}</td>
-                <td  *ngIf="row2.y!='2020'">-</td>
-                <td  *ngIf="row2.y=='2019'">{{row2.l}}</td>
-                <td  *ngIf="row2.y!='2019'">-</td>
-                <td  *ngIf="row2.y=='2018'">{{row2.l}}</td>
-                <td  *ngIf="row2.y!='2018'">-</td>
+                <td *ngIf="row2.y=='2021'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2021'">-</td>
+                <td *ngIf="row2.y=='2020'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2020'">-</td>
+                <td *ngIf="row2.y=='2019'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2019'">-</td>
+                <td *ngIf="row2.y=='2018'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2018'">-</td>
               </ng-container>
             </ng-container>
             <!-- <ng-container *ngFor="let row2 of financialData">
@@ -117,8 +118,8 @@
             </ng-container> -->
 
           </tr>
-          <ng-template #elseBlock> 
-            <td></td> 
+          <ng-template #elseBlock>
+            <td></td>
           </ng-template>
         </tbody>
       </table>
@@ -127,3 +128,51 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Order</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="myForm">
+      <div class="form-group">
+        <label for="tradeCode">Trade Code:</label>
+        <input type="text" id="tradeCode"  class="form-control" placeholder="{{basicData.Scrip}}" disabled>
+      </div>
+      <div class="form-group">
+        <label for="tradeCode">Order Type</label>
+        <input type="text" id="tyoe"  class="form-control" placeholder="Buy" disabled>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" class="form-control" formControlName="price"
+            placeholder="{{basicData.LastTrade}}" required>
+        <div
+            *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
+            <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
+            <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
+        </div>
+    </div>
+
+      <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" class="form-control" formControlName="quantity"
+                    placeholder="{{basicData.volume}}" required max="{{basicData.volume}}" min="0">
+                <div
+                    *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+                    <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+                    <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+                        value.</small>
+                    <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
+                        {{basicData.volume}}.</small>
+                </div>
+            </div>
+      <br>
+      <button class="btn btn-success" [disabled]="myForm.invalid" (click)="makeOrder(); c('Save click')">Place
+        Order</button>
+    </form>
+  </div>
+
+</ng-template>

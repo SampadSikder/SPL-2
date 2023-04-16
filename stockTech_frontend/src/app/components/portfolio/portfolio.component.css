@@ -31,4 +31,9 @@ td,th{
     border-bottom: 1px solid #ddd;
  }
 
+ .btn-success{
+    display: block;
+  margin: 0 auto;
+}
+
  

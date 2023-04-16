@@ -1,1 +1,52 @@
-<p>cash-deposit works!</p>
+<div ng-app="myApp" ng-controller="paymentCtrl" class="container">
+    <h2>Cash Deposit</h2>
+  
+    <div class="row">
+  
+      <form id="payment_gw" name="payment_gw" method="POST" ng-submit="submitPayment()" novalidate>
+        <div class="form-group">
+          <label for="total_amount">Total Amount:</label>
+          <input type="text" class="form-control" id="total_amount" name="total_amount" ng-model="paymentData.total_amount" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="store_id">Store ID:</label>
+          <input type="text" class="form-control" id="store_id" name="store_id" ng-model="paymentData.store_id" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="tran_id">Transaction ID:</label>
+          <input type="text" class="form-control" id="tran_id" name="tran_id" ng-model="paymentData.tran_id" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="success_url">Success URL:</label>
+          <input type="text" class="form-control" id="success_url" name="success_url" ng-model="paymentData.success_url" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="fail_url">Fail URL:</label>
+          <input type="text" class="form-control" id="fail_url" name="fail_url" ng-model="paymentData.fail_url" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="cancel_url">Cancel URL:</label>
+          <input type="text" class="form-control" id="cancel_url" name="cancel_url" ng-model="paymentData.cancel_url" required>
+        </div>
+  
+        <input type="hidden" name="version" value="2.00" />
+  
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+          <div ng-show="paymentStatus">{{ paymentStatus }}</div>
+          <h5>Amount to Pay: {{ total_amount }}</h5>
+          <br />
+          <!-- SUBMIT REQUEST !-->
+          <button type="submit" class="btn btn-success"> Pay Now</button>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+
+  

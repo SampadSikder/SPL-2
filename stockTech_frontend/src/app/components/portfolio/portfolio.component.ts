@@ -3,6 +3,8 @@ import { Investor } from 'src/app/models/investor.model';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { ChartOptions } from '../home/home.component';
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-portfolio',
@@ -10,7 +12,14 @@ import { ChartOptions } from '../home/home.component';
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit{
-  constructor(private portfolioService: PortfolioService){}
+  myForm!: FormGroup;
+company: Portfolio= new Portfolio();
+order: Portfolio= new Portfolio();
+
+  constructor(private portfolioService: PortfolioService,
+    private modalService: NgbModal){
+      
+    }
   list: Portfolio[]=[];
   user: Investor=new Investor();
   public pieChart: Partial<ChartOptions> | any;
@@ -48,8 +57,17 @@ export class PortfolioComponent implements OnInit{
      }
 
 
-     sell(i: number){
+     sell(){
 
      }
 
+     open(content: any, i: number) {
+      this.company=this.list[i];
+      this.myForm = new FormGroup({
+        'price': new FormControl(null, [Validators.required]),
+        'quantity': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(this.company.volume)])
+      });
+      this.modalService.open(content);
+    }
+  
 }

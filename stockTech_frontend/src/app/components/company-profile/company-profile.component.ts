@@ -6,8 +6,8 @@ import { TechnicalIndicatorsService } from 'src/app/services/technical-indicator
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NewsService } from 'src/app/services/news.service';
-
-
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,6 +16,7 @@ import { NewsService } from 'src/app/services/news.service';
   styleUrls: ['./company-profile.component.css']
 })
 export class CompanyProfileComponent implements OnInit {
+  myForm!: FormGroup;
   public lineGraph: Partial<ChartOptions> | any;
   public pieChart: Partial<ChartOptions> | any;
   public pieChart2: Partial<ChartOptions> | any;
@@ -32,6 +33,7 @@ export class CompanyProfileComponent implements OnInit {
   constructor(private MarketDataService: MarketDataService,
     private marketdatasservice: MarketDataService,
     private newsService: NewsService,
+    private modalService: NgbModal,
     route: ActivatedRoute) { 
       route.params.subscribe((params) => {
         this.code = params["trading_code"];
@@ -162,6 +164,16 @@ export class CompanyProfileComponent implements OnInit {
     };
   }
 
+  open(content: any) {
+    this.myForm = new FormGroup({
+      'price': new FormControl(null, [Validators.required]),
+      'quantity': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(this.basicData.volume)])
+    });
+		this.modalService.open(content);
+	}
 
+  makeOrder(){
+    
+  }
 
 }

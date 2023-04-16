@@ -19,8 +19,7 @@
     <div id="right1">
         <br><br>
         <h3>Shareholding Ratio</h3>
-        <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" 
-        [labels]="pieChart.labels"></apx-chart>
+        <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"></apx-chart>
     </div>
 
     <div id="total1">
@@ -45,9 +44,59 @@
                 <td [ngClass]="{'text-danger': company.profit < 0, 'text-success': company.profit > 0}">
                     {{company.profit | number : '1.2-2'}}
                 </td>
-                <td><button (click)="sell(i)" class="btn btn-primary">Sell</button></td>
+                <td><button (click)="open(content,i)" class="btn btn-primary">Sell</button></td>
             </tr>
         </table>
     </div>
 
 </div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Order</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="myForm">
+            <div class="form-group">
+                <label for="tradeCode">Trade Code:</label>
+                <input type="text" id="tradeCode" [(ngModel)]="order.tradeCode" class="form-control"
+                    placeholder="{{company.tradeCode}}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="tradeCode">Order Type</label>
+                <input type="text" id="type" class="form-control" placeholder="Sell" disabled>
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" id="price" class="form-control" formControlName="price"
+                    placeholder="{{company.BuyingPrice}}" required>
+                <div
+                    *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
+                    <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
+                    <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" class="form-control" formControlName="quantity"
+                    placeholder="{{company.volume}}" required max="{{company.volume}}" min="0">
+                <div
+                    *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+                    <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+                    <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+                        value.</small>
+                    <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
+                        {{company.volume}}.</small>
+                </div>
+            </div>
+
+            <br>
+            <button class="btn btn-success" [disabled]="myForm.invalid" (click)="sell(); c('Save click')">Place
+                Order</button>
+
+        </form>
+    </div>
+
+</ng-template>
