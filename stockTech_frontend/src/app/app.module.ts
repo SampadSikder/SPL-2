@@ -20,6 +20,7 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     Graph2Component,
     WatchlistComponent,
     CashDepositComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    NavbarComponent
   ],
   imports: [FormsModule,
     BrowserModule,

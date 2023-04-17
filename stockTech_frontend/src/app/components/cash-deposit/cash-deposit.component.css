@@ -1,0 +1,19 @@
+#pic1{
+    width: 100%;
+   
+}
+
+.modal-body, .modal-header{
+    background-color: rgb(241, 55, 117);
+    text-align: center;
+    color: white;
+}
+
+#textBox{
+   margin-top: 5%; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  
+}
+
+#number{
+    padding: 5%; 
+}

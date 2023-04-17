@@ -7,12 +7,16 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6" >
       <br><br>
       <p><strong>Full Name:</strong> {{basicData.FullName}}</p>
       <p><strong>Trade Code:</strong> {{basicData.Scrip}}</p>
-      <button class="btn btn-success" (click)="open(content)">Buy Shares</button>
-    </div>
+      <div style="width: 100% ;text-align:center;">
+        <button  *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)">Buy Shares</button>
+        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="showGraph()">View Indicator</button>
+    
+      </div>
+        </div>
     <div class="col-sm-6">
       <h4 class="text-right">Basic data</h4>
       <p><strong>Last Trade:</strong> {{basicData.LastTrade}}</p>

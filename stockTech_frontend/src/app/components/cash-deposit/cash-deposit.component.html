@@ -1,52 +1,64 @@
 <div ng-app="myApp" ng-controller="paymentCtrl" class="container">
-    <h2>Cash Deposit</h2>
-  
-    <div class="row">
-  
-      <form id="payment_gw" name="payment_gw" method="POST" ng-submit="submitPayment()" novalidate>
-        <div class="form-group">
-          <label for="total_amount">Total Amount:</label>
-          <input type="text" class="form-control" id="total_amount" name="total_amount" ng-model="paymentData.total_amount" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="store_id">Store ID:</label>
-          <input type="text" class="form-control" id="store_id" name="store_id" ng-model="paymentData.store_id" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="tran_id">Transaction ID:</label>
-          <input type="text" class="form-control" id="tran_id" name="tran_id" ng-model="paymentData.tran_id" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="success_url">Success URL:</label>
-          <input type="text" class="form-control" id="success_url" name="success_url" ng-model="paymentData.success_url" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="fail_url">Fail URL:</label>
-          <input type="text" class="form-control" id="fail_url" name="fail_url" ng-model="paymentData.fail_url" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="cancel_url">Cancel URL:</label>
-          <input type="text" class="form-control" id="cancel_url" name="cancel_url" ng-model="paymentData.cancel_url" required>
-        </div>
-  
-        <input type="hidden" name="version" value="2.00" />
-  
-        <div class="clearfix"></div>
-        <div class="col-md-12">
-          <div ng-show="paymentStatus">{{ paymentStatus }}</div>
-          <h5>Amount to Pay: {{ total_amount }}</h5>
-          <br />
-          <!-- SUBMIT REQUEST !-->
-          <button type="submit" class="btn btn-success"> Pay Now</button>
-        </div>
-        <div class="clearfix"></div>
-      </form>
+  <h2>Cash Deposit</h2>
+
+  <div class="row">
+
+    <p>Welcome to the Cash Deposit page of our stock market website. Depositing cash into your trading account is easy
+      and convenient, allowing you to quickly start investing in the stock market.</p>
+    <p>Once your cash deposit has been successfully processed, the funds will be credited to your trading account. You
+      can then use this money to buy shares and other securities. Our user-friendly trading platform provides real-time
+      market data and analysis to help you make informed investment decisions.</p>
+    <p>If you have any questions or concerns regarding the cash deposit process or our trading platform, please don't
+      hesitate to contact our customer support team. They are available to assist you and provide you with the support
+      you need.</p>
+    <p>Thank you for choosing our stock market website for your investment needs. We look forward to helping you build
+      your investment portfolio and achieve your financial goals.</p>
+
+    <form>
+      <div class="form-group">
+        <label for="total"><h2> Total Amount:</h2></label>
+        <input type="number" class="form-control" id="total" [(ngModel)]="total_amount" name="total" placeholder="{{total_amount}}" required>
+      </div>
+
+
+      <div class="col-md-12">
+        <br />
+        <button type="submit" (click)="open(content)" class="btn btn-success"> Pay Now</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <img id="pic1" src="assets/bKash.png">
+  <div class="modal-body">
+    
+    <div id="textBox" class="container">
+      <p>Merchant: StockTech.com</p>
+      <p>Invoice No: 1234</p>
+      <p>Amount: {{total_amount}}</p>
     </div>
+    <div *ngIf="!otpBox" id="number">
+      <label for="phone">bKash verification number</label>
+      <input type="number" class="form-control" id="phone" placeholder="eg 01XXXXXXXXX" required>
+      <p><input type="checkbox"> Agree the terms and policy</p>  
+      <br>
+      <button class="btn btn-outline-light" (click)="getOTP()">Proceed</button>
+      <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')" >Close</button>
+    </div>
+    <div *ngIf="otpBox" id="number">
+      <label for="otp">Enter OTP</label>
+      <input type="password" class="form-control" id="otp" required> 
+      <br>
+      <button class="btn btn-outline-light" (click)="makePayment()">Pay</button>
+      <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')" >Close</button>
+    </div>
+   
   </div>
 
-  
+</ng-template>

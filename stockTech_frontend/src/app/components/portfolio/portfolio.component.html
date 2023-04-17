@@ -101,6 +101,6 @@
 
 </ng-template>
 
-<div *ngif="!isAuthenticated" class="container">
+<div *ngIf="!isAuthenticated" id="denied" class="container">
     <h1>You don't have access!</h1>
 </div>

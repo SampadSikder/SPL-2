@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +6,5 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'graph';
-  constructor(public auth: AuthenticationService) { }
-  isAuthenticated: boolean=this.auth.isAuthenticated;
-
+  title: any;
 }

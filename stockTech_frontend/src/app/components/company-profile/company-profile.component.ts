@@ -8,6 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NewsService } from 'src/app/services/news.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -16,6 +19,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./company-profile.component.css']
 })
 export class CompanyProfileComponent implements OnInit {
+
   myForm!: FormGroup;
   public lineGraph: Partial<ChartOptions> | any;
   public pieChart: Partial<ChartOptions> | any;
@@ -34,14 +38,20 @@ export class CompanyProfileComponent implements OnInit {
     private marketdatasservice: MarketDataService,
     private newsService: NewsService,
     private modalService: NgbModal,
+    public auth: AuthenticationService,
+    private router: Router,
     route: ActivatedRoute) { 
+      
       route.params.subscribe((params) => {
         this.code = params["trading_code"];
       });
     }
+    isAuthenticated: boolean=this.auth.isAuthenticated;
 
 
   ngOnInit(): void {
+
+
     this.showData();
     this.renderPieChart();
     this.renderPieChart2();
@@ -175,5 +185,9 @@ export class CompanyProfileComponent implements OnInit {
   makeOrder(){
     
   }
+
+  showGraph() {
+    this.router.navigate(["graph"]);
+    }
 
 }

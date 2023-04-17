@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -17,31 +18,22 @@ export class CashDepositComponent {
   private readonly gatewayUrl: string = 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php';
 
   paymentStatus:string='';
-  total_amount:number=100;
+  @Input() total_amount: number = 0;
+  otpBox: boolean=false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
 
-  initiatePayment(amount: number, tranId: string): Promise<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };
+  open(content: any) {
 
-    const postData = `store_id=${this.storeId}&store_passwd=${this.storePassword}&currency=BDT&total_amount=${amount}&tran_id=${tranId}&success_url=http://localhost:4200/payment-success&fail_url=http://localhost:4200/payment-failed&cancel_url=http://localhost:4200/payment-cancelled`;
-
-    return this.http.post(this.gatewayUrl, postData, httpOptions).toPromise();
+    this.modalService.open(content);
   }
 
+  getOTP(){
+    this.otpBox=true;
+  }
 
-  // (function (window, document) {
-  //   var loader = function () {
-  //       var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-  //       script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
-  //       tag.parentNode.insertBefore(script, tag);
-  //   };
-  
-  //   window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-  // })(window, document);
+  makePayment(){
+    
+  }
 
 }
