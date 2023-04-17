@@ -18,7 +18,7 @@ import { GraphComponent } from './components/graph/graph.component';
 import { Graph2Component } from './components/graph2/graph2.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

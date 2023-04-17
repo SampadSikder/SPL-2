@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<div class="container">
-
+    <div *ngIf="isAuthenticated" class="container">
     <div>
         <h1>Portfolio</h1>
     </div>
@@ -52,6 +51,7 @@
 </div>
 
 
+
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Order</h4>
@@ -100,3 +100,7 @@
     </div>
 
 </ng-template>
+
+<div *ngif="!isAuthenticated" class="container">
+    <h1>You don't have access!</h1>
+</div>
