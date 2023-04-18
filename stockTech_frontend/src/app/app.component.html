@@ -43,11 +43,12 @@
                 <img src="assets/avatar.png" alt="Avatar" style="width:40px;" class="rounded-pill">
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">View Profile</a></li>
-                <li><a class="dropdown-item" routerLink="deposit">Cash Deposit</a></li>
+                <li><a class="dropdown-item" routerLink="profile">View Profile</a></li>
+                <li><a class="dropdown-item" routerLink="deposit">Cash Deposit/Withdraw</a></li>
                 <li><a class="dropdown-item" routerLink="portfolio">Portfolio</a></li>
                 <li><a class="dropdown-item" routerLink="watchlist">Watchlist</a></li>
-                <li><a class="dropdown-item" href="#">Notification</a></li>
+                <li><a class="dropdown-item" routerLink="orderHistory">Order History</a></li>
+                <li><a class="dropdown-item" routerLink="notification">Notification</a></li>
                 <li><a class="dropdown-item"   (click)="logout()" routerLink="home">Logout</a></li>
               </div>
             </div>

@@ -35,6 +35,7 @@ export type ChartOptions = {
   styleUrls: ['./graph2.component.css']
 })
 export class Graph2Component implements OnInit{
+  y: [number, number, number, number] = [0,0,0,0];
   ngOnInit(): void {
     this.renderIndiceGraph2();
     this.renderIndiceGraph();
@@ -46,7 +47,7 @@ export class Graph2Component implements OnInit{
 
   constructor(private TecIndSer: TechnicalIndicatorsService,
 ) { }
-    isAuthenticated: boolean=false;
+    isAuthenticated: boolean=true;
 
   
 
@@ -82,7 +83,9 @@ export class Graph2Component implements OnInit{
         series: [{
           name: 'Index',
           data: data,
-        }],
+        }
+      
+      ],
         xaxis: {
           type: 'datetime',
           labels: {
@@ -155,4 +158,40 @@ export class Graph2Component implements OnInit{
       this.lineGraph3.render();
     })
   }
+
+//   renderIndiceGraph4(): void {
+
+//     this.receiveEMA().subscribe((data1) => {
+//       const data = Object.entries(data1).map(([x, y]) => ({ x: parseInt(x), y: y }));
+
+// this.lineGraph = {
+//   chart: {
+//     type: 'candlestick',
+//     height: '250%',
+//     width: '90%',
+//     zoom: {
+//       type: 'x',
+//       enabled: true,
+//       autoScaleYaxis: true,
+//     },
+//   },
+//   series: [{
+//     data: data.map((d) => {
+//       return {
+//         x: d.x,
+//         y: [d.y.open, d.y.high, d.y.low, d.y.close]
+//       }
+//     }),
+//   }],
+//   xaxis: {
+//     type: 'datetime',
+//     labels: {
+//       format: 'dd/MM',
+//     }
+//   },
+// };
+// this.lineGraph.render();
+
+//     })
+//   }
 }

@@ -69,11 +69,17 @@ export class index {
   providedIn: 'root'
 })
 export class MarketDataService {
+  
 
   constructor(private http: HttpClient) { }
 
   getMarketData(): Observable<company[]> {
     return this.http.get<any>(baseUrl);
+  }
+
+  getWatchlist(): Observable<company[]> {
+    return this.http.get<any>(baseUrl);
+    // throw new Error('Method not implemented.');
   }
 
   getFinance(): Observable<any> {

@@ -11,6 +11,10 @@ import { Graph2Component } from './components/graph2/graph2.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
+import { LoanComponent } from './components/loan/loan.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 const routes: Routes = [
@@ -25,7 +29,11 @@ const routes: Routes = [
   {path: 'graph', component: Graph2Component},
   {path: 'portfolio', component: PortfolioComponent},
   {path: 'watchlist', component: WatchlistComponent},
-  {path: 'deposit', component: CashDepositComponent}
+  {path: 'deposit', component: CashDepositComponent},
+  {path: 'loan',component:LoanComponent},
+  {path: 'history', component: OrderHistoryComponent},
+  {path: 'profile',component:UserProfileComponent},
+  {path: 'notification', component:NotificationComponent}
 ]
 
 @NgModule({

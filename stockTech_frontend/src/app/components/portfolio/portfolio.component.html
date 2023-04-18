@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-    <div *ngIf="isAuthenticated" class="container">
+<div *ngIf="isAuthenticated" class="container">
     <div>
         <h1>Portfolio</h1>
     </div>
@@ -21,30 +21,70 @@
         <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"></apx-chart>
     </div>
 
+    <!-- <div>
+        <table>
+            <tr>
+              <th>State</th>
+              <th>County</th>
+              <th>Item</th>
+            </tr>
+            <tr *ngFor="let item of dataExt">
+              <td [attr.rowspan]="item.stateSpan" *ngIf="item.stateSpan">{{ item.state }}</td>
+              <td [attr.rowspan]="item.countySpan" *ngIf="item.countySpan">{{ item.county }}</td>
+              <td>{{ item.item }}</td>
+            </tr>
+        </table>
+    </div> -->
+
     <div id="total1">
         <h3>My shares</h3>
         <br><br>
-        <table>
-            <tr>
-                <th>Trade Code</th>
-                <th>Buying Date</th>
-                <th>Buying Price</th>
-                <th>LTP</th>
-                <th>Volume</th>
-                <th>Profit</th>
-                <th></th>
-            </tr>
-            <tr *ngFor="let company of list; let i = index">
-                <td>{{company.tradeCode}}</td>
-                <td>{{company.buyingDate | date: "dd-MM-yyyy"}}</td>
-                <td>{{company.BuyingPrice}}</td>
-                <td>{{company.LTP}}</td>
-                <td>{{company.volume}}</td>
-                <td [ngClass]="{'text-danger': company.profit < 0, 'text-success': company.profit > 0}">
-                    {{company.profit | number : '1.2-2'}}
-                </td>
-                <td><button (click)="open(content,i)" class="btn btn-primary">Sell</button></td>
-            </tr>
+        <table datatable [dtOptions]="dtOptions" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Trade Code</th>
+                    <th>Buying Date</th>
+                    <th>Buying Price</th>
+                    <th>LTP</th>
+                    <th>Volume</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let company of list; let i = index">
+                    <td>{{company.tradeCode}}</td>
+                    <td>{{company.buyingDate | date: "dd-MM-yyyy"}}</td>
+                    <td>{{company.BuyingPrice}}</td>
+                    <td>{{company.LTP}}</td>
+                    <td>{{company.volume}}</td>
+                    <td [ngClass]="{'text-danger': company.profit < 0, 'text-success': company.profit > 0}">
+                        {{company.profit | number : '1.2-2'}}
+                    </td>
+                   </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="total1">
+        <h3>Sell shares</h3>
+        <br><br>
+        <table datatable [dtOptions]="dtOptions2" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Trade Code</th>
+                    <th>LTP</th>
+                    <th>Total Volume</th>                 
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let company of list2; let i = index">
+                    <td>{{company.tradeCode}}</td>
+                    <td>{{company.LTP}}</td>     
+                    <td>{{company.volumeCumulative}}</td>                  
+                    <td><button (click)="open(content,i)" class="btn btn-primary">Sell</button></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -81,7 +121,7 @@
             <div class="form-group">
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantity" class="form-control" formControlName="quantity"
-                    placeholder="{{company.volume}}" required max="{{company.volume}}" min="0">
+                    placeholder="{{company.volumeCumulative}}" required max="{{company.volumeCumulative}}" min="0">
                 <div
                     *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
                     <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>

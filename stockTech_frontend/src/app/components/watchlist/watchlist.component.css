@@ -1,0 +1,16 @@
+table{
+    width: 80%;
+}
+
+h2{
+    text-align: center; 
+  }
+
+
+  #denied{
+    height: 400px; 
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

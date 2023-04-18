@@ -1,65 +1,176 @@
-<div ng-app="myApp" ng-controller="paymentCtrl" class="container">
-  <h2>Cash Deposit</h2>
+<div class="container">
 
   <div class="row">
 
-    <p>Welcome to the Cash Deposit page of our stock market website. Depositing cash into your trading account is easy
-      and convenient, allowing you to quickly start investing in the stock market.</p>
-    <p>Once your cash deposit has been successfully processed, the funds will be credited to your trading account. You
-      can then use this money to buy shares and other securities. Our user-friendly trading platform provides real-time
-      market data and analysis to help you make informed investment decisions.</p>
-    <p>If you have any questions or concerns regarding the cash deposit process or our trading platform, please don't
-      hesitate to contact our customer support team. They are available to assist you and provide you with the support
-      you need.</p>
-    <p>Thank you for choosing our stock market website for your investment needs. We look forward to helping you build
-      your investment portfolio and achieve your financial goals.</p>
+    <p>
+      Welcome to our cash deposit and withdrawal page. This page allows you to manage the funds in your trading account
+      easily and conveniently.
 
-    <form>
-      <div class="form-group">
-        <label for="total"><h2> Total Amount:</h2></label>
-        <input type="number" class="form-control" id="total" [(ngModel)]="total_amount" name="total" placeholder="{{total_amount}}" required>
-      </div>
+      <br>To deposit cash into your trading account, simply follow these steps:
+
+      <br>1. Click on the "Deposit" button on the main dashboard.
+      <br>2. Choose your preferred payment method and enter the amount you wish to deposit.
+      <br>3. Follow the on-screen instructions to complete the transaction.
 
 
-      <div class="col-md-12">
-        <br>
-        <button type="submit" (click)="open(content)" class="btn btn-success"> Pay Now</button>
-      <br><br><br><br>
-      </div>
-    </form>
+      <br><br>Once your cash deposit has been successfully processed, the funds will be credited to your trading
+      account. You can then start buying and selling stocks, mutual funds, and other securities.
+
+      <br><br>If you need to withdraw cash from your trading account, simply follow these steps:
+
+      <br>1. Click on the "Withdraw" button on the main dashboard.
+      <br>2. Choose your preferred withdrawal method and enter the amount you wish to withdraw.
+      <br>3. Follow the on-screen instructions to complete the transaction.
+      <br>Please note that it may take a few business days for the funds to be credited to your account, depending on
+      your chosen withdrawal method.
+
+      <br><br>Our platform provides real-time account information, including your current balance and transaction
+      history. If you have any questions or concerns regarding cash deposits or withdrawals, please don't hesitate to
+      contact our customer support team. They are available to assist you and provide you with the support you need.
+
+      <br>Thank you for choosing our stock market website for your investment needs. Happy trading!
+    </p>
+    <br>
+    <div style="width: 100% ;text-align:center;">
+      <button class="btn btn-info" (click)="open(deposit)">Deposit</button>
+      <button style="margin:10px;" class="btn btn-info" (click)="open(withdraw)">Withdraw</button>
+    </div>
+
+  </div>
+
+  <div>
+    <br>
+    <h2>Deposit history</h2>
+    <br>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Transaction ID</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Issue Date</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of depositList" scope="row">
+          <!-- <td>{{ loan.ID }}</td>
+          <td>{{ loan.amount }}</td>
+          <td>{{ loan.term }}</td>
+          <td>{{ loan.issueDate }}</td>
+          <td>{{ loan.acceptDate }}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <br>
+  <div>
+    <br>
+    <h2>Withdraw history</h2>
+    <br>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Transaction ID</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Issue Date</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of withdrawList" scope="row">
+          <!-- <td>{{ loan.ID }}</td>
+          <td>{{ loan.amount }}</td>
+          <td>{{ loan.term }}</td>
+          <td>{{ loan.issueDate }}</td>
+          <td>{{ loan.acceptDate }}</td> -->
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
 
-
+<!-- modal for bKash-->
 <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
+  <div class="modal-header  bkash">
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
   <img id="pic1" src="assets/bKash.png">
-  <div class="modal-body">
-    
+  <div class="modal-body  bkash">
+
     <div id="textBox" class="container">
       <p>Merchant: StockTech.com</p>
-      <p>Invoice No: 1234</p>
+      <p>Invoice No: {{getInvoice()}}</p>
       <p>Amount: {{total_amount}}</p>
     </div>
     <div *ngIf="!otpBox" id="number">
       <label for="phone">bKash verification number</label>
       <input type="number" class="form-control" id="phone" placeholder="eg 01XXXXXXXXX" required>
-      <p><input type="checkbox"> Agree the terms and policy</p>  
+      <p><input type="checkbox"> Agree the terms and policy</p>
       <br>
       <button class="btn btn-outline-light" (click)="getOTP()">Proceed</button>
-      <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')" >Close</button>
+      <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')">Close</button>
     </div>
     <div *ngIf="otpBox" id="number">
       <label for="otp">Enter OTP</label>
-      <input type="password" class="form-control" id="otp" required> 
+      <input type="password" class="form-control" id="otp" required>
       <br>
       <button class="btn btn-outline-light" (click)="makePayment()">Pay</button>
-      <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')" >Close</button>
+      <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')">Close</button>
     </div>
-   
+
+  </div>
+
+</ng-template>
+
+
+<!-- modal for deposit -->
+<ng-template #deposit let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="total">
+          <h2> Total Amount:</h2>
+        </label>
+        <input type="number" class="form-control" id="total" [(ngModel)]="total_amount" name="total"
+          placeholder="{{total_amount}}" required>
+      </div>
+
+
+      <div class="col-md-12">
+        <br>
+        <button type="submit" (click)="open(content); d('Cross click')" class="btn btn-success"> Pay Now</button>
+        <br><br><br><br>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+
+<!-- modal for withdraw-->
+<ng-template #withdraw let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="total">
+          <h2> Total Amount:</h2>
+        </label>
+        <input type="number" class="form-control" id="total" [(ngModel)]="total_amount2" name="total"
+          placeholder="{{total_amount2}}" required>
+      </div>     
+    </form>
+    <br>
+    <button class="btn btn-outline-dark" (click)="makeWithdraw(total_amount2)">make Request</button>
+    <br><br>
   </div>
 
 </ng-template>

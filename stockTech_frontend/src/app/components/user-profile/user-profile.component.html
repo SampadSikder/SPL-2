@@ -1,1 +1,68 @@
-<p>user-profile works!</p>
+<div class="container">
+  <br><br>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">User Profile</h3>
+          <hr>
+          <div class="row">
+            <div class="col-md-4"><label>Name:</label></div>
+            <div class="col-md-8"><p>{{user.name}}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>Email:</label></div>
+            <div class="col-md-8"><p>{{user.email}}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>Phone:</label></div>
+            <div class="col-md-8"><p>{{user.phone}}</p></div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>BO Account No:</label></div>
+            <div class="col-md-8"><p>{{user.BO_account_no}}</p></div>
+          </div>
+          <hr>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" class="form-control" id="phone" [(ngModel)]="user.phone"
+            placeholder="{{user.phone}}">
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="user.email"
+          placeholder="{{user.email}}">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>

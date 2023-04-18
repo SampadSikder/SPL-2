@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { MarketDataService } from 'src/app/services/market-data.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -8,16 +9,33 @@ import { Subject } from 'rxjs';
   styleUrls: ['./watchlist.component.css']
 })
 export class WatchlistComponent implements OnInit{
-  constructor( private http: HttpClient) { }
-  dtOptions: DataTables.Settings = {};
+  constructor( private http: HttpClient, private MarketDataService: MarketDataService,) { }
+  
+  isAuthenticated: boolean=false;
+  
   dtTrigger: Subject<any> = new Subject<any>();
+  dtOptions: DataTables.Settings = {};
+  dataAvail = true;
+  public spinner: boolean = true;
+  
   
   ngOnInit(): void {
-    this.renderTable();
+    this.renderDataTable();
+    this.receiveMarketData().subscribe((data) => {
+      data = data.filter(function (dat: any) {
+        return dat.trading_code != '';
+      });
+      this.spinner = false;
+      this.dtOptions.data = data;
+      this.dataAvail = true;
+    });
 
   }
 
-  renderTable(){
+  receiveMarketData(): Observable<any> {
+    return this.MarketDataService.getWatchlist();
+  }
+
     // this.dtOptions = {
     //   pagingType: 'full_numbers',
     //   searching: true,
@@ -27,6 +45,7 @@ export class WatchlistComponent implements OnInit{
     //     search: ""
     //   },
     // };
+    renderDataTable(): void {
     this.dtOptions = {
       lengthChange: false,
       language: {

@@ -20,6 +20,9 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoanComponent } from './components/loan/loan.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     WatchlistComponent,
     CashDepositComponent,
     UserProfileComponent,
+    LoanComponent,
+    OrderHistoryComponent,
+    NotificationComponent,
   ],
   imports: [FormsModule,
     BrowserModule,

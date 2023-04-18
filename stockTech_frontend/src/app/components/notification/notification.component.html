@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<div>
+  <h2>Notifications</h2>
+</div>
+
+<div *ngFor="let notification of list">
+  <div id="article">   
+      <h2>{{ notification.title }}</h2>
+      <p>{{ notification.body }}</p>
+      
+    <br>
+  </div>
+</div>

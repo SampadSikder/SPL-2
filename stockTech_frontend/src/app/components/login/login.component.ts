@@ -30,7 +30,7 @@ export class LoginComponent {
           // this.auth.setAuth(true);
           this.isAuthenticated=true;
           // console.log("sign in: "+this.isAuthenticated);
-          this.router.navigate(['companyProfile']);
+          this.router.navigate(['home']);
 
         } else {
           alert('Sign in failed.');
