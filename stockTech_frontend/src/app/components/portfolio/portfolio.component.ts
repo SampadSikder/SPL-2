@@ -5,7 +5,6 @@ import { PortfolioService } from 'src/app/services/portfolio.service';
 import { ChartOptions } from '../home/home.component';
 import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -18,13 +17,13 @@ company: Portfolio= new Portfolio();
 order: Portfolio= new Portfolio();
 
   constructor(private portfolioService: PortfolioService,
-    private modalService: NgbModal, public auth: AuthenticationService){ }
+    private modalService: NgbModal,){ }
 
 
   list: Portfolio[]=[];
   user: Investor=new Investor();
   public pieChart: Partial<ChartOptions> | any;
-  isAuthenticated: boolean=this.auth.isAuthenticated;
+  isAuthenticated: boolean=false;
   totalProfit: number=0;
 
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TechnicalIndicatorsService } from 'src/app/services/technical-indicators.service';
 import { Observable } from 'rxjs';
 
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -46,8 +45,8 @@ export class Graph2Component implements OnInit{
   public lineGraph3: Partial<ChartOptions> | any;
 
   constructor(private TecIndSer: TechnicalIndicatorsService,
-    public auth: AuthenticationService) { }
-    isAuthenticated: boolean=this.auth.isAuthenticated;
+) { }
+    isAuthenticated: boolean=false;
 
   
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { platformBrowser } from '@angular/platform-browser';
+import { Router, RouterLink } from '@angular/router';
 import * as crypto from 'crypto-js';
 
 @Component({
@@ -13,7 +14,8 @@ export class LoginComponent {
   password: string= '';
 
   baseUrl = 'http://localhost:4000/api/login/';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private router: Router,) { }
+    isAuthenticated: boolean=false;
 
   matchInfo(){
     let hash = crypto.SHA256(this.password).toString();
@@ -24,6 +26,12 @@ export class LoginComponent {
           alert('Sign in successful');
           let token= response.token;
           localStorage.setItem('token',token);
+
+          // this.auth.setAuth(true);
+          this.isAuthenticated=true;
+          // console.log("sign in: "+this.isAuthenticated);
+          this.router.navigate(['companyProfile']);
+
         } else {
           alert('Sign in failed.');
         }

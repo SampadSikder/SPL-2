@@ -10,7 +10,6 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -38,7 +37,6 @@ export class CompanyProfileComponent implements OnInit {
     private marketdatasservice: MarketDataService,
     private newsService: NewsService,
     private modalService: NgbModal,
-    public auth: AuthenticationService,
     private router: Router,
     route: ActivatedRoute) { 
       
@@ -46,7 +44,7 @@ export class CompanyProfileComponent implements OnInit {
         this.code = params["trading_code"];
       });
     }
-    isAuthenticated: boolean=this.auth.isAuthenticated;
+    isAuthenticated: boolean=false;
 
 
   ngOnInit(): void {

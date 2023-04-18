@@ -20,7 +20,6 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     WatchlistComponent,
     CashDepositComponent,
     UserProfileComponent,
-    NavbarComponent
   ],
   imports: [FormsModule,
     BrowserModule,

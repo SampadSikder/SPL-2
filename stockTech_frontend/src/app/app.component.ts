@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title: any;
+  isAuthenticated: boolean=false;
+
+
+  
+  logout(){
+    this.isAuthenticated=false;
+    // console.log("logout: "+this.isAuthenticated);
+  }
 }
