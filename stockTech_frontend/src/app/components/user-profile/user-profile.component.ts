@@ -17,6 +17,10 @@ export class UserProfileComponent implements OnInit{
     this.user.phone = 16276527652864n;
     this.user.email = "bsse1216@iit.du.ac.bd";
   }
+
+  edit(){
+    //send user profile
+  }
  
  
 

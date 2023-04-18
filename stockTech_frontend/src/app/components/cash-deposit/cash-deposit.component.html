@@ -47,17 +47,15 @@
         <tr class="table-primary">
           <th scope="col">Transaction ID</th>
           <th scope="col">Amount</th>
-          <th scope="col">Issue Date</th>
-          <th scope="col">Status</th>
+          <th scope="col">Order Date</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of depositList" scope="row">
-          <!-- <td>{{ loan.ID }}</td>
-          <td>{{ loan.amount }}</td>
-          <td>{{ loan.term }}</td>
-          <td>{{ loan.issueDate }}</td>
-          <td>{{ loan.acceptDate }}</td> -->
+          <!-- <td>{{ order.ID }}</td>
+          <td>{{ order.amount }}</td>
+          <td>{{ order.date }}</td>
+          -->
         </tr>
       </tbody>
     </table>
@@ -80,11 +78,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of withdrawList" scope="row">
-          <!-- <td>{{ loan.ID }}</td>
-          <td>{{ loan.amount }}</td>
-          <td>{{ loan.term }}</td>
-          <td>{{ loan.issueDate }}</td>
-          <td>{{ loan.acceptDate }}</td> -->
+         <!-- <td>{{ order.ID }}</td>
+          <td>{{ order.amount }}</td>
+          <td>{{ order.date }}</td>
+          <td>{{ order.status }}</td>
+          -->
         </tr>
       </tbody>
     </table>
@@ -132,19 +130,26 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form>
+    <form  [formGroup]="myForm">
       <div class="form-group">
-        <label for="total">
+        <label for="quantity">
           <h2> Total Amount:</h2>
         </label>
-        <input type="number" class="form-control" id="total" [(ngModel)]="total_amount" name="total"
-          placeholder="{{total_amount}}" required>
+        <input type="number" class="form-control" id="quantity" [(ngModel)]="total_amount" name="quantity"  formControlName="quantity"
+          placeholder="{{total_amount}}" required min="0">
+         <div
+          *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+          <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+          <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+              value.</small>
+        
+      </div>
       </div>
 
 
       <div class="col-md-12">
         <br>
-        <button type="submit" (click)="open(content); d('Cross click')" class="btn btn-success"> Pay Now</button>
+        <button type="submit"  [disabled]="myForm.invalid" (click)="open(content); d('Cross click')" class="btn btn-outline-dark" style="float:right"> Pay Now</button>
         <br><br><br><br>
       </div>
     </form>
@@ -159,17 +164,24 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form>
+    <form  [formGroup]="myForm">
       <div class="form-group">
         <label for="total">
           <h2> Total Amount:</h2>
         </label>
-        <input type="number" class="form-control" id="total" [(ngModel)]="total_amount2" name="total"
-          placeholder="{{total_amount2}}" required>
+        <input type="number" class="form-control" id="quantity" [(ngModel)]="total_amount2" name="quantity"  formControlName="quantity"
+          placeholder="{{total_amount2}}" required min="0">
+         <div
+          *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+          <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+          <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+              value.</small>
+        
+      </div>
       </div>     
     </form>
     <br>
-    <button class="btn btn-outline-dark" (click)="makeWithdraw(total_amount2)">make Request</button>
+    <button class="btn btn-outline-dark" style="float:right"  [disabled]="myForm.invalid"  (click)="makeWithdraw(total_amount2); d('Cross click')">make Request</button>
     <br><br>
   </div>
 

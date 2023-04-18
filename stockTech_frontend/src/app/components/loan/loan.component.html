@@ -47,18 +47,29 @@
         <tr class="table-primary">
           <th scope="col">Loan ID</th>
           <th scope="col">Amount</th>
-          <th scope="col">Repayment Term</th>
+          <th scope="col">Payable Amount</th>
+          <th scope="col">Pending Amount</th>
+          
           <th scope="col">Issue Date</th>
           <th scope="col">Accepting Date</th>
+          <th scope="col">Repayment Deadline</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let loan of loanList" scope="row">
+        <tr *ngFor="let loan of loans" scope="row">
           <td>{{ loan.ID }}</td>
           <td>{{ loan.amount }}</td>
-          <td>{{ loan.term }}</td>
-          <td>{{ loan.issueDate }}</td>
-          <td>{{ loan.acceptDate }}</td>
+          <td>{{ loan.payable }}</td>
+          <td>{{ loan.pending }}</td>
+          
+          <td>{{ loan.issueDate | date: "dd-MM-yyyy" }}</td>
+          <td>{{ loan.acceptDate | date: "dd-MM-yyyy"}}</td>
+          <td>{{ loan.deadline | date: "dd-MM-yyyy"}}</td>
+          <td>{{ loan.status}}</td>
+          <td><button *ngIf="loan.status === 'unpaid'" (click)="pay()" class="btn btn-primary">Pay</button></td>
+               
         </tr>
       </tbody>
     </table>

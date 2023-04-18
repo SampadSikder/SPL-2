@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class CashDepositComponent implements OnInit{
   paymentStatus:string='';
   total_amount: number = 0;
   total_amount2: number = 0;
+  myForm!: FormGroup;
 
   otpBox: boolean=false;
 
@@ -38,6 +40,9 @@ export class CashDepositComponent implements OnInit{
   }
 
   open(content: any) {
+    this.myForm = new FormGroup({
+      'quantity': new FormControl(null, [Validators.required, Validators.min(0)])
+    }); 
     this.modalService.open(content);
   }
 
@@ -58,6 +63,7 @@ export class CashDepositComponent implements OnInit{
   makeWithdraw(amount: number){
     let date= new Date();
      //send amount and date
+     alert("request sent successfully");
   }
 
 }

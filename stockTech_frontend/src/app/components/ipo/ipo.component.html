@@ -1,0 +1,98 @@
+<div class="container">
+    <br>
+    <h2>Upcoming IPO</h2>
+    <br>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Code</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Issue Date</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ipo of list;  let i = index" scope="row">
+          <td>{{ ipo.code }}</td>
+          <td>{{ ipo.quantity }}</td>
+          <td>{{ ipo.price }}</td>
+          <td>{{ ipo.date | date: "dd-MM-yyyy" }}</td>
+          <td><button (click)="open(content,i)" class="btn btn-primary">Apply</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <br>
+    <h2>Applied IPO</h2>
+    <br>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Code</th>
+          <th scope="col">Applied Quantity</th>
+          <th scope="col">Allocated Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col"> Apply Date</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ipo of list2" scope="row">
+          <td>{{ ipo.ipo.code }}</td>
+          <td>{{ ipo.ipo.quantity }}</td>
+          <td>{{ ipo.allocatedQuantity }}</td>
+          <td>{{ ipo.ipo.price }}</td>
+          <td>{{ ipo.applyDate| date: "dd-MM-yyyy" }}</td>
+          <td>{{ ipo.status }}</td>
+     
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+  
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form  [formGroup]="myForm">
+        <div class="form-group">
+          <label for="code">Code:</label>
+          <input type="text" class="form-control" id="code" placeholder="{{selected.code}}" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input type="number" class="form-control" id="price" placeholder="{{selected.price}}" disabled>
+        </div>
+        
+        <div class="form-group">
+          <label for="quatity">Quantity:</label>
+          <input type="number" class="form-control" id="quatity"  formControlName="quantity" [(ngModel)]="sendIPO.ipo.quantity" name="quatity"
+           placeholder="{{selected.quantity}}" required max="{{selected.quantity}}" min="0">
+           <div
+           *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+           <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+           <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+               value.</small>
+           <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
+               {{selected.quantity}}.</small>
+       </div>
+        </div>
+  
+  
+        <div class="col-md-12">
+          <br>
+          <button type="submit" [disabled]="myForm.invalid" (click)="apply(); d('Cross click')" class="btn btn-success">Make Request</button>
+          <br><br><br><br>
+        </div>
+      </form>
+    </div>
+  
+  </ng-template>
+

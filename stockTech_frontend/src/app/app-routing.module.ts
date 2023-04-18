@@ -15,6 +15,7 @@ import { LoanComponent } from './components/loan/loan.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { IPOComponent } from './components/ipo/ipo.component';
 
 
 const routes: Routes = [
@@ -33,7 +34,8 @@ const routes: Routes = [
   {path: 'loan',component:LoanComponent},
   {path: 'history', component: OrderHistoryComponent},
   {path: 'profile',component:UserProfileComponent},
-  {path: 'notification', component:NotificationComponent}
+  {path: 'notification', component:NotificationComponent},
+  {path: 'ipo', component:IPOComponent}
 ]
 
 @NgModule({

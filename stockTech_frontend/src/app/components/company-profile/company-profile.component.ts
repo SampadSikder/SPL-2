@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { company, MarketDataService } from 'src/app/services/market-data.service';
 import { ChartOptions } from '../home/home.component';
-import { TechnicalIndicatorsService } from 'src/app/services/technical-indicators.service';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NewsService } from 'src/app/services/news.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -44,7 +42,7 @@ export class CompanyProfileComponent implements OnInit {
         this.code = params["trading_code"];
       });
     }
-    isAuthenticated: boolean=false;
+    isAuthenticated: boolean=true;
 
 
   ngOnInit(): void {

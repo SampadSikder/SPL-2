@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoanComponent } from './components/loan/loan.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { IPOComponent } from './components/ipo/ipo.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { NotificationComponent } from './components/notification/notification.co
     LoanComponent,
     OrderHistoryComponent,
     NotificationComponent,
+    IPOComponent,
   ],
   imports: [FormsModule,
     BrowserModule,
