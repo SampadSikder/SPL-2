@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-history.component.css']
 })
 export class OrderHistoryComponent implements OnInit{
+  isAuthenticated: boolean = true;
   ngOnInit(): void {
    this.getOrderList();
   }

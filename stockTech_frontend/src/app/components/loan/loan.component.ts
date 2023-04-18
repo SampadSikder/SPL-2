@@ -9,7 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoanComponent implements OnInit{
   myForm!: FormGroup;
-
+  isAuthenticated: boolean = true;
+  
   ngOnInit(): void {
     this.getLoanList();
     this.myForm = new FormGroup({

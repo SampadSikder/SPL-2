@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class IPOComponent implements OnInit{
   myForm!: FormGroup;
+  isAuthenticated: boolean = true;
   constructor(private modalService: NgbModal,) {}
 
   selected: IPO = new IPO;

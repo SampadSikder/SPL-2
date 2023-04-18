@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationComponent implements OnInit{
   list: Notification[]=[];
+  isAuthenticated: boolean = true;
   
 ngOnInit(): void {
   this.getNotifiction();

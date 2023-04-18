@@ -1,4 +1,9 @@
-<div class="container">
+<div *ngIf="!isAuthenticated" id="denied" class="container">
+  <h1>PLease sign in first</h1>
+</div>
+
+
+<div class="container" *ngIf="isAuthenticated">
   <br><br>
   <div class="row">
     <div class="col-md-6 mx-auto">

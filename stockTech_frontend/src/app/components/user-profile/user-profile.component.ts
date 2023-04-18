@@ -9,6 +9,7 @@ import { Investor } from 'src/app/models/investor.model';
 export class UserProfileComponent implements OnInit{
 
   user: Investor=new Investor();
+  isAuthenticated: boolean = true;
   
 
   ngOnInit(): void {

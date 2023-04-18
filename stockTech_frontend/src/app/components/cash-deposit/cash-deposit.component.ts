@@ -22,6 +22,8 @@ export class CashDepositComponent implements OnInit{
 
   otpBox: boolean=false;
 
+  isAuthenticated: boolean = true;
+
   depositList:any;
   withdrawList:any;
 
