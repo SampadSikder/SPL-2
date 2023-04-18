@@ -74,7 +74,7 @@
         <div class="form-group">
           <label for="quatity">Quantity:</label>
           <input type="number" class="form-control" id="quatity"  formControlName="quantity" [(ngModel)]="sendIPO.ipo.quantity" name="quatity"
-           placeholder="{{selected.quantity}}" required max="{{selected.quantity}}" min="0">
+           placeholder="{{selected.quantity}}" required max="{{selected.quantity}}" min="1">
            <div
            *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
            <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>

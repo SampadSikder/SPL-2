@@ -1,45 +1,67 @@
 <div class="container">
 
-    <div>
-        <br>
-        <p>
-            Welcome to our loan request page! We are committed to helping you find the right loan solution to meet your needs. Please complete the following form to submit your loan request.
-        
-            <br><br>Our team of financial experts is here to guide you every step of the way. We understand that each individual's financial situation is unique, and we will work with you to find a loan solution that fits your needs.
+  <div>
+    <br>
+    <p>
+      Welcome to our loan request page! We are committed to helping you find the right loan solution to meet your needs.
+      Please complete the following form to submit your loan request.
 
-           <br> <br>Once you submit your loan request, our team will review it and get back to you within the next business day. Please be sure to provide accurate and complete information to help us process your request quickly and efficiently.
-            
-           <br><br> At our company, we believe in transparency and honesty. We will provide you with clear and concise information about our loan products, including interest rates, repayment terms, and any associated fees. Our goal is to ensure that you fully understand the terms of your loan before you sign on the dotted line.
-            
-            <br><br>Thank you for considering our loan services. We look forward to helping you achieve your financial goals. Please fill out the form below to get started.</p>
-    
-            To request a loan, please provide us with the following information:<br>
-        </div>
+      <br><br>Our team of financial experts is here to guide you every step of the way. We understand that each
+      individual's financial situation is unique, and we will work with you to find a loan solution that fits your
+      needs.
 
-    <form>
-        <br>
-        <div class="form-group">
-            <label for="total">Amount:</label>
-            <input type="number" class="form-control" id="total" [(ngModel)]="amount" name="total"
-              placeholder="Enter loan amount" required>
-          </div>
-          <div class="form-group">
-            <label for="purpose">Purpose of the loan</label>
-            <textarea class="form-control" id="purpose" placeholder="loan purpose...."></textarea>
-          </div>
-          <div class="form-group">
-            <label for="term">Repayment Term: (In months)</label>
-            <input type="number" class="form-control" id="term" [(ngModel)]="term" name="total"
-          required>
-          </div>
-    </form>
-<br>
-    <button (click)="loanRequest()" class="btn btn-success">Submit</button>
+      <br> <br>Once you submit your loan request, our team will review it and get back to you within the next business
+      day. Please be sure to provide accurate and complete information to help us process your request quickly and
+      efficiently.
 
-<br><br>
+      <br><br> At our company, we believe in transparency and honesty. We will provide you with clear and concise
+      information about our loan products, including interest rates, repayment terms, and any associated fees. Our goal
+      is to ensure that you fully understand the terms of your loan before you sign on the dotted line.
 
-    
-<div>
+      <br><br>Thank you for considering our loan services. We look forward to helping you achieve your financial goals.
+      Please fill out the form below to get started.
+    </p>
+
+    To request a loan, please provide us with the following information:<br>
+  </div>
+
+  <form [formGroup]="myForm">
+    <br>
+    <div class="form-group">
+      <label for="total">Amount:</label>
+      <input type="number" class="form-control" id="total" [(ngModel)]="amount" name="total" formControlName="total"
+        placeholder="Enter loan amount" required min="1">
+      <div
+        *ngIf="myForm.controls['total'].invalid && (myForm.controls['total'].dirty || myForm.controls['total'].touched)">
+        <small *ngIf="myForm.controls['total'].hasError('required')">Amount is required.</small>
+        <small *ngIf="myForm.controls['total'].hasError('min')">Amount must be a positive
+          value.</small>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label for="purpose">Purpose of the loan</label>
+      <textarea class="form-control" id="purpose" placeholder="loan purpose...."></textarea>
+    </div>
+    <div class="form-group">
+      <label for="term">Repayment Term: (In months)</label>
+      <input type="number" class="form-control" formControlName="term" id="term" [(ngModel)]="term" name="total"
+        required min="1">
+      <div
+        *ngIf="myForm.controls['term'].invalid && (myForm.controls['term'].dirty || myForm.controls['term'].touched)">
+        <small *ngIf="myForm.controls['term'].hasError('required')">Repayment term is required.</small>
+        <small *ngIf="myForm.controls['term'].hasError('min')">Repayment term must be a positive.
+          value.</small>
+      </div>
+    </div>
+  </form>
+  <br>
+  <button (click)="loanRequest()" [disabled]="myForm.invalid" class="btn btn-success">Submit</button>
+
+  <br><br>
+
+
+  <div>
     <h2>Loan history</h2>
     <br>
     <table class="table table-hover">
@@ -49,7 +71,7 @@
           <th scope="col">Amount</th>
           <th scope="col">Payable Amount</th>
           <th scope="col">Pending Amount</th>
-          
+
           <th scope="col">Issue Date</th>
           <th scope="col">Accepting Date</th>
           <th scope="col">Repayment Deadline</th>
@@ -63,18 +85,18 @@
           <td>{{ loan.amount }}</td>
           <td>{{ loan.payable }}</td>
           <td>{{ loan.pending }}</td>
-          
+
           <td>{{ loan.issueDate | date: "dd-MM-yyyy" }}</td>
           <td>{{ loan.acceptDate | date: "dd-MM-yyyy"}}</td>
           <td>{{ loan.deadline | date: "dd-MM-yyyy"}}</td>
           <td>{{ loan.status}}</td>
           <td><button *ngIf="loan.status === 'unpaid'" (click)="pay()" class="btn btn-primary">Pay</button></td>
-               
+
         </tr>
       </tbody>
     </table>
     <br>
     <br>
   </div>
-  
+
 </div>

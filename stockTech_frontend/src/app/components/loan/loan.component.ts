@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Loan } from '../../models/loan.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-loan',
@@ -7,9 +8,15 @@ import { Loan } from '../../models/loan.model';
   styleUrls: ['./loan.component.css']
 })
 export class LoanComponent implements OnInit{
+  myForm!: FormGroup;
 
   ngOnInit(): void {
     this.getLoanList();
+    this.myForm = new FormGroup({
+      'total': new FormControl(null, [Validators.required, Validators.min(0)]),
+      'term': new FormControl(null, [Validators.required, Validators.min(0)])
+    }); 
+    
   }
 
   amount:number=0;

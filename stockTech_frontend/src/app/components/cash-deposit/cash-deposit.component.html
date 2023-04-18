@@ -136,7 +136,7 @@
           <h2> Total Amount:</h2>
         </label>
         <input type="number" class="form-control" id="quantity" [(ngModel)]="total_amount" name="quantity"  formControlName="quantity"
-          placeholder="{{total_amount}}" required min="0">
+          placeholder="{{total_amount}}" required min="1">
          <div
           *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
           <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
@@ -170,7 +170,7 @@
           <h2> Total Amount:</h2>
         </label>
         <input type="number" class="form-control" id="quantity" [(ngModel)]="total_amount2" name="quantity"  formControlName="quantity"
-          placeholder="{{total_amount2}}" required min="0">
+          placeholder="{{total_amount2}}" required min="1">
          <div
           *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
           <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
