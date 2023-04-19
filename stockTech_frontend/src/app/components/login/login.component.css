@@ -9,9 +9,10 @@
     width: 60%;
     height: 500px;
 }
-#txt{
+.txt{
     text-align: center;  
 }
+
 h1{
 text-align: center;
 padding: 20px;
@@ -43,9 +44,7 @@ font-size: 16px;
 font-family: Arial, sans-serif;
 }
 button{
-background-color: #4CAF50;
-color: #fff;
-cursor: pointer;
+
 float: right;   
 padding: 10px;  
 }

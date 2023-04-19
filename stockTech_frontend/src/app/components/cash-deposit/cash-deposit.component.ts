@@ -20,9 +20,17 @@ export class CashDepositComponent implements OnInit{
   total_amount2: number = 0;
   myForm!: FormGroup;
 
+  timeRemaining = 10;
+  minutes: number=0;
+  seconds: number=0;
+  timer: any;
+  timerFinished = false;
+
   otpBox: boolean=false;
 
   isAuthenticated: boolean = true;
+  invoice: number=0;
+  
 
   depositList:any;
   withdrawList:any;
@@ -31,8 +39,34 @@ export class CashDepositComponent implements OnInit{
   ngOnInit(): void {
    this.get_deposit_list();
    this.get_withdraw_list();
+  
+  
   }
 
+  setTimer() {
+ 
+    this.minutes = Math.floor(this.timeRemaining / 60);
+    this.seconds = this.timeRemaining % 60;
+ 
+    this.timer = setInterval(() => {
+      this.timeRemaining--;
+      this.minutes = Math.floor(this.timeRemaining / 60);
+      this.seconds = this.timeRemaining % 60;
+ 
+      if (this.timeRemaining === 0) {
+        clearInterval(this.timer);
+        this.timerFinished = true;
+      }
+    }, 1000);
+ 
+  }
+
+  resendOTP(){
+    this.timerFinished=false;
+    this.timeRemaining = 120;
+    this.setTimer();
+    //resend func
+  }
 
   get_deposit_list() {
     throw new Error('Method not implemented.');
@@ -43,18 +77,20 @@ export class CashDepositComponent implements OnInit{
 
   open(content: any) {
     this.myForm = new FormGroup({
-      'quantity': new FormControl(null, [Validators.required, Validators.min(0)])
+      'quantity': new FormControl(null, [Validators.required, Validators.min(1)])
     }); 
     this.modalService.open(content);
+    this.getInvoice();
   }
 
   getOTP(){
     this.otpBox=true;
+    this.setTimer();
     //otp functionality
   }
 
-  getInvoice(): number{
-    return Math.floor(Math.random() * 900000) + 100000;
+  getInvoice(){
+    this.invoice= Math.floor(Math.random() * 900000) + 100000;
   }
 
   makePayment(){
