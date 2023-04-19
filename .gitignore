@@ -1,5 +1,6 @@
 stockTech_frontend/node_modules
 stockTech_frontend/.angular
-stockTech_frontend/.vscode
+Admin/node_modules
+Admin/.angular
 StockTech_backend/myenv
 StockTech_backend/CNN
