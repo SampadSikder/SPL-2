@@ -20,7 +20,7 @@ export class CashDepositComponent implements OnInit{
   total_amount2: number = 0;
   myForm!: FormGroup;
 
-  timeRemaining = 10;
+  timeRemaining = 120;
   minutes: number=0;
   seconds: number=0;
   timer: any;
