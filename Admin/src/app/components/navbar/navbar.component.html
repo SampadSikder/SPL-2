@@ -1,0 +1,37 @@
+<header *ngIf="isAuthenticated">
+    <div id="total">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 col-md-11">
+            <div id="logo">
+              <img src="assets/logo6.png" alt="Logo" class="img-fluid" class="logo-image">
+            </div>
+            <small>
+              <pre>     StockTech</pre>
+            </small>
+          </div>
+          <div class="col-md-1 text-right">
+            <nav class="navbar navbar-expand-md">
+  
+              <div id="signInMenu" class="pos-f-t nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img src="assets/avatar.png" alt="Avatar" style="width:40px;" class="rounded-pill">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" routerLink="notice">Make Announcement</a></li>
+                  <li><a class="dropdown-item" routerLink="loan">View Loan Request</a></li>
+                  <li><a class="dropdown-item" routerLink="ipo">Announce IPO</a></li>
+                  <li><a class="dropdown-item" routerLink="withdraw">View Withdraw Request</a></li>
+                  <li><a class="dropdown-item" routerLink="signin">Logout</a></li>
+                </div>
+              </div>
+            </nav>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  

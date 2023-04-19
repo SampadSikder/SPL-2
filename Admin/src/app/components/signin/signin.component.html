@@ -1,1 +1,30 @@
-<p>signin works!</p>
+
+<div class="card">
+    <div class="card-header">
+      <h4>Sign In</h4>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input type="{{ passwordFieldType }}" class="form-control" id="password" placeholder="Password">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
+                <i class="{{ passwordFieldIcon }}"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <button type="submit" (click)="signin()" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+  

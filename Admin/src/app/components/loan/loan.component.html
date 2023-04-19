@@ -1,1 +1,36 @@
-<p>loan works!</p>
+<div class="container">
+    <br>
+    <h2>Loan Requests</h2>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Loan ID</th>
+          <th>BO</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of loanRequests">
+          <td>{{ request.loanID }}</td>
+          <td>{{ request.BO }}</td>
+          <td>{{ request.date |  date: "dd-MM-yyyy" }}</td>
+          <td>{{ request.amount | currency }}</td>
+          <td>{{ request.status }}</td>
+          <!-- <td>
+            <button type="button" class="btn btn-success" [disabled]="request.status !== 'Pending'" (click)="acceptRequest(request)">Accept</button>
+            <button type="button" class="btn btn-danger" [disabled]="request.status !== 'Pending'" (click)="rejectRequest(request)">Reject</button>
+          </td> -->
+          <td *ngIf="request.status === 'Pending'">
+            <button type="button" class="btn btn-success" (click)="acceptRequest(request)">Accept</button>
+            <button type="button" class="btn btn-danger" (click)="rejectRequest(request)">Reject</button>
+          </td>
+          <td *ngIf="request.status !== 'Pending'">N/A</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

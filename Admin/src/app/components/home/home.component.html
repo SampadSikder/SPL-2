@@ -1,1 +1,94 @@
-<p>home works!</p>
+<div class="container">
+    <h2>Investors List</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>BO Account NO</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let investor of investors; let i in index">
+          <td>{{ investor.id }}</td>
+          <td>{{ investor.name }}</td>
+          <td>{{ investor.email }}</td>
+          <td>{{ investor.phone }}</td>
+          <td><button class="btn btn-primary" data-toggle="modal" data-target="#investorDetailsModal" (click)="onSelect(i)">View Details</button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="modal fade" id="investorDetailsModal" tabindex="-1" role="dialog" aria-labelledby="investorDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="investorDetailsModalLabel">{{ selectedInvestor.name }} Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h6>Investor Information:</h6>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <p><strong>Name:</strong> {{ selectedInvestor.name }}</p>
+                  <p><strong>Investor ID:</strong> {{ selectedInvestor.id }}</p>
+                  <p><strong>Email:</strong> {{ selectedInvestor.email }}</p>
+                  <p><strong>Phone:</strong> {{ selectedInvestor.phone }}</p>
+                  
+                </div>
+              </div>
+      
+              <h6>Withdraw Requests:</h6>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Request ID</th>
+                      <th>Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let request of selectedInvestor?.withdrawRequests">
+                      <td>{{ request.requestID }}</td>
+                      <td>{{ request.date | date: "dd-MM-yyyy" }}</td>
+                      <td>{{ request.amount | currency }}</td>
+                      <td>{{ request.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+      
+              <h6>Loan Requests:</h6>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Request ID</th>
+                      <th>Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let request of selectedInvestor?.loanRequests">
+                      <td>{{ request.loanID }}</td>
+                      <td>{{ request.date | date: "dd-MM-yyyy" }}</td>
+                      <td>{{ request.amount | currency }}</td>
+                      <td>{{ request.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  </div>
+  

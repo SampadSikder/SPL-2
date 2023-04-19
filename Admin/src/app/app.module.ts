@@ -9,6 +9,7 @@ import { NoticeComponent } from './components/notice/notice.component';
 import { IPOComponent } from './components/ipo/ipo.component';
 import { WithdrawReqComponent } from './components/withdraw-req/withdraw-req.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SigninComponent } from './components/signin/signin.component';
     NoticeComponent,
     IPOComponent,
     WithdrawReqComponent,
-    SigninComponent
+    SigninComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

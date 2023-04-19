@@ -1,1 +1,32 @@
-<p>withdraw-req works!</p>
+<div class="container">
+    <br>
+    <h2>Withdraw Requests</h2>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>BO Account No</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of list">
+          <td>{{ request.requestID }}</td>
+          <td>{{ request.BO }}</td>
+          <td>{{ request.date | date: "dd-MM-yyyy" }}</td>
+          <td>{{ request.amount | currency }}</td>
+          <td>{{ request.status }}</td>
+          <td *ngIf="request.status === 'Pending'">
+            <button type="button" class="btn btn-success" (click)="acceptRequest(request)">Accept</button>
+            <button type="button" class="btn btn-danger" (click)="rejectRequest(request)">Reject</button>
+          </td>
+          <td *ngIf="request.status !== 'Pending'">N/A</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
