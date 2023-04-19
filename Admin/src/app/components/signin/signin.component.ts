@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
+  constructor(private router: Router){};
   passwordFieldType = 'password';
   passwordFieldIcon = 'far fa-eye';
   
@@ -15,6 +17,7 @@ export class SigninComponent {
   }
 
   signin(){
+    this.router.navigate(["home"]);
     
   }
 
