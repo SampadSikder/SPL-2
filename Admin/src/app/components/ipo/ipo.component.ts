@@ -7,6 +7,9 @@ import { IPO } from 'src/app/models/ipo.model';
   styleUrls: ['./ipo.component.css']
 })
 export class IPOComponent implements OnInit {
+
+newIPO:IPO= new IPO();
+
 list: IPO[]=[
   { tradeCode: 'AAPL', date: new Date('2022-01-01'), price: 150.0, quantity: 1000 },
   { tradeCode: 'GOOG', date: new Date('2022-01-03'), price: 200.0, quantity: 500 },

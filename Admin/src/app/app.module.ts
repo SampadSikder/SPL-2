@@ -10,6 +10,7 @@ import { IPOComponent } from './components/ipo/ipo.component';
 import { WithdrawReqComponent } from './components/withdraw-req/withdraw-req.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
