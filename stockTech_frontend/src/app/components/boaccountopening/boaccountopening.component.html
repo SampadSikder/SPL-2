@@ -6,8 +6,8 @@
 
   <p *ngIf="showOtp"><label for="otp">OTP </label> <input type="text" [(ngModel)]="OTP" id="otp" name="otp" required>
   </p>
-  <button (click)="sendPhone()" id="send" *ngIf="showPhone">Send OTP</button>
-  <button (click)="sendOtp()" id="send" *ngIf="showOtp">Verify OTP</button>
+  <button class="btn btn-success" type="submit" (click)="sendPhone()" id="send" *ngIf="showPhone">Send OTP</button>
+  <button class="btn btn-success" type="submit" (click)="sendOtp()" id="send" *ngIf="showOtp">Verify OTP</button>
   <p *ngIf="!verifyOtp">OTP did not match. Try again!</p>
 
 </form>
@@ -191,6 +191,6 @@
   <br><br>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="submit" id="submit" (click)="submit()">Submit</button>
+      <button class="btn btn-success" type="submit" id="submit" (click)="submit()">Submit</button>
     </div>
   </div>

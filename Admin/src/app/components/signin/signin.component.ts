@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent {
   constructor(private router: Router){};
+
+  email:string='';
+  password:string='';
+
   passwordFieldType = 'password';
   passwordFieldIcon = 'far fa-eye';
   

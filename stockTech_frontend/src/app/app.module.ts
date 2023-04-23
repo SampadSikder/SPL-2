@@ -14,7 +14,6 @@ import { CompanyProfileComponent } from './components/company-profile/company-pr
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { GraphComponent } from './components/graph/graph.component';
 import { Graph2Component } from './components/graph2/graph2.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { CashDepositComponent } from './components/cash-deposit/cash-deposit.component';
@@ -36,7 +35,6 @@ import { IPOComponent } from './components/ipo/ipo.component';
     SignUpComponent,
     LoginComponent,
     PortfolioComponent,
-    GraphComponent,
     Graph2Component,
     WatchlistComponent,
     CashDepositComponent,

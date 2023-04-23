@@ -2,6 +2,12 @@
               box-sizing: border-box;
             }
 
+            .required::before {
+              content: "*";
+              color: red;
+              margin-right: 5px;
+            }
+            
 
             #regForm {
               background-color: #ffffff;
@@ -47,15 +53,6 @@
             }
 
 
-            button {
-              background-color: #04AA6D;
-              color: #ffffff;
-              border: none;
-              padding: 10px 20px;
-              font-size: 17px;
-              font-family: Arial, sans-serif;
-              cursor: pointer;
-            }
 
 
             button:hover {
