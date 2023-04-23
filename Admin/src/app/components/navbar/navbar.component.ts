@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent {
   constructor(private auth: AuthService){}
   isAuthenticated: boolean=true;
-  // isAuthenticated: boolean=this.auth.isAuthenticated;
+ ///  isAuthenticated: boolean=this.auth.isAuthenticated;
 
   logout() {
     this.auth.isAuthenticated=false;

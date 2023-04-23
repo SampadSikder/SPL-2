@@ -1,4 +1,4 @@
-<header *ngIf="isAuthenticated">
+<header >
     <div id="total">
       <div class="container-fluid">
         <div class="row">
@@ -10,7 +10,7 @@
               <pre>     StockTech</pre>
             </small>
           </div>
-          <div class="col-md-1 text-right">
+          <div class="col-md-1 text-right" *ngIf="isAuthenticated">
             <nav class="navbar navbar-expand-md">
   
               <div id="signInMenu" class="pos-f-t nav-item dropdown">
