@@ -3,6 +3,14 @@ h1,h2,h3{
     color: black;
   }
 
+  #denied{
+    height: 400px; 
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
   #left{
     height: 1000px;
     width: 60%;

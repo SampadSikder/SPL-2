@@ -1,13 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent {
-  constructor(private router: Router){};
+export class SigninComponent implements OnInit{
+  isAuthenticated: boolean=true;
+  constructor(private router: Router , private auth: AuthService){}
+  
+  ngOnInit(): void {
+    this.isAuthenticated=this.auth.isAuthenticated;
+    // throw new Error('Method not implemented.');
+  }
+;
 
   email:string='';
   password:string='';
@@ -21,6 +29,8 @@ export class SigninComponent {
   }
 
   signin(){
+    //verify
+    this.auth.isAuthenticated=true;
     this.router.navigate(["home"]);
     
   }

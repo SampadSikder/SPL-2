@@ -25,3 +25,11 @@ h2{
 #number{
     padding: 5%; 
 }
+
+#denied{
+    height: 400px; 
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

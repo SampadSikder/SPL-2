@@ -1,13 +1,29 @@
-import { Component } from '@angular/core';
+
 import { Withdraw } from 'src/app/models/withdraw.model';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-withdraw-req',
   templateUrl: './withdraw-req.component.html',
   styleUrls: ['./withdraw-req.component.css']
 })
-export class WithdrawReqComponent {
-  list: Withdraw[] = [
+export class WithdrawReqComponent implements OnInit{
+  constructor(private auth: AuthService){}
+    
+
+  list: Withdraw[] = [];
+  isAuthenticated: boolean=false;
+  
+
+  ngOnInit(): void {
+    this.isAuthenticated=this.auth.isAuthenticated;
+    this.getList();
+   
+  }
+  getList() {
+   //add list here
+   this.list=[
     { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 5000, status: 'Pending' },
     { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 10000, status: 'Approved' },
     { requestID: 3, BO: 91011, date: new Date("2022-04-20"), amount: 7500, status: 'Rejected' },
@@ -23,25 +39,18 @@ export class WithdrawReqComponent {
     { requestID: 13, BO: 394041, date: new Date("2022-04-30"), amount: 15000, status: 'Approved' },
     { requestID: 14, BO: 424344, date: new Date("2022-05-01"), amount: 2000, status: 'Rejected' },
     { requestID: 15, BO: 454647, date: new Date("2022-05-02"), amount: 10000, status: 'Pending' },
-  ];
-  
 
-  ngOnInit(): void {
-    this.getList();
-   
-  }
-  getList() {
-    throw new Error('Method not implemented.');
+   ]
   }
 
   acceptRequest(request: Withdraw): void {
     request.status='Approved'
-    // TODO: Implement accept request logic here
+    //Implement accept request logic here
   }
 
   rejectRequest(request: Withdraw): void {
     request.status='Rejected'
-    // TODO: Implement reject request logic here
+    //Implement reject request logic here
   }
   
  

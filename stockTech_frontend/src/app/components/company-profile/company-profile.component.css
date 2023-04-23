@@ -75,3 +75,11 @@ table {
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
+
+  #denied{
+    height: 400px; 
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,4 +1,9 @@
-<div class="container">
+<div *ngIf="!isAuthenticated" id="denied" class="container">
+  <h1>PLease sign in first</h1>
+</div>
+
+
+<div class="container"  *ngIf="isAuthenticated">
     <!-- Button to open modal -->
     <br><br>
     <button type="button" class="btn btn-primary top" data-toggle="modal" data-target="#ipoModal">

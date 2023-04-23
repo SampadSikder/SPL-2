@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Loan } from 'src/app/models/loan.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-loan',
@@ -7,8 +8,18 @@ import { Loan } from 'src/app/models/loan.model';
   styleUrls: ['./loan.component.css']
 })
 export class LoanComponent implements OnInit{
+  constructor(private auth: AuthService){}
+    
   loanRequests: Loan[] = [];
+  isAuthenticated: boolean=false;
+
   ngOnInit(): void {
+    this.isAuthenticated=this.auth.isAuthenticated;
+    this.getlist(); //add list here
+
+  }
+  getlist() {
+      //add list
     this.loanRequests = [
       {
         loanID: 1,
@@ -32,8 +43,11 @@ export class LoanComponent implements OnInit{
         status: 'Rejected'
       }
     ];
+  
+  
   }
 
+  
   acceptRequest(request: Loan): void {
     request.status='Approved'
     // TODO: Implement accept request logic here
@@ -43,7 +57,5 @@ export class LoanComponent implements OnInit{
     request.status='Rejected'
     // TODO: Implement reject request logic here
   }
-  
  
-
 }
