@@ -1,9 +1,12 @@
+
+
 <div *ngIf="isAuthenticated" id="denied" class="container">
   <h1>You already signed in.</h1>
 </div>
 
 
 <div class="card"  *ngIf="!isAuthenticated">
+  
     <div class="card-header">
       <h4>Sign In</h4>
     </div>
@@ -11,14 +14,14 @@
       <form>
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" class="form-control" [(ngModel)]="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <br>
         <div class="form-group">
           <label for="password">Password</label>
           <div class="input-group">
-            <input type="{{ passwordFieldType }}" class="form-control" [(ngModel)]="password" id="password" placeholder="Password">
+            <input type="{{ passwordFieldType }}" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
                 <i class="{{ passwordFieldIcon }}"></i>

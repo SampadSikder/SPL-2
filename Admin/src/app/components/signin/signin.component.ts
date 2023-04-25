@@ -7,21 +7,21 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent implements OnInit{
-  isAuthenticated: boolean=true;
-  constructor(private router: Router , private auth: AuthService){};
-  
-  email:string='';
-  password:string='';
+export class SigninComponent implements OnInit {
+  isAuthenticated: boolean = true;
+  constructor(private router: Router, private auth: AuthService) { };
+
+  email: string = '';
+  password: string = '';
 
   passwordFieldType = 'password';
   passwordFieldIcon = 'far fa-eye';
-  
-  
+
+
   ngOnInit(): void {
-    this.isAuthenticated=this.auth.isAuthenticated;
+    this.isAuthenticated = this.auth.isAuthenticated;
     //this.togglePassword();
-   
+
   }
 
 
@@ -30,11 +30,14 @@ export class SigninComponent implements OnInit{
     this.passwordFieldIcon = this.passwordFieldType === 'password' ? 'far fa-eye' : 'far fa-eye-slash';
   }
 
-  signin(){
+  signin() {
     //verify
-    this.auth.isAuthenticated=true;
-    this.router.navigate(["home"]);
-    
+
+    //only if authenticated
+    {
+      this.auth.isAuthenticated = true;
+      this.router.navigate(["home"]);
+    }
   }
 
 }

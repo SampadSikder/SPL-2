@@ -1,3 +1,4 @@
+
 <div *ngIf="!isAuthenticated" id="denied" class="container">
   <h1>PLease sign in first</h1>
 </div>
@@ -14,7 +15,9 @@
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>Actions</th>
+          <th></th>
+          <th></th>
+          
         </tr>
       </thead>
       <tbody>
@@ -24,6 +27,7 @@
           <td>{{ investor.email }}</td>
           <td>{{ investor.phone }}</td>
           <td><button class="btn btn-primary" data-toggle="modal" data-target="#investorDetailsModal" (click)="onSelect(i)">View Details</button></td>
+          <td><button class="btn btn-danger" (click)="remove(i)">Remove</button></td>
         </tr>
       </tbody>
     </table>

@@ -85,4 +85,8 @@ export class HomeComponent implements OnInit{
     this.selectedInvestor = investor;
   }
 
+  remove(investor: Investor): void {
+    //remove user
+  }
+
 }
