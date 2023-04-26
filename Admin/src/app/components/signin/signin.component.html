@@ -14,14 +14,14 @@
       <form>
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required >
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <br>
         <div class="form-group">
           <label for="password">Password</label>
           <div class="input-group">
-            <input type="{{ passwordFieldType }}" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password">
+            <input type="{{ passwordFieldType }}" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password" required>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
                 <i class="{{ passwordFieldIcon }}"></i>
