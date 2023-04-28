@@ -10,7 +10,7 @@ import { SigninComponent } from './components/signin/signin.component';
 const routes: Routes = [
   {path: '', component: SigninComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'loan', component: LoanComponent},
+  // {path: 'loan', component: LoanComponent},
   {path: 'ipo', component: IPOComponent},
   {path: 'notice', component: NoticeComponent},
   {path: 'signin', component: SigninComponent},

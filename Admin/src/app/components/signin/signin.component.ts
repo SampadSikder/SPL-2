@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthenticated = this.auth.isAuthenticated;
-    //this.togglePassword();
+    this.togglePassword();
 
   }
 

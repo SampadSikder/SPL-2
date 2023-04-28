@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-order-history',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderHistoryComponent implements OnInit{
   isAuthenticated: boolean = true;
+  orderList: Order[]= [];
+
   ngOnInit(): void {
    this.getOrderList();
   }
-  orderList:any;
+ 
   
  getOrderList() {
   throw new Error('Function not implemented.');

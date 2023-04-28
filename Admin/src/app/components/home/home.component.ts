@@ -30,10 +30,6 @@ export class HomeComponent implements OnInit{
         withdrawRequests: [
           { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 5000, status: 'Pending' },
           { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 10000, status: 'Approved' }
-        ],
-        loanRequests: [
-          { loanID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 5000, status: 'Pending' },
-          { loanID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 10000, status: 'Approved' }
         ]
       },
       {
@@ -43,9 +39,6 @@ export class HomeComponent implements OnInit{
         phone: '123-456-7890',
         withdrawRequests: [
           { requestID: 3, BO: 91011, date: new Date("2022-04-20"), amount: 7500, status: 'Rejected' }
-        ],
-        loanRequests: [
-          { loanID: 3, BO: 91011, date: new Date("2022-04-20"), amount: 7500, status: 'Rejected' }
         ]
       },
       {
@@ -57,8 +50,7 @@ export class HomeComponent implements OnInit{
           { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 1000, status: 'Rejected' },
           { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 2500, status: 'Approved' },
           { requestID: 3, BO: 91011, date: new Date("2022-04-20"), amount: 5000, status: 'Pending' },
-        ],
-        loanRequests: []
+        ]
       },
       {
         id: 4,
@@ -68,11 +60,8 @@ export class HomeComponent implements OnInit{
         withdrawRequests: [
           { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 15000, status: 'Approved' },
           { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 20000, status: 'Pending' },
-        ],
-        loanRequests: [
-          { loanID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 50000, status: 'Pending' },
-          { loanID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 75000, status: 'Approved' }
         ]
+       
       }
     ]
   }

@@ -7,7 +7,7 @@ export class Investor {
     email: string='';
     phone: string='';
     withdrawRequests: Withdraw[]=[];
-    loanRequests: Loan[]=[];
+    // loanRequests: Loan[]=[];
 }
 
 
