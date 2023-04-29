@@ -1,10 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Order, Transaction } from 'src/app/models/order.model';
+import { Order } from 'src/app/models/order.model';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.css']
+  styleUrls: ['./order-history.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('500ms', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class OrderHistoryComponent implements OnInit {
   isAuthenticated: boolean = true;

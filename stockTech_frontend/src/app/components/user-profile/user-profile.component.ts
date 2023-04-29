@@ -19,7 +19,7 @@ export class UserProfileComponent implements OnInit {
       this.user = {
         name: "John Doe",
         BO_account_no: "123456789",
-        phone: "1234567890",
+        phone: "01234567890",
         email: "johndoe@example.com",
         password: "p@ssw0rd",
         nid: "1234567890123",

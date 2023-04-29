@@ -10,11 +10,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class IPOComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
-
-  newIPO: IPO = new IPO();
   isAuthenticated: boolean = false;
 
   list: IPO[] = [];
+  newIPO: IPO = new IPO();
 
   ngOnInit(): void {
     this.isAuthenticated = this.auth.isAuthenticated;

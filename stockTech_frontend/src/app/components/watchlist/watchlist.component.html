@@ -7,7 +7,29 @@
     <h2>Watchlist</h2>
  
     <br><br>
-    <table datatable [dtOptions]="dtOptions" class="hover" ></table>
+    <table datatable [dtOptions]="dtOptions"  class="table table-hover" >
+    <thead>
+      <tr>
+        <th>Trading Code</th>
+        <th>LTP</th>
+        <th>Closep</th>
+        <th>Change</th>
+        <th>YCP</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list">
+        <td>{{ item.trading_code }}</td>
+        <td>{{ item.ltp }}</td>
+        <td>{{ item.closep }}</td>
+        <td>{{ item.change }}</td>
+        <td>{{ item.ycp }}</td>
+        <td><button class="btn btn-danger" (click)="remove(item)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+    
   </div>
 </div>
 

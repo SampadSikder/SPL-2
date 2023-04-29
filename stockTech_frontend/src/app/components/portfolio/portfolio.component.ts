@@ -51,10 +51,6 @@ export class PortfolioComponent implements OnInit {
       this.totalProfit += company.profit;
     }
 
-    // const tradeCodes = ['AAPL', 'GOOG', 'MSFT', 'AAPL', 'GOOG'];
-    // const uniqueTradeCodes = [...new Set(tradeCodes)];
-    // console.log(uniqueTradeCodes); // ['AAPL', 'GOOG', 'MSFT']
-
    
     for (const portfolio of this.list) {
       const matchingPortfolio = this.list2.find(p => p.tradeCode === portfolio.tradeCode);
@@ -90,6 +86,11 @@ export class PortfolioComponent implements OnInit {
     this.dtOptions2 = {
       pagingType: 'full_numbers',
       searching: false,
+     
+      columnDefs: [
+        { targets: [1, 2, 3], orderable: false },
+        { targets: [0], orderable: true }
+      ],
     };
     
   }

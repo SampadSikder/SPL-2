@@ -12,9 +12,11 @@
       <p><strong>Full Name:</strong> {{basicData.FullName}}</p>
       <p><strong>Trade Code:</strong> {{basicData.Scrip}}</p>
       <div style="width: 100% ;text-align:center;">
-        <button  *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)">Buy Shares</button>
-        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="showGraph()">View Indicator</button>
-        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="add()">Add to Watchlist</button>
+        <button  *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)"><i class="fas fa-shopping-cart"></i>
+          Buy Shares</button>
+        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="showGraph()"><i class="fas fa-chart-line"></i>
+          View Indicator</button>
+        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="add()"><i class="fas fa-star"></i>Add to Watchlist</button>
       </div>
         </div>
     <div class="col-sm-6">
