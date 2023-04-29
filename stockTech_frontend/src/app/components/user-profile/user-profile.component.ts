@@ -8,9 +8,8 @@ import { Investor } from 'src/app/models/investor.model';
 })
 export class UserProfileComponent implements OnInit {
 
-  user: Investor = new Investor();
   isAuthenticated: boolean = true;
-
+  user: Investor = new Investor();
 
   ngOnInit(): void {
     this.getProfile();

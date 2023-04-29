@@ -13,38 +13,55 @@
           <hr>
           <div class="row">
             <div class="col-md-4"><label>Name:</label></div>
-            <div class="col-md-8"><p>{{user.name}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.name}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>Email:</label></div>
-            <div class="col-md-8"><p>{{user.email}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.email}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>Phone:</label></div>
-            <div class="col-md-8"><p>+880{{user.phone}}</p></div>
+            <div class="col-md-8">
+              <p>+880{{user.phone}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>BO Account No:</label></div>
-            <div class="col-md-8"><p>{{user.BO_account_no}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.BO_account_no}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>NID No:</label></div>
-            <div class="col-md-8"><p>{{user.nid}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.nid}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>Address:</label></div>
-            <div class="col-md-8"><p>{{user.address}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.address}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>Bank name:</label></div>
-            <div class="col-md-8"><p>{{user.bank}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.bank}}</p>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4"><label>Bank Account No:</label></div>
-            <div class="col-md-8"><p>{{user.bankNum}}</p></div>
+            <div class="col-md-8">
+              <p>{{user.bankNum}}</p>
+            </div>
           </div>
           <hr>
-          <button style="float:right" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+          <button style="float:right" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">Edit
+            Profile</button>
         </div>
       </div>
     </div>
@@ -66,17 +83,16 @@
         <form>
           <div class="form-group">
             <label for="phone">Phone:</label>
-            <input type="text" class="form-control" id="phone" [(ngModel)]="user.phone"
-            placeholder="{{user.phone}}">
+            <input type="text" class="form-control" id="phone" [(ngModel)]="user.phone" placeholder="{{user.phone}}" name="phone">
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" [(ngModel)]="user.email"
-          placeholder="{{user.email}}">
+            <input type="email" class="form-control" id="email" [(ngModel)]="user.email" placeholder="{{user.email}}" name="email">
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter Password" [(ngModel)]="user.password">
+            <input type="password" class="form-control" id="password" placeholder="Enter Password"
+              [(ngModel)]="user.password" name="password">
           </div>
         </form>
       </div>

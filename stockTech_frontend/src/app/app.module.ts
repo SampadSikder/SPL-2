@@ -23,6 +23,7 @@ import { LoanComponent } from './components/loan/loan.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { IPOComponent } from './components/ipo/ipo.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { IPOComponent } from './components/ipo/ipo.component';
     OrderHistoryComponent,
     NotificationComponent,
     IPOComponent,
+    TransactionComponent,
   ],
   imports: [FormsModule,
     BrowserModule,

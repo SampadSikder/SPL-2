@@ -15,7 +15,8 @@
           <th scope="col">Trade Code</th>
           <th scope="col">Type</th>
           <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
+          <th scope="col">Total Quantity</th>
+          <th scope="col">Pending Quantity</th>
           <th scope="col">Status</th>
           <th scope="col"></th>
         </tr>
@@ -25,10 +26,10 @@
           <td>{{ order.orderID }}</td>
           <td>{{ order.date  |  date: "dd-MM-yyyy" }}</td>
           <td>{{ order.tradeCode }}</td>
-          <td>{{ order.type }}</td>
-          
+          <td>{{ order.type }}</td>          
           <td>{{ order.price }}</td>
           <td>{{ order.quantity }}</td>
+          <td>{{ order.pendingquantity }}</td>
           <td>{{ order.status }}</td>
           <td><button class="btn btn-danger" (click)="cancel(i)">Cancel</button></td>
         </tr>
@@ -37,36 +38,8 @@
     <br><br>
 
 
-    <h2>Executed Order history</h2>
-    <br>
-    <table class="table table-hover">
-      <thead>
-        <tr class="table-primary">
-          <th scope="col">Transaction ID</th>
-          <th scope="col">Order ID</th>
-          <th scope="col">Date</th>          
-          <th scope="col">Trade Code</th>
-          <th scope="col">Type</th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of executedList" scope="row">
-          <td>{{ order.transID }}</td>
-          <td>{{ order.order.orderID }}</td>
-          <td>{{ order.date  |  date: "dd-MM-yyyy"}}</td>
-          <td>{{ order.order.tradeCode }}</td>
-          <td>{{ order.order.type }}</td>
-          <td>{{ order.order.price }}</td>         
-          <td>{{ order.quantity }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <br><br>
 
-
-    <h2>Cancel Order history</h2>
+    <h2>Order History</h2>
     <br>
     <table class="table table-hover">
       <thead>
@@ -77,17 +50,18 @@
           <th scope="col">Type</th>
           <th scope="col">Price</th>
           <th scope="col">Quantity</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of cancelledList" scope="row">
+        <tr *ngFor="let order of notRunningList" scope="row">
           <td>{{ order.orderID }}</td>
           <td>{{ order.date  |  date: "dd-MM-yyyy"}}</td>
           <td>{{ order.tradeCode }}</td>
-          <td>{{ order.type }}</td>
-          
+          <td>{{ order.type }}</td>         
           <td>{{ order.price }}</td>
           <td>{{ order.quantity }}</td>
+          <td>{{ order.status }}</td>
         </tr>
       </tbody>
     </table>

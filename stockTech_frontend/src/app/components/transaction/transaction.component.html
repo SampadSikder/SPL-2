@@ -1,0 +1,36 @@
+<div *ngIf="!isAuthenticated" id="denied" class="container">
+    <h1>PLease sign in first</h1>
+  </div>
+  
+  
+  <div *ngIf="isAuthenticated" class="container">
+    
+    <h2>Transaction history</h2>
+    <br>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Transaction ID</th>
+          <th scope="col">Order ID</th>
+          <th scope="col">Date</th>          
+          <th scope="col">Trade Code</th>
+          <th scope="col">Type</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of executedList" scope="row">
+          <td>{{ order.transID }}</td>
+          <td>{{ order.order.orderID }}</td>
+          <td>{{ order.date  |  date: "dd-MM-yyyy"}}</td>
+          <td>{{ order.order.tradeCode }}</td>
+          <td>{{ order.order.type }}</td>
+          <td>{{ order.order.price }}</td>         
+          <td>{{ order.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br><br>
+
+  </div>

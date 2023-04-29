@@ -16,6 +16,7 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { IPOComponent } from './components/ipo/ipo.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,8 @@ const routes: Routes = [
   {path: 'history', component: OrderHistoryComponent},
   {path: 'profile',component:UserProfileComponent},
   {path: 'notification', component:NotificationComponent},
-  {path: 'ipo', component:IPOComponent}
+  {path: 'ipo', component:IPOComponent},
+  {path: 'transaction', component: TransactionComponent}
 ]
 
 @NgModule({

@@ -9,13 +9,13 @@ import { Order, Transaction } from 'src/app/models/order.model';
 export class OrderHistoryComponent implements OnInit {
   isAuthenticated: boolean = true;
   runningList: Order[] = [];
-  executedList: Transaction[] = [];
-  cancelledList: Order[] = [];
+
+  notRunningList: Order[] = [];
 
   ngOnInit(): void {
     this.getRunningList();
-    this.getCancelledList();
-    this.getExecutedList();
+    this.getNotRunningList();
+    
   }
 
 
@@ -28,6 +28,7 @@ export class OrderHistoryComponent implements OnInit {
           tradeCode: "AAPL",
           price: 150,
           quantity: 10,
+          pendingquantity: 10,
           type: "buy",
           status: "pending"
       },
@@ -38,6 +39,7 @@ export class OrderHistoryComponent implements OnInit {
           tradeCode: "GOOG",
           price: 200,
           quantity: 5,
+          pendingquantity:2,
           type: "sell",
           status: "partial"
       },
@@ -48,14 +50,15 @@ export class OrderHistoryComponent implements OnInit {
           tradeCode: "AAPL",
           price: 160,
           quantity: 15,
+          pendingquantity: 10,
           type: "sell",
           status: "partial"
       }
   ];
   
   }
-  getCancelledList() {
-    this.cancelledList=[
+  getNotRunningList() {
+    this.notRunningList=[
       {
         orderID: 1,
         bo: "123456789",
@@ -63,6 +66,7 @@ export class OrderHistoryComponent implements OnInit {
         tradeCode: "AAPL",
         price: 150,
         quantity: 10,
+        pendingquantity: 10,
         type: "buy",
         status: "cancelled"
     },
@@ -73,8 +77,9 @@ export class OrderHistoryComponent implements OnInit {
         tradeCode: "GOOG",
         price: 200,
         quantity: 5,
+        pendingquantity: 10,
         type: "sell",
-        status: "cancelled"
+        status: "executed"
     },
     {
         orderID: 3,
@@ -83,62 +88,13 @@ export class OrderHistoryComponent implements OnInit {
         tradeCode: "AAPL",
         price: 160,
         quantity: 15,
+        pendingquantity: 10,
         type: "sell",
         status: "cancelled"
     }
     ];
   }
-  getExecutedList() {
-    this.executedList = [
-      {
-          transID: 1,
-          order: {
-              orderID: 1,
-              bo: "123456789",
-              date: new Date(),
-              tradeCode: "AAPL",
-              price: 150,
-              quantity: 10,
-              type: "buy",
-              status: "pending"
-          },
-          date: new Date(),
-          quantity: 10
-      },
-      {
-          transID: 2,
-          order: {
-              orderID: 2,
-              bo: "123456789",
-              date: new Date(),
-              tradeCode: "GOOG",
-              price: 200,
-              quantity: 5,
-              type: "sell",
-              status: "partial"
-          },
-          date: new Date(),
-          quantity: 3
-      },
-      {
-          transID: 3,
-          order: {
-              orderID: 3,
-              bo: "123456789",
-              date: new Date(),
-              tradeCode: "AAPL",
-              price: 160,
-              quantity: 15,
-              type: "sell",
-              status: "cancelled"
-          },
-          date: new Date(),
-          quantity: 5
-      }
-  ];
   
-    
-  }
 
   cancel(order: Order){
     alert("Order "+order.orderID+" is cancellled");
