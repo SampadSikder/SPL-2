@@ -109,8 +109,17 @@ export class OrderHistoryComponent implements OnInit {
   
 
   cancel(order: Order){
-    alert("Order "+order.orderID+" is cancellled");
-    //remove from db
+   
+    if (confirm('Are you sure you want to cancel order '+order.orderID+'?')) {
+      alert("Order "+order.orderID+" is cancellled");
+      // User clicked "OK", so proceed with the delete action
+      //remove from db
+    } else {
+      // User clicked "Cancel", so do nothing
+      alert("Order "+order.orderID+" is not cancellled");
+    }
+    
+    
   }
 
 }

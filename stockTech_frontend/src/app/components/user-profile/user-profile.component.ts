@@ -46,6 +46,15 @@ export class UserProfileComponent implements OnInit {
     //send user profile
   }
 
+  changePassword(){
+    if (confirm('Are you sure you want to change password?')) {
+      alert("Password is reset successfully.");
+      // User clicked "OK", so proceed with the delete action
+    } else {
+      // User clicked "Cancel", so do nothing
+      alert("Password remains unchanged");
+    }
+  }
 
 
 }
