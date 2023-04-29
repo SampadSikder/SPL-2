@@ -59,7 +59,7 @@
         <tr *ngFor="let order of depositList" scope="row">
           <td>{{ order.transID }}</td>
           <td>{{ order.amount }}</td>
-          <td>{{ order.date }}</td>
+          <td>{{ order.date| date: "dd-MM-yyyy" }}</td>
 
         </tr>
       </tbody>
@@ -85,7 +85,7 @@
         <tr *ngFor="let order of withdrawList" scope="row">
           <td>{{ order.requestID }}</td>
           <td>{{ order.amount }}</td>
-          <td>{{ order.date }}</td>
+          <td>{{ order.date | date: "dd-MM-yyyy"}}</td>
           <td>{{ order.status }}</td>
 
         </tr>

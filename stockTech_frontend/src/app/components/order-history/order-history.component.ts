@@ -109,7 +109,7 @@ export class OrderHistoryComponent implements OnInit {
           transID: 2,
           order: {
               orderID: 2,
-              bo: "987654321",
+              bo: "123456789",
               date: new Date(),
               tradeCode: "GOOG",
               price: 200,

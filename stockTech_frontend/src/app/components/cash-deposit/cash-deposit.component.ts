@@ -43,8 +43,6 @@ export class CashDepositComponent implements OnInit{
   ngOnInit(): void {
    this.get_deposit_list();
    this.get_withdraw_list();
-  
-  
   }
 
   setTimer() {
@@ -73,10 +71,55 @@ export class CashDepositComponent implements OnInit{
   }
 
   get_deposit_list() {
-    // throw new Error('Method not implemented.');
+  this.depositList=[
+      {
+        bo: '1234',
+        transID: 1,
+        amount: 1000,
+        date: new Date('2023-04-29'),
+        phone: 1234567890
+      },
+      {
+        bo: '5678',
+        transID: 2,
+        amount: 2000,
+        date: new Date('2023-04-28'),
+        phone: 9876543210
+      },
+      {
+        bo: '9012',
+        transID: 3,
+        amount: 500,
+        date: new Date('2023-04-27'),
+        phone: 1112223333
+      }
+    
+  ] ; 
   }
   get_withdraw_list() {
-    // throw new Error('Method not implemented.');
+ this.withdrawList=[
+  {
+    requestID: 1,
+    BO: 1234,
+    date: new Date('2023-04-26'),
+    amount: 500,
+    status: 'Completed'
+  },
+  {
+    requestID: 2,
+    BO: 5678,
+    date: new Date('2023-04-25'),
+    amount: 1000,
+    status: 'Pending'
+  },
+  {
+    requestID: 3,
+    BO: 9012,
+    date: new Date('2023-04-24'),
+    amount: 200,
+    status: 'Cancelled'
+  }
+ ];
   }
 
   open(content: any) {
