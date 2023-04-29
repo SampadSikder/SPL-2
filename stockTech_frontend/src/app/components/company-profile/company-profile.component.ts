@@ -186,4 +186,8 @@ export class CompanyProfileComponent implements OnInit {
     this.router.navigate(["graph"]);
     }
 
+    add(){
+      
+    }
+
 }

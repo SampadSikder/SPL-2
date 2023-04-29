@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Deposit, Withdraw } from 'src/app/models/deposit.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class CashDepositComponent implements OnInit{
  
   paymentStatus:string='';
-  total_amount: number = 0;
-  total_amount2: number = 0;
+ 
   myForm!: FormGroup;
 
   timeRemaining = 120;
@@ -32,8 +32,12 @@ export class CashDepositComponent implements OnInit{
   invoice: number=0;
   
 
-  depositList:any;
-  withdrawList:any;
+  depositList:Deposit[]=[];
+  withdrawList:Withdraw[]=[];
+
+  newdeposit: Deposit=new Deposit();
+  newwithdraw: Withdraw=new Withdraw();
+
 
   constructor(private http: HttpClient, private modalService: NgbModal) { }
   ngOnInit(): void {
@@ -69,10 +73,10 @@ export class CashDepositComponent implements OnInit{
   }
 
   get_deposit_list() {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
   get_withdraw_list() {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
   open(content: any) {
@@ -94,12 +98,12 @@ export class CashDepositComponent implements OnInit{
   }
 
   makePayment(){
-    let date= new Date();
+    this.newdeposit.date=new Date();
     //send amount and date
   }
 
-  makeWithdraw(amount: number){
-    let date= new Date();
+  makeWithdraw(){
+    this.newwithdraw.date=new Date();
      //send amount and date
      alert("request sent successfully");
   }

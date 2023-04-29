@@ -1,7 +1,12 @@
 export class Investor {
-    name?: String ;
-    BO_account_no?:BigInt;
-    phone?:BigInt;
-    email?:String;
+    name: string='' ;
+    BO_account_no:string='';
+    phone:string='';
+    email:string='';
+    password:string='';
+    nid:string='';
+    address:string='';
+    bank:string='';
+    bankNum:string='';
    
 }

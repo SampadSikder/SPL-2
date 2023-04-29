@@ -1,12 +1,17 @@
 import { Loan } from "./loan.model";
-import { Withdraw } from "./withdraw.model";
+import { Deposit, Withdraw } from "./withdraw.model";
 
 export class Investor {
-    id: number=0;
-    name: string='';
-    email: string='';
-    phone: string='';
+    name?: String ;
+    BO_account_no?:string;
+    phone?:String;
+    email?:string;
+    nid?:string;
+    address?:string;
+    bank?:string;
+    bankNum?:string;
     withdrawRequests: Withdraw[]=[];
+    deposits: Deposit[]=[];
     // loanRequests: Loan[]=[];
 }
 

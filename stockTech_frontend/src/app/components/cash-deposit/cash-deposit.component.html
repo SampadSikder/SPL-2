@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="container"  *ngIf="isAuthenticated">
+<div class="container" *ngIf="isAuthenticated">
 
   <div class="row">
 
@@ -52,15 +52,15 @@
         <tr class="table-primary">
           <th scope="col">Transaction ID</th>
           <th scope="col">Amount</th>
-          <th scope="col">Order Date</th>
+          <th scope="col">Date</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of depositList" scope="row">
-          <!-- <td>{{ order.ID }}</td>
+          <td>{{ order.transID }}</td>
           <td>{{ order.amount }}</td>
           <td>{{ order.date }}</td>
-          -->
+
         </tr>
       </tbody>
     </table>
@@ -75,19 +75,19 @@
     <table class="table table-hover">
       <thead>
         <tr class="table-primary">
-          <th scope="col">Transaction ID</th>
+          <th scope="col">Request ID</th>
           <th scope="col">Amount</th>
-          <th scope="col">Issue Date</th>
+          <th scope="col">Date</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of withdrawList" scope="row">
-         <!-- <td>{{ order.ID }}</td>
+          <td>{{ order.requestID }}</td>
           <td>{{ order.amount }}</td>
           <td>{{ order.date }}</td>
           <td>{{ order.status }}</td>
-          -->
+
         </tr>
       </tbody>
     </table>
@@ -106,11 +106,11 @@
     <div id="textBox" class="container">
       <p>Merchant: StockTech.com</p>
       <p>Invoice No: {{invoice}}</p>
-      <p>Amount: {{total_amount}}</p>
+      <p>Amount: {{newdeposit.amount}}</p>
     </div>
     <div *ngIf="!otpBox" id="number">
       <label for="phone">bKash verification number</label>
-      <input type="number" class="form-control" id="phone" placeholder="e.g 01XXXXXXXXX" required>
+      <input type="number" class="form-control" id="phone" placeholder="e.g 01XXXXXXXXX" {{newdeposit.phone}} required>
       <p><input type="checkbox"> Agree the terms and policy</p>
       <br>
       <button class="btn btn-outline-light" (click)="getOTP()">Proceed</button>
@@ -144,26 +144,27 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form  [formGroup]="myForm">
+    <form [formGroup]="myForm">
       <div class="form-group">
         <label for="quantity">
           <h2> Total Amount:</h2>
         </label>
-        <input type="number" class="form-control" id="quantity" [(ngModel)]="total_amount" name="quantity"  formControlName="quantity"
-          placeholder="Enter amount" required min="1">
-         <div
+        <input type="number" class="form-control" id="quantity" [(ngModel)]="newdeposit.amount" name="quantity"
+          formControlName="quantity" placeholder="Enter amount" required min="1">
+        <div
           *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
           <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
           <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
-              value.</small>
-        
-      </div>
+            value.</small>
+
+        </div>
       </div>
 
 
       <div class="col-md-12">
         <br>
-        <button type="submit"  [disabled]="myForm.invalid" (click)="open(content); d('Cross click')" class="btn btn-outline-dark" style="float:right"> Pay Now</button>
+        <button type="submit" [disabled]="myForm.invalid" (click)="open(content); d('Cross click')"
+          class="btn btn-outline-dark" style="float:right"> Pay Now</button>
         <br><br><br><br>
       </div>
     </form>
@@ -178,24 +179,25 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form  [formGroup]="myForm">
+    <form [formGroup]="myForm">
       <div class="form-group">
         <label for="total">
           <h2> Total Amount:</h2>
         </label>
-        <input type="number" class="form-control" id="quantity" [(ngModel)]="total_amount2" name="quantity"  formControlName="quantity"
-          placeholder="Enter amount" required min="1">
-         <div
+        <input type="number" class="form-control" id="quantity" [(ngModel)]="newwithdraw.amount" name="quantity"
+          formControlName="quantity" placeholder="Enter amount" required min="1">
+        <div
           *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
           <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
           <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
-              value.</small>
-        
+            value.</small>
+
+        </div>
       </div>
-      </div>     
     </form>
     <br>
-    <button class="btn btn-outline-dark" style="float:right"  [disabled]="myForm.invalid"  (click)="makeWithdraw(total_amount2); d('Cross click')">make Request</button>
+    <button class="btn btn-outline-dark" style="float:right" [disabled]="myForm.invalid"
+      (click)="makeWithdraw(); d('Cross click')">make Request</button>
     <br><br>
   </div>
 

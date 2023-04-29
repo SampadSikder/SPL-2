@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let investor of investors; let i in index">
-          <td>{{ investor.id }}</td>
+          <td>{{ investor.BO_account_no }}</td>
           <td>{{ investor.name }}</td>
           <td>{{ investor.email }}</td>
           <td>{{ investor.phone }}</td>
@@ -46,9 +46,13 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <p><strong>Name:</strong> {{ selectedInvestor.name }}</p>
-                  <p><strong>Investor ID:</strong> {{ selectedInvestor.id }}</p>
+                  <p><strong>BO no:</strong> {{ selectedInvestor.BO_account_no }}</p>
                   <p><strong>Email:</strong> {{ selectedInvestor.email }}</p>
                   <p><strong>Phone:</strong> {{ selectedInvestor.phone }}</p>
+                  <p><strong>NID:</strong> {{ selectedInvestor.nid }}</p>
+                  <p><strong>Address:</strong> {{ selectedInvestor.address }}</p>
+                  <p><strong>Bank Name:</strong> {{ selectedInvestor.bank }}</p>
+                  <p><strong>Bank Account no:</strong> {{ selectedInvestor.bankNum }}</p>
                   
                 </div>
               </div>
@@ -75,27 +79,27 @@
                 </table>
               </div>
       
-              <!-- <h6>Loan Requests:</h6>
+              <h6>Cash Deposit History:</h6>
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>Request ID</th>
+                      <th>Transaction ID</th>
                       <th>Date</th>
                       <th>Amount</th>
-                      <th>Status</th>
+                    
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let request of selectedInvestor?.loanRequests">
-                      <td>{{ request.loanID }}</td>
+                    <tr *ngFor="let request of selectedInvestor?.deposits">
+                      <td>{{ request.transID }}</td>
                       <td>{{ request.date | date: "dd-MM-yyyy" }}</td>
                       <td>{{ request.amount | currency }}</td>
-                      <td>{{ request.status }}</td>
+                     
                     </tr>
                   </tbody>
                 </table>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>

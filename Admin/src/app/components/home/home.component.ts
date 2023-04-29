@@ -21,49 +21,80 @@ export class HomeComponent implements OnInit{
 
   getInvestorList() {
     // add list here
-    this.investors=[
+    this.investors = [
       {
-        id: 1,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '123-456-7890',
-        withdrawRequests: [
-          { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 5000, status: 'Pending' },
-          { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 10000, status: 'Approved' }
-        ]
+          name: "John Doe",
+          BO_account_no: "123456789",
+          phone: "1234567890",
+          email: "johndoe@example.com",
+          nid: "1234567890123",
+          address: "123 Main St, Anytown, USA",
+          bank: "Example Bank",
+          bankNum: "9876543210",
+          withdrawRequests: [
+              {
+                  requestID: 1,
+                  BO: 123456789,
+                  date: new Date(),
+                  amount: 500,
+                  status: "pending"
+              },
+              {
+                  requestID: 2,
+                  BO: 123456789,
+                  date: new Date(),
+                  amount: 1000,
+                  status: "approved"
+              }
+          ],
+          deposits: [
+              {
+                  bo: "123456789",
+                  transID: 1,
+                  amount: 2000,
+                  date: new Date(),
+                 
+              },
+              {
+                  bo: "123456789",
+                  transID: 2,
+                  amount: 5000,
+                  date: new Date(),
+                 
+              }
+          ]
       },
       {
-        id: 2,
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        phone: '123-456-7890',
-        withdrawRequests: [
-          { requestID: 3, BO: 91011, date: new Date("2022-04-20"), amount: 7500, status: 'Rejected' }
-        ]
-      },
-      {
-        id: 3,
-        name: 'Bob Johnson',
-        email: 'bob.johnson@gmail.com',
-        phone: '345-678-9012',
-        withdrawRequests: [
-          { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 1000, status: 'Rejected' },
-          { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 2500, status: 'Approved' },
-          { requestID: 3, BO: 91011, date: new Date("2022-04-20"), amount: 5000, status: 'Pending' },
-        ]
-      },
-      {
-        id: 4,
-        name: 'Michael Johnson',
-        email: 'michaeljohnson@example.com',
-        phone: '555-555-5555',
-        withdrawRequests: [
-          { requestID: 1, BO: 1234, date: new Date("2022-04-18"), amount: 15000, status: 'Approved' },
-          { requestID: 2, BO: 5678, date: new Date("2022-04-19"), amount: 20000, status: 'Pending' },
-        ]
-       
+          name: "Jane Doe",
+          BO_account_no: "987654321",
+          phone: "9876543210",
+          email: "janedoe@example.com",
+          nid: "9876543210987",
+          address: "456 Oak St, Anytown, USA",
+          bank: "Example Bank",
+          bankNum: "1234567890",
+          withdrawRequests: [
+              {
+                  requestID: 3,
+                  BO: 987654321,
+                  date: new Date(),
+                  amount: 1000,
+                  status: "approved"
+              }
+          ],
+          deposits: [
+              {
+                  bo: "987654321",
+                  transID: 3,
+                  amount: 10000,
+                  date: new Date(),
+                 
+              }
+          ]
       }
-    ]
+  ];
+  
+  
   }
  
 

@@ -6,23 +6,47 @@ import { Investor } from 'src/app/models/investor.model';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit{
+export class UserProfileComponent implements OnInit {
 
-  user: Investor=new Investor();
+  user: Investor = new Investor();
   isAuthenticated: boolean = true;
-  
+
 
   ngOnInit(): void {
-    this.user.name = "Abu Tabu";
-    this.user.BO_account_no = 123456789012345679n;
-    this.user.phone = 16276527652864n;
-    this.user.email = "bsse1216@iit.du.ac.bd";
+    this.getProfile();
+
+  }
+  getProfile() {
+      this.user = {
+        name: "John Doe",
+        BO_account_no: "123456789",
+        phone: "1234567890",
+        email: "johndoe@example.com",
+        password: "p@ssw0rd",
+        nid: "1234567890123",
+        address: "123 Main St, Anytown, USA",
+        bank: "Example Bank",
+        bankNum: "9876543210"
+    };
+
+
+    // this.user.name = "John Doe";
+    // this.user.BO_account_no = "123456789";
+    // this.user.phone = "555-1234";
+    // this.user.email = "john.doe@example.com";
+    // this.user.password = "mypassword";
+    // this.user.nid = "1234567890";
+    // this.user.address = "123 Main St";
+    // this.user.bank = "My Bank";
+    // this.user.bankNum = "987654321";
+
+
   }
 
-  edit(){
+  edit() {
     //send user profile
   }
- 
- 
+
+
 
 }

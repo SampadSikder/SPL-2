@@ -5,3 +5,10 @@ export class Withdraw {
     amount:number=0;
     status:string=''
 }
+
+export class Deposit {
+    bo: string='';
+    transID: number=0;
+    amount: number=0;
+    date: Date=new Date();
+}
