@@ -4,14 +4,12 @@ h2{
     text-align: center; 
   }
 
-  th{
+  th,td{
     width:200px;
     text-align: center;
     border-bottom: 1px solid #ddd;
  }
- th,td{
-  text-align: center;
- }
+
 
   #denied{
     height: 400px; 

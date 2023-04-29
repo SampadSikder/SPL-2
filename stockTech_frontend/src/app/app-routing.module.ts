@@ -17,6 +17,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { NotificationComponent } from './components/notification/notification.component';
 import { IPOComponent } from './components/ipo/ipo.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { FAQsComponent } from './components/faqs/faqs.component';
 
 
 const routes: Routes = [
@@ -37,7 +38,8 @@ const routes: Routes = [
   {path: 'profile',component:UserProfileComponent},
   {path: 'notification', component:NotificationComponent},
   {path: 'ipo', component:IPOComponent},
-  {path: 'transaction', component: TransactionComponent}
+  {path: 'transaction', component: TransactionComponent},
+  {path: 'faq', component:FAQsComponent},
 ]
 
 @NgModule({

@@ -51,7 +51,8 @@ export class WatchlistComponent implements OnInit {
     this.dtOptions = {
       lengthChange: false, 
       pageLength: 20,
-      ordering:false
+      ordering:false,
+      searching: false
      
     }}
 

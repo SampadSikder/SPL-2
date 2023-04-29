@@ -1,39 +1,40 @@
-<div class="container"  *ngIf="isAuthenticated">
+<div class="container" *ngIf="isAuthenticated">
   <br>
 
-    <div>
-      <h2>Watchlist</h2>
+  <div>
+    <h2>Watchlist</h2>
     <br><br>
-    <table datatable [dtOptions]="dtOptions"  class="table table-hover" >
-    <thead>
-      <tr>
-        <th>Trading Code</th>
-        <th>Name</th>
-        <th>LTP</th>
-        <th>Closep</th>
-        <th>Change</th>
-        <th>YCP</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of list" >
-         
-        <td [ngStyle]="{ 'color': item.change < 0 ? 'red' : item.change > 0 ? 'green' : 'blue' }">{{ item.trading_code }}</td>
-        <td>{{ item.full_name }}</td>
-        <td>{{ item.ltp }}</td>        
-        <td>{{ item.closep }}</td>
-        <td [ngStyle]="{ 'color': item.change < 0 ? 'red' : item.change > 0 ? 'green' : 'blue' }">{{ item.change }}</td>
-        <td>{{ item.ycp }}</td>
-        <td><button class="btn btn-danger" (click)="remove(item)">Remove</button></td>
-      </tr>
-    </tbody>
-  </table>
-    
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Trading Code</th>
+          <th>Name</th>
+          <th>LTP</th>
+          <th>Closep</th>
+          <th>Change</th>
+          <th>YCP</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list">
+
+          <td [ngStyle]="{ 'color': item.change < 0 ? 'red' : item.change > 0 ? 'green' : 'blue' }">{{ item.trading_code
+            }}</td>
+          <td>{{ item.full_name }}</td>         
+          <td>{{ item.ltp }}</td>
+          <td>{{ item.closep }}</td>
+          <td [ngStyle]="{'color': item.change<0 ? 'red' : item.change>0 ? 'green' : 'blue'}">{{ item.change }}</td>
+          <td>{{ item.ycp }}</td>
+          <td><small><button class="btn btn-danger" (click)="remove(item)">Remove</button></small></td>
+          
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </div>
 
 <div *ngIf="!isAuthenticated" id="denied" class="container">
   <h1>PLease sign in first</h1>
 </div>
-

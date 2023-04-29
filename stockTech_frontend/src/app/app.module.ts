@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NewsComponent } from './components/news/news.component';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
-import {NgApexchartsModule} from 'ng-apexcharts';
+import { NgApexchartsModule} from 'ng-apexcharts';
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { BoaccountopeningComponent } from './components/boaccountopening/boaccountopening.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
@@ -24,6 +24,10 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { NotificationComponent } from './components/notification/notification.component';
 import { IPOComponent } from './components/ipo/ipo.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { FAQsComponent } from './components/faqs/faqs.component';
+import { CommonModule } from '@angular/common';
+
+
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { TransactionComponent } from './components/transaction/transaction.compo
     NotificationComponent,
     IPOComponent,
     TransactionComponent,
+    FAQsComponent,
   ],
   imports: [FormsModule,
     BrowserModule,
@@ -52,9 +57,12 @@ import { TransactionComponent } from './components/transaction/transaction.compo
     AppRoutingModule,
     DataTablesModule,
     NgApexchartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
+    
+    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,FAQsComponent]
 })
 export class AppModule { }
