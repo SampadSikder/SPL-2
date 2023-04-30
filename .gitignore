@@ -4,3 +4,5 @@ Admin/node_modules
 Admin/.angular
 StockTech_backend/myenv
 StockTech_backend/CNN
+contract/cache
+contract/node_modules
