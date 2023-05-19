@@ -3,7 +3,7 @@ export class Deposit {
     transID: number=0;
     amount: number=0;
     date: Date=new Date();
-    phone: number=0;
+    phone: string='';
 }
 
 export class Withdraw {

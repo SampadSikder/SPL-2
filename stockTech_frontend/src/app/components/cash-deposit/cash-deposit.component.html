@@ -103,7 +103,7 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
   <img id="pic1" src="assets/bKash.png">
-  <div class="modal-body  bkash">
+  <div class="modal-body bkash">
 
     <div id="textBox" class="container">
       <p>Merchant: StockTech.com</p>
@@ -112,7 +112,7 @@
     </div>
     <div *ngIf="!otpBox" id="number">
       <label for="phone">bKash verification number</label>
-      <input type="number" class="form-control" id="phone" placeholder="e.g 01XXXXXXXXX" {{newdeposit.phone}} required>
+      <input type="text" class="form-control" id="phone" placeholder="e.g 01XXXXXXXXX" [(ngModel)]=newdeposit.phone name="phone"  required>
       <p><input type="checkbox"> Agree the terms and policy</p>
       <br>
       <button class="btn btn-outline-light" (click)="getOTP()">Proceed</button>

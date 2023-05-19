@@ -77,21 +77,21 @@ export class CashDepositComponent implements OnInit{
         transID: 1,
         amount: 1000,
         date: new Date('2023-04-29'),
-        phone: 1234567890
+        phone: "1234567890"
       },
       {
         bo: '5678',
         transID: 2,
         amount: 2000,
         date: new Date('2023-04-28'),
-        phone: 9876543210
+        phone: "9876543210"
       },
       {
         bo: '9012',
         transID: 3,
         amount: 500,
         date: new Date('2023-04-27'),
-        phone: 1112223333
+        phone: "1112223333"
       }
     
   ] ; 
@@ -133,6 +133,7 @@ export class CashDepositComponent implements OnInit{
   getOTP(){
     this.otpBox=true;
     this.setTimer();
+    console.log(this.newdeposit.phone);
     //otp functionality
   }
 
