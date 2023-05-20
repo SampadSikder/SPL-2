@@ -5,4 +5,5 @@ Admin/.angular
 StockTech_backend/myenv
 StockTech_backend/CNN
 contract/cache
+contract/cache/order.py
 contract/node_modules

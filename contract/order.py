@@ -40,7 +40,9 @@ send_tx = web3.eth.send_raw_transaction(signed_tx.rawTransaction) #send transact
 tx_receipt = web3.eth.wait_for_transaction_receipt(send_tx) # Wait for transaction receipt
 print("\nTransaction Details: ")
 print(tx_receipt)
-
-order = contract.functions.getOrder().call() #get data
-print("\n\nOrder: ")
-print(order)
+if(tx_receipt):
+    order = contract.functions.getOrder().call() #get data
+    print("\n\nOrder: ")
+    print(order)
+else:
+    print("Order failed")
