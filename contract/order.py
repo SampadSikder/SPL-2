@@ -1,8 +1,12 @@
 import json
 from web3 import Web3
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Initialize endpoint URL
-node_url = "https://eth-goerli.g.alchemy.com/v2/LN2JtyJNVajl1c5jOZsAfnTRixmTA95i"
+node_url = os.getenv('API_URL')
 
 # Create the node connection
 web3 = Web3(Web3.HTTPProvider(node_url))
@@ -15,22 +19,19 @@ if web3.is_connected():
 else:
     print("Connection Failed")
 
-caller = "0xeC78572E35a0Aaab60338b8B465A974D4874263d" #metamask id
-private_key = "c2a5f9c0f9e36e115e4f583b4a5d74b8420b4b184e50f3342e059e48a6400172"  # To sign the transaction
+caller= os.getenv('CALLER') #metamask id
+private_key=os.getenv('PRIVATE_KEY')    # To sign the transaction
 
 # Initialize address nonce
 nonce = web3.eth.get_transaction_count(caller)
 
 # Initialize contract ABI and address
-# with open('artifacts/contracts/stocktech.json') as f:
-#     abi = json.load(f)
-abi ='[{"inputs":[{"internalType":"uint256","name":"orderIDToDelete","type":"uint256"}],"name":"cancelOrder","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_ID","type":"uint256"},{"internalType":"string","name":"_TradingCode","type":"string"},{"internalType":"string","name":"_BOAccountNo","type":"string"},{"internalType":"string","name":"_type","type":"string"},{"internalType":"uint256","name":"_quantity","type":"uint256"},{"internalType":"uint256","name":"_price","type":"uint256"}],"name":"takeOrder","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getList","outputs":[{"components":[{"internalType":"uint256","name":"orderID","type":"uint256"},{"internalType":"string","name":"TradingCode","type":"string"},{"internalType":"string","name":"BOAccountNo","type":"string"},{"internalType":"string","name":"orderType","type":"string"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"uint256","name":"cost","type":"uint256"}],"internalType":"structstocktech.Order[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getOrder","outputs":[{"components":[{"internalType":"uint256","name":"orderID","type":"uint256"},{"internalType":"string","name":"TradingCode","type":"string"},{"internalType":"string","name":"BOAccountNo","type":"string"},{"internalType":"string","name":"orderType","type":"string"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"uint256","name":"cost","type":"uint256"}],"internalType":"structstocktech.Order","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getOrderAndHash","outputs":[{"components":[{"internalType":"uint256","name":"orderID","type":"uint256"},{"internalType":"string","name":"TradingCode","type":"string"},{"internalType":"string","name":"BOAccountNo","type":"string"},{"internalType":"string","name":"orderType","type":"string"},{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"uint256","name":"cost","type":"uint256"}],"internalType":"structstocktech.Order","name":"","type":"tuple"},{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"}]'
-contract_address = "0xfEA728BAF8C8FD987112E06F337CFc2120227a18" #after deployment
+abi =os.getenv('ABI')
+contract_address= os.getenv('CONTRACT_ADDRESS')   #after deployment
 
 # Create smart contract instance
 contract = web3.eth.contract(address=contract_address, abi=abi)
-#print(contract)
-#print(dir(contract.functions.takeOrder))
+# print(dir(contract.functions.takeOrder))  --> to get all the function related to contract
 
 Chain_id = web3.eth.chain_id
 makeOrder = contract.functions.takeOrder(1,"abc","1234","buy",5,10).build_transaction({"chainId": Chain_id, "from": caller, "nonce": nonce})
