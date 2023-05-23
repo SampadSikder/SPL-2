@@ -6,8 +6,8 @@ export class Order {
     price: number = 0;
     quantity: number = 0;
     pendingquantity: number = 0;
-    type: string = '';    //buy/sell
-    status: string = ''   //pending/partial/cancelled
+    type: string = '';    //    buy/sell
+    status: string = ''   //    pending/ partial/ cancelled/ executed
 }
 
 //executed

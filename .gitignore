@@ -7,3 +7,4 @@ StockTech_backend/CNN
 contract/cache
 contract/.env
 contract/node_modules
+contract/.vscode
