@@ -105,19 +105,15 @@ export class CompanyProfileComponent implements OnInit {
 
   renderPieChart(): void {
     this.getData().subscribe ((data)=> {
-          const categories = ['Institute', 'Foreign', 'Public'];
+          const categories = ['Institute', 'Foreign', 'Public', 'Govt', 'SponsorDirector'];
           this.graphdata=data;        
           this.pieChart = {
             chart: {
               type: 'pie',
-               width: '55%',
+               width: '60%',
             },
-            theme: {
-              monochrome: {
-                enabled: true
-              }
-            },
-            series:[this.graphdata.Institute,this.graphdata.Foreign, this.graphdata.Public], 
+           
+            series:[this.graphdata.Institute,this.graphdata.Foreign, this.graphdata.Public,  this.graphdata.Govt,  this.graphdata.SponsorDirector], 
            labels: categories,            
           };
         },

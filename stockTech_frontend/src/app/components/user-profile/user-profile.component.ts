@@ -64,7 +64,7 @@ export class UserProfileComponent implements OnInit {
 
     //some func t
     // if(OTP=='a')
-      this.otpMatched=true;
+      // this.otpMatched=true;
   }
 
 }
