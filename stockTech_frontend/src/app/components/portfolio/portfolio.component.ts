@@ -43,7 +43,7 @@ export class PortfolioComponent implements OnInit {
 
     this.user.name = "Abu Tabu";
     this.user.BO_account_no = "123456789012345679";
-    this.user.phone = "16276527652864";
+    this.user.phone = "016276527652864";
     this.user.email = "bsse1216@iit.du.ac.bd";
 
 
@@ -64,8 +64,6 @@ export class PortfolioComponent implements OnInit {
 
     this.renderPieChart();
     this.renderTable();
- 
-    // this.processData();
   
   }
 

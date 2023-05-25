@@ -10,6 +10,8 @@ export class UserProfileComponent implements OnInit {
 
   isAuthenticated: boolean = true;
   user: Investor = new Investor();
+  otp: string='';
+  otpMatched: boolean=false;
 
   ngOnInit(): void {
     this.getProfile();
@@ -56,5 +58,13 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+
+  matchOTP(OTP: string){
+    OTP=this.otp;
+
+    //some func t
+    // if(OTP=='a')
+      this.otpMatched=true;
+  }
 
 }
