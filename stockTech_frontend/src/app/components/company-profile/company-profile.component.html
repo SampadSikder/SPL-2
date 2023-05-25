@@ -13,7 +13,7 @@
       <p><strong>Full Name:</strong> {{basicData.FullName}}</p>
       <p><strong>Trade Code:</strong> {{basicData.Scrip}}</p>
       <pre><a href="https://{{basicData.Web}}/">Click here to visit website</a></pre>
-      <br>
+     
       <div style="width: 100% ;text-align:center;">
         <button *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)"><i
             class="fas fa-shopping-cart"></i>
@@ -43,7 +43,7 @@
       <p><strong>Total Trade:</strong> {{basicData.TotalTrade}}</p>
       <p><strong>Earnings Per Share(EPS):</strong> {{basicData.EPS}}</p>
       <p><strong>P/E ratio:</strong> {{basicData.AuditedPE}}</p>
-      <p><strong>Dividend Yeild:</strong> {{basicData.DividentYield}}</p>
+      <p><strong>Dividend Yield:</strong> {{basicData.DividentYield}}</p>
     </div>
 
     <div class="col-sm-2">

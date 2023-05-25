@@ -7,9 +7,10 @@ padding-left: 10%;
 }
 
 #right4 {
-    background-color: rgba(249, 232, 232, 0.87);
+    background-color: rgba(232, 240, 249, 0.87);
     overflow-y: auto;
     height: 300px;
+    padding: 20px;
 }
 
 table {

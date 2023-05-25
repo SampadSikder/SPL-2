@@ -51,7 +51,6 @@ export class CompanyProfileComponent implements OnInit {
     this.showData();
     this.renderPieChart();
     this.renderPieChart2();
-    this.renderDataTable();
     this.receiveNews();
     this.receiveFinance()
     .subscribe((data) => {
@@ -144,27 +143,6 @@ export class CompanyProfileComponent implements OnInit {
        }
 
 
-  renderDataTable(): void {
-    this.dtOptions = {
-      searching: false,
-      ordering:  false,
-      
-      columnDefs: [
-        { width: '90em', targets: 0 },
-        { width: '30em', targets: [1, 2, 3, 4, 5] },
-
-      ],
-      
-      columns: [
-        {title: 'Particulars', data: ''},
-        {title: '2022', data: '2022'},
-        {title: '2021', data: '2021'},
-        {title: '2020', data: '2020'},
-        {title: '2019', data: '2019'}, 
-        {title: '2018', data: '2018'},
-      ],
-    };
-  }
 
   open(content: any) {
     this.myForm = new FormGroup({
