@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
         searchPlaceholder: "Search...",
         search: ""
       },
-       pageLength: 20,
+      pageLength: 20,
       columnDefs: [
         { width: '30em', targets: [0, 1, 2, 3, 4] },
         { name: 'some name', targets: 0 },
@@ -145,7 +145,8 @@ export class HomeComponent implements OnInit {
         },
         { title: 'LTP', data: 'ltp' },
         { title: 'CLOSEP', data: 'closep' },
-        { title: 'CHANGE', data: 'change',
+        {
+          title: 'CHANGE', data: 'change',
           render: function (data, type, row) {
             if (type === 'display') {
               if (row.change < 0) {
@@ -169,7 +170,7 @@ export class HomeComponent implements OnInit {
         $('td', row).on('click', () => {
           self.someClickHandler(data);
         });
-      
+
         return row;
       }
     }

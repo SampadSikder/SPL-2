@@ -8,68 +8,90 @@
   </div>
   <div class="row">
     <br>
-    <div class="col-sm-4" >
+    <div class="col-sm-4">
       <br><br>
       <p><strong>Full Name:</strong> {{basicData.FullName}}</p>
       <p><strong>Trade Code:</strong> {{basicData.Scrip}}</p>
-      <pre><a href="https://{{basicData.Web}}/">Visit website</a></pre>
+      <pre><a href="https://{{basicData.Web}}/">Click here to visit website</a></pre>
       <br>
       <div style="width: 100% ;text-align:center;">
-        <button  *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)"><i class="fas fa-shopping-cart"></i>
+        <button *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)"><i
+            class="fas fa-shopping-cart"></i>
           Buy Shares</button>
-        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="showGraph()"><i class="fas fa-chart-line"></i>
+        <button style="margin:5px;" *ngIf="isAuthenticated" class="btn btn-success" (click)="showGraph()"><i
+            class="fas fa-chart-line"></i>
           View Indicator</button>
-        <button style="margin:5px;"  *ngIf="isAuthenticated" class="btn btn-success" (click)="add()"><i class="fas fa-star"></i>Add to Watchlist</button>
+        <button style="margin:5px;" *ngIf="isAuthenticated" class="btn btn-success" (click)="add()"><i
+            class="fas fa-star"></i>Add to Watchlist</button>
       </div>
-        </div>
+    </div>
     <div class="col-sm-3">
       <br> <br>
-      <p><strong>Last Trading Price:</strong> {{basicData.LastTrade}}</p>   
+      <p><strong>Last Trading Price:</strong> {{basicData.LastTrade}}</p>
       <p><strong>Open Price:</strong> {{basicData.OpenPrice}}</p>
       <p><strong>Close Price:</strong> {{basicData.ClosePrice}}</p>
       <p><strong>YCP:</strong> {{basicData.YCP}}</p>
-      <p><strong>Change:</strong> {{basicData.Change}}</p> 
-      <p><strong>Total Volume:</strong> {{basicData.Volume}}</p>  
-           
+      <p><strong>Change:</strong> {{basicData.Change}}</p>
+      <p><strong>Total Volume:</strong> {{basicData.Volume}}</p>
+
     </div>
 
     <div class="col-sm-3">
-      <br> <br>    
+      <br> <br>
       <p><strong>Market Capital:</strong> {{basicData.MarketCap}}</p>
       <p><strong>Total Shares:</strong> {{basicData.TotalSecurities}}</p>
-      <p><strong>Total Trade:</strong> {{basicData.TotalTrade}}</p> 
+      <p><strong>Total Trade:</strong> {{basicData.TotalTrade}}</p>
       <p><strong>Earnings Per Share(EPS):</strong> {{basicData.EPS}}</p>
       <p><strong>P/E ratio:</strong> {{basicData.AuditedPE}}</p>
       <p><strong>Dividend Yeild:</strong> {{basicData.DividentYield}}</p>
     </div>
 
     <div class="col-sm-2">
-      <br> <br>    
-      <p><strong>Day's Range:</strong> </p><p> {{basicData.DayRange}}</p>
-      <p><strong>52 weeks Range:</strong> </p><p> {{basicData. Week52Range}}</p>
+      <br> <br>
+      <p><strong>Day's Range:</strong> </p>
+      <p> {{basicData.DayRange}}</p>
+      <p><strong>52 weeks Range:</strong> </p>
+      <p> {{basicData. Week52Range}}</p>
       <p><strong>Category:</strong> {{basicData.MarketCategory}}</p>
       <p><strong>Listed since:</strong> {{basicData.ListingYear}}</p>
-    
+
     </div>
   </div>
 
   <div class="row">
-    <div class="col-sm-12">
+    <div class=" row col-sm-12">
       <br>
       <h3>Performance graph</h3>
       <br><br><br>
       <!-- <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis"></apx-chart> -->
-    </div>  
+    </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
-      <h3>Technical Data</h3><br>
-      <!-- <pre>MA10: {{basicData.ma10}}        EMA10: {{basicData.ema10}}</pre>
-      <pre>MA20: {{basicData.ma20}}        EMA20: {{basicData.ema20}}</pre>
-      <pre>MA50: {{basicData.ma50}}        EMA50: {{basicData.ema50}}</pre>
-      <pre>MA100: {{basicData.ma100}}       EMA100: {{basicData.ema100}}</pre>
-      <pre>MA200: {{basicData.ma200}}       EMA200: {{basicData.ema200}}</pre> -->
+    
+      <div class=" col-md-6">
+        <div class="row">
+        <h3>Technical Data</h3>
+
+        <div class="col-md-6">
+          <pre>MA10: {{basicData.ma10}}</pre>
+          <pre>MA20: {{basicData.ma20}}</pre>
+          <pre>MA50: {{basicData.ma50}}</pre>
+          <pre>MA100: {{basicData.ma100}}</pre>
+          <pre>MA200: {{basicData.ma200}}</pre>
+        </div>
+
+        <div class="col-md-6">
+          <pre>EMA10: {{basicData.ema10}}</pre>
+          <pre>EMA20: {{basicData.ema20}}</pre>
+          <pre>EMA50: {{basicData.ema50}}</pre>
+          <pre>EMA100: {{basicData.ema100}}</pre>
+          <pre>EMA200: {{basicData.ema200}}</pre>
+        </div>
+      </div>
     </div>
+
+
+
     <div class="col-md-6">
       <h3>Capital portion graph</h3>
       <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart" [labels]="pieChart2.labels"
@@ -77,15 +99,11 @@
     </div>
   </div>
 
-  <!-- <div id="total1">
-  <h3>Corporate action</h3>
-</div> -->
-
   <div class="row">
     <div class="col-md-6">
       <h3>Shareholding pattern</h3>
       <pre style="text-align:center;">{{basicData.ShareHoldingPercentage}}</pre>
-      
+
       <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels" [xaxis]="pieChart.xaxis"
         [theme]="pieChart.theme"></apx-chart>
     </div>
@@ -111,36 +129,36 @@
     <form [formGroup]="myForm">
       <div class="form-group">
         <label for="tradeCode">Trade Code:</label>
-        <input type="text" id="tradeCode"  class="form-control" placeholder="{{basicData.Scrip}}" disabled>
+        <input type="text" id="tradeCode" class="form-control" placeholder="{{basicData.Scrip}}" disabled>
       </div>
       <div class="form-group">
         <label for="tradeCode">Order Type</label>
-        <input type="text" id="tyoe"  class="form-control" placeholder="Buy" disabled>
+        <input type="text" id="tyoe" class="form-control" placeholder="Buy" disabled>
       </div>
       <div class="form-group">
         <label for="price">Price:</label>
         <input type="number" id="price" class="form-control" formControlName="price"
-            placeholder="{{basicData.LastTrade}}" required>
+          placeholder="{{basicData.LastTrade}}" required>
         <div
-            *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
-            <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
-            <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
+          *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
+          <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
+          <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
         </div>
-    </div>
+      </div>
 
       <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" class="form-control" formControlName="quantity"
-                    placeholder="{{basicData.volume}}" required max="{{basicData.volume}}" min="0">
-                <div
-                    *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
-                    <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
-                    <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
-                        value.</small>
-                    <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
-                        {{basicData.volume}}.</small>
-                </div>
-            </div>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" class="form-control" formControlName="quantity"
+          placeholder="{{basicData.volume}}" required max="{{basicData.volume}}" min="0">
+        <div
+          *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+          <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+          <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+            value.</small>
+          <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
+            {{basicData.volume}}.</small>
+        </div>
+      </div>
       <br>
       <button class="btn btn-success" [disabled]="myForm.invalid" (click)="makeOrder(); c('Save click')">Place
         Order</button>

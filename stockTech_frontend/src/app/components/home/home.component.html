@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<div   class="container-fluid">
+
 <div>
   <h1>Welcome to StockTech!</h1>
 </div>
@@ -6,38 +7,36 @@
 </div>
 <div *ngIf="!spinner" id="left">
   <h3>Company Data</h3>
-  <table datatable [dtOptions]="dtOptions" class="hover" ></table>
+  <table datatable [dtOptions]="dtOptions" class="hover"></table>
 </div>
 
 
 <div id="right1">
   <h3>DSEX</h3>
-  <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" 
-  [xaxis]="lineGraph.xaxis"></apx-chart>
+  <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis"></apx-chart>
 </div>
 
 
 <div id="right2">
   <h3>DSES</h3>
-  <apx-chart [series]="lineGraph2.series" [chart]="lineGraph2.chart" 
-  [xaxis]="lineGraph2.xaxis"></apx-chart>
+  <apx-chart [series]="lineGraph2.series" [chart]="lineGraph2.chart" [xaxis]="lineGraph2.xaxis"></apx-chart>
 </div>
 
 <div id="right3">
   <h3>DS30</h3>
-  <apx-chart [series]="lineGraph3.series" [chart]="lineGraph3.chart" 
-  [xaxis]="lineGraph3.xaxis"></apx-chart>
+  <apx-chart [series]="lineGraph3.series" [chart]="lineGraph3.chart" [xaxis]="lineGraph3.xaxis"></apx-chart>
 </div>
 <div id="left2">
   <h3>Sector wise data</h3>
   <apx-chart [series]="barGraph.series" [chart]="barGraph.chart" [xaxis]="barGraph.xaxis" [stroke]="barGraph.stroke"
-  [tooltip]="barGraph.tooltip" [dataLabels]="barGraph.dataLabels" [legend]="barGraph.legend"
-  [markers]="barGraph.markers" [grid]="barGraph.grid" [yaxis]="barGraph.yaxis" [fill]="barGraph.fill"
-  [title]="barGraph.title" [plotOptions]="barGraph.plotOptions"></apx-chart>
-  </div>
+     [dataLabels]="barGraph.dataLabels" [legend]="barGraph.legend"
+    [markers]="barGraph.markers" [grid]="barGraph.grid" [yaxis]="barGraph.yaxis" [fill]="barGraph.fill"
+    [title]="barGraph.title" [plotOptions]="barGraph.plotOptions"></apx-chart>
+</div>
 <div id="right4">
   <h3>Gainer-Loser Ratio</h3>
-  <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels"
-  [xaxis]="pieChart.xaxis" [colors]="pieChart.colors"></apx-chart>
+  <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels" [xaxis]="pieChart.xaxis"
+    [colors]="pieChart.colors"></apx-chart>
 </div>
-
+  
+</div>
