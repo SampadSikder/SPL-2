@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TechnicalIndicatorsService } from 'src/app/services/technical-indicators.service';
 import { Observable } from 'rxjs';
-
+import { AuthService } from 'src/app/services/auth.service';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -34,44 +35,105 @@ export type ChartOptions = {
   templateUrl: './graph2.component.html',
   styleUrls: ['./graph2.component.css']
 })
-export class Graph2Component implements OnInit {
-  y: [number, number, number, number] = [0, 0, 0, 0];
+export class Graph2Component implements OnInit{
+  
+  currentDate = new Date();
+  currentYear = this.currentDate.getFullYear();
+  dateString :string ='';
+  code:string='';
+  isAuthenticated:boolean=false;
   ngOnInit(): void {
-    this.renderIndiceGraph2();
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
+    this.setYear();
+    console.log(this.dateString);
+    this.route.params.subscribe((params) => {
+      this.code = this.route.snapshot.params['code'];
+    });
     this.renderIndiceGraph();
+    this.renderIndiceGraph2();
+    this.renderIndiceGraph6();
+    this.renderIndiceGraph4();
+    this.renderIndiceGraph5();
     this.renderIndiceGraph3();
+    this.renderIndiceGraph7();
   }
   public lineGraph: Partial<ChartOptions> | any;
   public lineGraph2: Partial<ChartOptions> | any;
   public lineGraph3: Partial<ChartOptions> | any;
+  public lineGraph4: Partial<ChartOptions> | any;
+  public lineGraph5: Partial<ChartOptions> | any;
+  public lineGraph6: Partial<ChartOptions> | any;
+  public lineGraph7: Partial<ChartOptions> | any;
 
   constructor(private TecIndSer: TechnicalIndicatorsService,
-  ) { }
-  isAuthenticated: boolean = true;
+    private route: ActivatedRoute,
+    private auth:AuthService) { }
 
-
+  setYear(){
+    let currentYear = this.currentDate.getFullYear();
+    this.currentDate.setFullYear(currentYear-1);
+    const year =this.currentDate.getFullYear();
+    const month = ('0' + (this.currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + this.currentDate.getDate()).slice(-2);
+    this.dateString = `${year}-${month}-${day}`;
+  }
 
   receiveMACD(): Observable<any> {
-    return this.TecIndSer.getMACD();
+    return this.TecIndSer.getMACD(this.code,this.dateString);
+
+  }
+  receivePredictions(): Observable<any> {
+    return this.TecIndSer.getPredictions(this.code,this.dateString);
 
   }
   receiveSMA(): Observable<any> {
-    return this.TecIndSer.getSMA50();
+    return this.TecIndSer.getSMA50(this.code,this.dateString);
 
   }
   receiveEMA(): Observable<any> {
-    return this.TecIndSer.getEMA50();
+    return this.TecIndSer.getEMA50(this.code,this.dateString);
+
+  }
+  receiveRSI(): Observable<any> {
+    return this.TecIndSer.getRSI(this.code,this.dateString);
+
+  }
+  receiveSTOCH(): Observable<any> {
+    return this.TecIndSer.getSTOCH(this.code,this.dateString);
+
+  }
+  receiveBB(): Observable<any> {
+    return this.TecIndSer.getBB(this.code,this.dateString);
 
   }
 
+
+
   renderIndiceGraph2(): void {
-
-    this.receiveMACD().subscribe((data1) => {
-      const data = Object.entries(data1).map(([x, y]) => ({ x: parseInt(x), y: y }));
-
+    this.receiveSTOCH().subscribe((data1) => {
+      const date = data1['date'];
+      const K = data1['K'];
+      const D = data1['D'];
+      const data = [];
+      for (let i = 0; i < date.length; i++) {
+        const item = {
+          date: parseInt(date[i]),
+          K: K[i],
+          D: D[i]
+        };
+        data.push(item);
+        
+      }
+      console.log(data);
       this.lineGraph = {
         chart: {
-          type: 'area',
+          type: 'line',
           height: '250%',
           width: '90%',
           zoom: {
@@ -80,31 +142,315 @@ export class Graph2Component implements OnInit {
             autoScaleYaxis: true,
           },
         },
-        series: [{
-          name: 'Index',
-          data: data,
-        }
-
+        series: [
+          {
+            name: 'K',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.K,
+            }))
+          },
+          {
+            name: 'D',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.D,
+            }))
+          }
         ],
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 40,
+            height: 8,
+            strokeWidth: 0,
+            radius: 0,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0,
+          },
+        },
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
+        yaxis: [
+          {
+            labels: {
+              formatter: function (val: any) {
+                if (val) return val.toFixed(2);
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        ],
       };
+
       this.lineGraph.render();
-    })
+    });
   }
 
+  renderIndiceGraph3(): void {
+    this.receiveMACD().subscribe((data1) => {
+      const date = data1['date'];
+      const macd = data1['macd'];
+      const signal = data1['signal'];
+      const data = [];
+      for (let i = 0; i < date.length; i++) {
+        const item = {
+          date: parseInt(date[i]),
+          macd: macd[i],
+          signal: signal[i]
+        };
+        data.push(item);
+        
+      }
+      console.log(data);
+      this.lineGraph6 = {
+        chart: {
+          type: 'line',
+          height: '250%',
+          width: '90%',
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+        },
+        series: [
+          {
+            name: 'MACD',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.macd,
+            }))
+          },
+          {
+            name: 'signal',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.signal,
+            }))
+          }
+        ],
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 40,
+            height: 8,
+            strokeWidth: 0,
+            radius: 0,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0,
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            format: 'dd/MM',
+          }
+        },
+        yaxis: [
+          {
+            labels: {
+              formatter: function (val: any) {
+                if (val) return val.toFixed(2);
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        ],
+      };
+
+      this.lineGraph6.render();
+    });
+  }
+
+  renderIndiceGraph4(): void {
+    this.receiveEMA().subscribe((data1) => {
+      const date = data1['date'];
+      const ema50 = data1['ema50'];
+      const ema200 = data1['ema200'];
+      const data = [];
+      for (let i = 0; i < date.length; i++) {
+        const item = {
+          date: parseInt(date[i]),
+          ema50: ema50[i],
+          ema200: ema200[i]
+        };
+        data.push(item);
+        
+      }
+      console.log(data);
+      this.lineGraph4 = {
+        chart: {
+          type: 'line',
+          height: '250%',
+          width: '90%',
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+        },
+        series: [
+          {
+            name: 'ema50',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.ema50,
+            }))
+          },
+          {
+            name: 'ema200',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.ema200,
+            }))
+          }
+        ],
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 40,
+            height: 8,
+            strokeWidth: 0,
+            radius: 0,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0,
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            format: 'dd/MM',
+          }
+        },
+        yaxis: [
+          {
+            labels: {
+              formatter: function (val: any) {
+                if (val) return val.toFixed(2);
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        ],
+      };
+
+      this.lineGraph4.render();
+    });
+  }
+
+  renderIndiceGraph5(): void {
+    this.receiveSMA().subscribe((data1) => {
+      const date = data1['date'];
+      const sma50 = data1['sma50'];
+      const sma200 = data1['sma200'];
+      const data = [];
+      for (let i = 0; i < date.length; i++) {
+        const item = {
+          date: parseInt(date[i]),
+          sma50: sma50[i],
+          sma200: sma200[i]
+        };
+        data.push(item);
+        
+      }
+      console.log(data);
+      this.lineGraph5 = {
+        chart: {
+          type: 'line',
+          height: '250%',
+          width: '90%',
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+        },
+        series: [
+          {
+            name: 'sma50',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.sma50,
+            }))
+          },
+          {
+            name: 'sma200',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.sma200,
+            }))
+          }
+        ],
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 40,
+            height: 8,
+            strokeWidth: 0,
+            radius: 0,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0,
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            format: 'dd/MM',
+          }
+        },
+        yaxis: [
+          {
+            labels: {
+              formatter: function (val: any) {
+                if (val) return val.toFixed(2);
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        ],
+      };
+
+      this.lineGraph5.render();
+    });
+  }
+  
   renderIndiceGraph(): void {
 
-    this.receiveSMA().subscribe((data1) => {
+    this.receiveRSI().subscribe((data1) => {
       const data = Object.entries(data1).map(([x, y]) => ({ x: parseInt(x), y: y }));
       console.log(data);
       this.lineGraph2 = {
         chart: {
-          type: 'area',
+          type: 'line',
           height: '250%',
           width: '90%',
           zoom: {
@@ -114,7 +460,7 @@ export class Graph2Component implements OnInit {
           },
         },
         series: [{
-          name: 'Index',
+          name: 'RSI',
           data: data,
         }],
         xaxis: {
@@ -125,17 +471,28 @@ export class Graph2Component implements OnInit {
         },
       };
       this.lineGraph2.render();
-    })
+    });
   }
 
-  renderIndiceGraph3(): void {
-
-    this.receiveEMA().subscribe((data1) => {
-      const data = Object.entries(data1).map(([x, y]) => ({ x: parseInt(x), y: y }));
+  renderIndiceGraph7(): void {
+    
+    this.receivePredictions().subscribe((data1) => {
+      const dates = data1['days'];
+      const predicted = data1['closing_price'];
+      const data = [];
+      console.log(data1);
+      for (let i = 0; i < dates.length; i++) {
+        const item = {
+          date: dates[i],
+          predicted: predicted[i]
+        };
+        data.push(item);
+      }
+      
       console.log(data);
-      this.lineGraph3 = {
+      this.lineGraph7 = {
         chart: {
-          type: 'candlestick',
+          type: 'line',
           height: '250%',
           width: '90%',
           zoom: {
@@ -144,82 +501,141 @@ export class Graph2Component implements OnInit {
             autoScaleYaxis: true,
           },
         },
-        // series: [{
-        //   name: 'Index',
-        //   data: data,
-        // }],
-        series: [{
-          data: [
-            { x: new Date(1538778600000), y: [6629.81, 6650.5, 6623.04, 6633.33] },
-            { x: new Date(1538780400000), y: [6632.01, 6643.59, 6620, 6630.11] },
-            { x: new Date(1538782200000), y: [6630.71, 6648.95, 6623.34, 6635.65] },
-            { x: new Date(1538784000000), y: [6635.65, 6651, 6629.67, 6638.24] },
-            { x: new Date(1538785800000), y: [6638.24, 6640, 6620, 6624.47] },
-            { x: new Date(1538778600000), y: [6629.81, 6650.5, 6623.04, 6633.33] },
-            { x: new Date(1538780400000), y: [6632.01, 6643.59, 6620, 6630.11] },
-            { x: new Date(1538782200000), y: [6630.71, 6648.95, 6623.34, 6635.65] },
-            { x: new Date(1538784000000), y: [6635.65, 6651, 6629.67, 6638.24] },
-            { x: new Date(1538785800000), y: [6638.24, 6640, 6620, 6624.47] },
-            { x: new Date(1538787600000), y: [6624.53, 6636.03, 6621.68, 6624.31] },
-            { x: new Date(1538789400000), y: [6624.61, 6632.2, 6617, 6626.02] },
-            { x: new Date(1538791200000), y: [6627, 6627.62, 6584.22, 6603.02] },
-            { x: new Date(1538793000000), y: [6605, 6608.03, 6598.95, 6604.01] },
-            { x: new Date(1538794800000), y: [6604.5, 6614.4, 6602.26, 6608.02] },
-            { x: new Date(1538796600000), y: [6608.02, 6610.68, 6601.99, 6608.91] },
-            { x: new Date(1538798400000), y: [6608.91, 6618.99, 6608.01, 6612] },
-            { x: new Date(1538800200000), y: [6612, 6615.13, 6605.09, 6612] },
-            { x: new Date(1538802000000), y: [6612, 6624.12, 6608.43, 6622.95] },
-            { x: new Date(1538803800000), y: [6623.91, 6623.91, 6615, 6615.67] },
-            { x: new Date(1538805600000), y: [6618.69, 6618.74, 6610, 6610.4] },
-            { x: new Date(1538807400000), y: [6611, 6622.78, 6610.4, 6614.9] },
-            { x: new Date(1538809200000), y: [6614.9, 6626.2, 6613.33, 6623.45] },
-            { x: new Date(1538811000000), y: [6623.48, 6627, 6618.38, 6620.35] },
-          ]
-        }],
+        series: [
+          {
+            name: 'predicted',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.predicted,
+            }))
+          }
+        ],
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 40,
+            height: 8,
+            strokeWidth: 0,
+            radius: 0,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0,
+          },
+        },
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
+        yaxis: [
+          {
+            labels: {
+              formatter: function (val: any) {
+                if (val) return val.toFixed(2);
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        ],
       };
-      this.lineGraph3.render();
-    })
+      this.lineGraph7.render();
+    });
   }
 
-  //   renderIndiceGraph4(): void {
+  renderIndiceGraph6(): void {
+    this.receiveBB().subscribe((data1) => {
+      const date = data1['date'];
+      const upper = data1['Upper'];
+      const middle = data1['Middle'];
+      const lower=data1['Lower'];
+      const data = [];
+      for (let i = 0; i < date.length; i++) {
+        const item = {
+          date: parseInt(date[i]),
+          U: upper[i],
+          M: middle[i],
+          L: lower[i]
+        };
+        data.push(item);
+      }
+      console.log(data);
+      this.lineGraph3 = {
+        chart: {
+          type: 'line',
+          height: '250%',
+          width: '90%',
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+        },
+        series: [
+          {
+            name: 'Upper',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.U,
+            }))
+          },
+          {
+            name: 'Middle',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.M,
+            }))
+          },
+          {
+            name: 'Lower',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.L,
+            }))
+          }
+        ],
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 40,
+            height: 8,
+            strokeWidth: 0,
+            radius: 0,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0,
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            format: 'dd/MM',
+          }
+        },
+        yaxis: [
+          {
+            labels: {
+              formatter: function (val: any) {
+                if (val) return val.toFixed(2);
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        ],
+      };
 
-  //     this.receiveEMA().subscribe((data1) => {
-  //       const data = Object.entries(data1).map(([x, y]) => ({ x: parseInt(x), y: y }));
+      this.lineGraph3.render();
+    });
+  }
 
-  // this.lineGraph = {
-  //   chart: {
-  //     type: 'candlestick',
-  //     height: '250%',
-  //     width: '90%',
-  //     zoom: {
-  //       type: 'x',
-  //       enabled: true,
-  //       autoScaleYaxis: true,
-  //     },
-  //   },
-  //   series: [{
-  //     data: data.map((d) => {
-  //       return {
-  //         x: d.x,
-  //         y: [d.y.open, d.y.high, d.y.low, d.y.close]
-  //       }
-  //     }),
-  //   }],
-  //   xaxis: {
-  //     type: 'datetime',
-  //     labels: {
-  //       format: 'dd/MM',
-  //     }
-  //   },
-  // };
-  // this.lineGraph.render();
-
-  //     })
-  //   }
 }

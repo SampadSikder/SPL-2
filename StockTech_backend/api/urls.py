@@ -1,8 +1,11 @@
 from django.urls import path
+
+
 from .views import *
 
 urlpatterns = [
     path('marketData/', market_data),
+    path('bullbear/', bullbear),
     path('news/', news),
     path('sendotp/',sendOTP),
     path('checkotp/',verifyOTP),
@@ -25,4 +28,30 @@ urlpatterns = [
     path('STOCH/',STOCH),
     path('RSI/',RSI),
     path('BB/',BB),
-    path('predict/',prediction)]
+    path('predict/',prediction),
+    path('ssltest/',createSSL),
+    path('ssl/',ssl),
+    path('notices/',getNotices),
+    path('addWatchlist/',addWatchlist),
+    path('deleteWatchlist/',deleteWatchlist),
+    path('selectWatchlist/',selectWatchlist),
+    path('depositOTP/',depoOTP),
+    path('deposit/',deposit),
+    path('withdraw/',withdraw),
+    path('deposits/',deplist),
+    path('getIPO/',ipolist),
+    path('getAppliedIPO/',appliedipolist),
+    path('withdraws/',withlist),
+    path('takeOrder/',getOrder),
+    path('takeIPOOrder/',getIPOOrder),
+    path('getUser/',User),
+    path('getBalance/',Balance),
+    path('getPassword/',Password),
+    path('getPending/',Pending),
+    path('getTransactions/',Transaction),
+    path('getPast/',Past),
+    path('getPortfolio/',Portfolio),
+    path('cancelOrder/',cancelOrder),
+    path('changeOtp/',otpChange),
+    path('matchOtp/',otpMatch),
+    path('changePass/',Passwordchange)]

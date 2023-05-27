@@ -1,15 +1,17 @@
 import { Component, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-boaccountopening',
   templateUrl: './boaccountopening.component.html',
   styleUrls: ['./boaccountopening.component.css']
 })
-export class BoaccountopeningComponent {
+export class BoaccountopeningComponent implements OnInit {
 
+    isAuthenticated:boolean=false;
     accountType: string='';
     operator: string='';
     cycle: string='';
@@ -71,23 +73,28 @@ export class BoaccountopeningComponent {
     baseUrl = 'http://localhost:4000/api/verifyPhone/';
     baseUrl1 = 'http://localhost:4000/api/checkotp/';
   
-    constructor(private http: HttpClient, private elementRef: ElementRef, private router: Router) { }
+    constructor(private http: HttpClient, private elementRef: ElementRef, private router: Router,private auth:AuthService) { }
   
-    sendPhone() {
-      this.http.post(this.baseUrl, { phone: this.Phone }).subscribe(
-        (response) => {
-          this.showOtp = true;
-          this.showPhone = false;
-        },
-        (error) => {
-          console.error('Error:', error);
+    ngOnInit(): void {
+      this.auth.check1((isAuthenticated) => {
+        if (isAuthenticated) {
+          this.isAuthenticated=true;
+        } else {
+          this.isAuthenticated=false;
         }
-      );
+      });
+  
+    }
+    sendPhone() {
+      this.http.post(this.baseUrl,{phone:this.Phone}).subscribe((data)=>{
+        this.showOtp = true;
+        this.showPhone = false;
+      });
   
     }
   
     sendOtp() {
-      this.http.post(this.baseUrl1, { otp: this.OTP }).subscribe({
+      this.http.post(this.baseUrl1, { otp: this.OTP,phone:this.Phone }).subscribe({
         next: (res) => {
           console.log(res);
           if (res == "1") {
@@ -190,15 +197,10 @@ export class BoaccountopeningComponent {
     .subscribe(res => {
       console.log(res);
       alert("BO account created successfully.");
+      
     });
 
     }
 
-  //   this.myform.valueChanges.subscribe(res=>{
-  //     if(res.acc=='whatever number or text '){
-  //       this.joint= true;
-  //     }else{
-  //       this.joint = false;
-  //     }
-  //  });
+
 }

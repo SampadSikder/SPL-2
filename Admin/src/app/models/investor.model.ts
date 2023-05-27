@@ -1,18 +1,19 @@
 import { Loan } from "./loan.model";
 import { Deposit, Withdraw } from "./withdraw.model";
-
+import { Portfolio } from "./portfolio.model";
 export class Investor {
-    name?: String ;
-    BO_account_no?:string;
-    phone?:String;
+    name?: string ;
+    bo?:string;
+    phone?:string;
     email?:string;
     nid?:string;
     address?:string;
     bank?:string;
-    bankNum?:string;
-    withdrawRequests: Withdraw[]=[];
-    deposits: Deposit[]=[];
-    // loanRequests: Loan[]=[];
+    ac?:string;
+    balance?:number
+    withdraw: Withdraw[]=[];
+    deposit: Deposit[]=[];
+    portfolio: Portfolio[]=[];
 }
 
 

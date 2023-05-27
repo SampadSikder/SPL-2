@@ -1,4 +1,4 @@
-<form id="otpForm" *ngIf="!otpVerified">
+<div *ngIf="!isAuthenticated"><form id="otpForm" *ngIf="!otpVerified">
   <h1>Phone Number Verification</h1>
 
   <p><label for="phone">Phone Number </label> <input type="text" [(ngModel)]="Phone" id="phone" name="phone" required>
@@ -6,8 +6,8 @@
 
   <p *ngIf="showOtp"><label for="otp">OTP </label> <input type="text" [(ngModel)]="OTP" id="otp" name="otp" required>
   </p>
-  <button class="btn btn-success" type="submit" (click)="sendPhone()" id="send" *ngIf="showPhone">Send OTP</button>
-  <button class="btn btn-success" type="submit" (click)="sendOtp()" id="send" *ngIf="showOtp">Verify OTP</button>
+  <button  class="btn btn-success" type="submit" (click)="sendPhone()" id="send" *ngIf="showPhone">Send OTP</button>
+  <button  class="btn btn-success" type="submit" (click)="sendOtp()" id="send" *ngIf="showOtp">Verify OTP</button>
   <p *ngIf="!verifyOtp">OTP did not match. Try again!</p>
 
 </form>
@@ -194,3 +194,8 @@
       <button class="btn btn-success" type="submit" id="submit" (click)="submit()">Submit</button>
     </div>
   </div>
+</form>
+</div>
+<div *ngIf="isAuthenticated">
+  <h1>Already Logged In</h1>
+</div>

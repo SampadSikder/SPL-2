@@ -1,24 +1,42 @@
-<div *ngIf="isAuthenticated" class="container">
+<div *ngIf="isAuthenticated">
   <div id="right1">
-    <h3>MACD</h3>
+    <h3>STOCH</h3>
     <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" 
     [xaxis]="lineGraph.xaxis"></apx-chart>
   </div>
 
   <div id="right2">
-    <h3>SMA50</h3>
+    <h3>RSI</h3>
     <apx-chart [series]="lineGraph2.series" [chart]="lineGraph2.chart" 
     [xaxis]="lineGraph2.xaxis"></apx-chart>
   </div>
 
   <div id="right3">
-    <h3>EMA50</h3>
+    <h3>BB</h3>
     <apx-chart [series]="lineGraph3.series" [chart]="lineGraph3.chart" 
     [xaxis]="lineGraph3.xaxis"></apx-chart>
   </div>
-
+  <div id="right4">
+    <h3>EMA</h3>
+    <apx-chart [series]="lineGraph4.series" [chart]="lineGraph4.chart" 
+    [xaxis]="lineGraph4.xaxis"></apx-chart>
+  </div>
+  <div id="right5">
+    <h3>SMA</h3>
+    <apx-chart [series]="lineGraph5.series" [chart]="lineGraph5.chart" 
+    [xaxis]="lineGraph5.xaxis"></apx-chart>
+  </div>
+  <div id="right6">
+    <h3>MACD</h3>
+    <apx-chart [series]="lineGraph6.series" [chart]="lineGraph6.chart" 
+    [xaxis]="lineGraph6.xaxis"></apx-chart>
+  </div>
+  <div id="right7">
+    <h3>Price Estimation (for 30 days)</h3>
+    <apx-chart [series]="lineGraph7.series" [chart]="lineGraph7.chart" 
+    [xaxis]="lineGraph7.xaxis"></apx-chart>
+  </div>
 </div>
-
 <div *ngIf="!isAuthenticated" id="denied" class="container">
-  <h1>You don't have access!</h1>
+  <h1>PLease sign in first</h1>
 </div>

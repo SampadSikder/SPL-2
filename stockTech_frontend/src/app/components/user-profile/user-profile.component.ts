@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Investor } from 'src/app/models/investor.model';
-
+import { AuthService } from 'src/app/services/auth.service';
+import * as crypto from 'crypto-js';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -8,63 +10,61 @@ import { Investor } from 'src/app/models/investor.model';
 })
 export class UserProfileComponent implements OnInit {
 
-  isAuthenticated: boolean = true;
+  isAuthenticated: boolean = false;
+  otpMatched:boolean=false;
+  otpBox:boolean=true;
   user: Investor = new Investor();
-  otp: string='';
-  otpMatched: boolean=false;
-
+  otp:string='';
+  constructor(private auth:AuthService,private http:HttpClient){}
   ngOnInit(): void {
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
     this.getProfile();
 
   }
   getProfile() {
-      this.user = {
-        name: "John Doe",
-        BO_account_no: "123456789",
-        phone: "01234567890",
-        email: "johndoe@example.com",
-        password: "p@ssw0rd",
-        nid: "1234567890123",
-        address: "123 Main St, Anytown, USA",
-        bank: "Example Bank",
-        bankNum: "9876543210"
-    };
-
-
-    // this.user.name = "John Doe";
-    // this.user.BO_account_no = "123456789";
-    // this.user.phone = "555-1234";
-    // this.user.email = "john.doe@example.com";
-    // this.user.password = "mypassword";
-    // this.user.nid = "1234567890";
-    // this.user.address = "123 Main St";
-    // this.user.bank = "My Bank";
-    // this.user.bankNum = "987654321";
-
-
+    this.getUser().subscribe((data) => {
+      this.user=data['user'];});
   }
 
-  edit() {
-    //send user profile
+  getUser() {
+    const url='http://localhost:4000/api/getUser/';
+    return this.http.post<any>(url,{});
+  }
+  alterPassword() {
+    const url='http://localhost:4000/api/changePass/';
+    let hash = crypto.SHA256(this.user.password).toString();
+    return this.http.post<any>(url,{password:hash});
   }
 
   changePassword(){
-    if (confirm('Are you sure you want to change password?')) {
-      alert("Password is reset successfully.");
-      // User clicked "OK", so proceed with the delete action
-    } else {
-      // User clicked "Cancel", so do nothing
-      alert("Password remains unchanged");
-    }
+    this.alterPassword().subscribe((data)=>{
+      alert(data['message']);
+    });
+    
   }
-
-
-  matchOTP(OTP: string){
-    OTP=this.otp;
-
-    //some func t
-    // if(OTP=='a')
-      // this.otpMatched=true;
+  matchOTP(){
+    this.checkOtp().subscribe((data)=>{
+      if(data==1){
+        this.otpMatched=true;
+      }
+    });
+  }
+  changeOtp(){
+    const url='http://localhost:4000/api/changeOtp/';
+    return this.http.post<any>(url,{});
+  }
+  sendOTP(){
+    this.changeOtp().subscribe((data)=>{});
+  }
+  checkOtp(){
+    const url='http://localhost:4000/api/matchOtp/';
+    return this.http.post<any>(url,{otp:this.otp});
   }
 
 }

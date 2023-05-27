@@ -1,70 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from 'src/app/models/order.model';
-
+import { Transaction } from 'src/app/models/order';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit{
-  isAuthenticated: boolean = true;
+  isAuthenticated: boolean = false;
   executedList: Transaction[] = [];
-  
+  constructor(private http:HttpClient,private auth:AuthService){}
   ngOnInit(): void {
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
     this.getExecutedList();
   }
+  getTransactions(){
+    const url='http://localhost:4000/api/getTransactions/'
+    return this.http.post<any>(url,{});
+  }
   getExecutedList() {
-    this.executedList = [
-      {
-          transID: 1,
-          order: {
-              orderID: 1,
-              bo: "123456789",
-              date: new Date(),
-              tradeCode: "AAPL",
-              price: 150,
-              quantity: 10,
-              pendingquantity: 0,
-              type: "buy",
-              status: "pending"
-          },
-          date: new Date(),
-          quantity: 10
-      },
-      {
-          transID: 2,
-          order: {
-              orderID: 2,
-              bo: "123456789",
-              date: new Date(),
-              tradeCode: "GOOG",
-              price: 200,
-              quantity: 5,
-              pendingquantity: 0,
-              type: "sell",
-              status: "partial"
-          },
-          date: new Date(),
-          quantity: 3
-      },
-      {
-          transID: 3,
-          order: {
-              orderID: 3,
-              bo: "123456789",
-              date: new Date(),
-              tradeCode: "AAPL",
-              price: 160,
-              quantity: 15,
-              pendingquantity: 0,
-              type: "sell",
-              status: "cancelled"
-          },
-          date: new Date(),
-          quantity: 5
-      }
-  ];
-  
-    
+    this.getTransactions().subscribe((data)=>{
+      this.executedList=data["list"];
+      console.log(this.executedList);
+    }); 
   }
 }

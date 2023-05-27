@@ -1,67 +1,51 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { platformBrowser } from '@angular/platform-browser';
-import { Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterLink, NavigationExtras } from '@angular/router';
+import { OnInit } from '@angular/core';
 import * as crypto from 'crypto-js';
-import { trigger, style, animate, transition } from '@angular/animations';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  BO_no: string = '';
-  pass: string = '';
-  // showPassword: boolean = false;
-  // rememberMe: boolean = false;
-
-
-
-
-  signInForm: FormGroup = new FormGroup({
-    'bo': new FormControl('', [Validators.required, Validators.pattern('[0-9]{20}')]),
-    'password': new FormControl('', Validators.required),
-    'rememberMe': new FormControl(false)
-  });;
-
+  bo: string= '';
+  password: string= '';
+  
   baseUrl = 'http://localhost:4000/api/login/';
-  constructor(private http: HttpClient, private router: Router,) { }
-
-
+  constructor(private http: HttpClient,  private router: Router,private auth:AuthService) { }
+  isAuthenticated: boolean=false;
   ngOnInit(): void {
-
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
 
   }
-  isAuthenticated: boolean = false;
 
-  //   passwordFieldType = 'password';
-  // passwordFieldIcon = 'far fa-eye';
-  //   togglePassword() {
-  //     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
-  //     this.passwordFieldIcon = this.passwordFieldType === 'password' ? 'far fa-eye' : 'far fa-eye-slash';
-  //   }
 
-  matchInfo() {
-    let hash = crypto.SHA256(this.pass).toString();
-    const data = { BO_no: this.BO_no, pass: hash };
-    this.http.post(this.baseUrl, data)
+  matchInfo(){
+    let hash = crypto.SHA256(this.password).toString();
+    const data = { bo: this.bo, password: hash };
+      this.http.post(this.baseUrl, data)
       .subscribe((response: any) => {
-        if (response.message == "Login Successful") {
+        if (response.message =="Login Successful") {
           alert('Sign in successful');
-          let token = response.token;
-          localStorage.setItem('token', token);
-           console.log("matching info....");
+          let token= response.token;
+          localStorage.setItem('token',token);
 
           // this.auth.setAuth(true);
-          this.isAuthenticated = true;
-          // console.log("sign in: "+this.isAuthenticated);
-          this.router.navigate(['home']);
+          this.isAuthenticated=true;
+          window.location.reload();
+          
 
         } else {
           alert('Sign in failed.');
-          this.router.navigate(['home']);
         }
       });
   }

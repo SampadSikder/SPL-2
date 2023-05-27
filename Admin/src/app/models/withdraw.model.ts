@@ -1,14 +1,14 @@
 export class Withdraw {
-    requestID: number=0;
-    BO:number=0;
-    date:Date=new Date();
+    id: string='';
+    bo: string='';
+    date:string='';
     amount:number=0;
-    status:string=''
+    status:string='';
 }
 
 export class Deposit {
-    bo: string='';
-    transID: number=0;
-    amount: number=0;
-    date: Date=new Date();
+    id: string='';
+    date:string='';
+    amount:number=0;
+    bkash:string='';
 }

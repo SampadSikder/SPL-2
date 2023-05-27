@@ -1,14 +1,10 @@
-
+table{
+    width: 100%;
+}
 
 h2{
     text-align: center; 
   }
-
-  th,td{
-    width:200px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
- }
 
 
   #denied{
@@ -17,4 +13,9 @@ h2{
     display:flex;
     align-items: center;
     justify-content: center;
+}
+
+th,td{
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }

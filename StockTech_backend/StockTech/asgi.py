@@ -14,3 +14,14 @@ from django.core.asgi import get_asgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'StockTech.settings')
 
 application = get_asgi_application()
+
+import threading
+from django.core.management import call_command
+
+def start_scheduler():
+    call_command('run_scheduler')
+
+scheduler_thread = threading.Thread(target=start_scheduler)
+scheduler_thread.daemon = True
+scheduler_thread.start()
+

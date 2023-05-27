@@ -6,8 +6,10 @@ import { Observable } from 'rxjs';
 const baseUrl = 'http://localhost:4000/api/marketData';
 const baseUrl1 = 'http://localhost:4000/api/indices';
 const baseUrl2 = 'http://localhost:4000/api/sectorwise';
-const baseUrl3 = 'http://localhost:4000/api/companyprofile';
-const baseUrl4 = 'http://localhost:4000/api/companyFinance';
+const baseUrl3 = 'http://localhost:4000/api/companyprofile/';
+const baseUrl4 = 'http://localhost:4000/api/companyFinance/';
+const baseUrl5 = 'http://localhost:4000/api/price/';
+const baseUrl6 = 'http://localhost:4000/api/bullbear/';
 
 
 
@@ -77,13 +79,16 @@ export class MarketDataService {
     return this.http.get<any>(baseUrl);
   }
 
-  getWatchlist(): Observable<company[]> {
-    return this.http.get<any>(baseUrl);
+  getWatchlist(): Observable<any> {
+    return this.http.post<any>('http://localhost:4000/api/selectWatchlist/',{});
     // throw new Error('Method not implemented.');
   }
 
-  getFinance(): Observable<any> {
-    return this.http.get<any>(baseUrl4);
+  removeWatchlist(code: string) {
+    return this.http.post<any>('http://localhost:4000/api/deleteWatchlist/',{code:code});
+  }
+  getFinance(code:string): Observable<any> {
+    return this.http.post<any>(baseUrl4,{code:code});
   }
 
   getSectorWiseData(): Observable<sector> {
@@ -94,8 +99,17 @@ export class MarketDataService {
     return this.http.get<any>(baseUrl1);
   }
 
-  getProfile(): Observable<any> {
-    return this.http.get<any>(baseUrl3);
+  getProfile(code:string): Observable<any> {
+    return this.http.post<any>(baseUrl3,{code:code});
+   // return this.http.post(baseUrl3,code);
+  }
+  getBullBear(code:string): Observable<any> {
+    return this.http.post<any>(baseUrl6,{code:code});
+   // return this.http.post(baseUrl3,code);
+  }
+
+  getPrice(code:string,dateFrom:string): Observable<any> {
+    return this.http.post<any>(baseUrl5,{code:code,dateFrom:dateFrom});
    // return this.http.post(baseUrl3,code);
   }
 

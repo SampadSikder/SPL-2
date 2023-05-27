@@ -6,6 +6,8 @@ export class Investor {
     password:string='';
     nid:string='';
     address:string='';
+    city:string='';
+    balance:number=0;
     bank:string='';
     bankNum:string='';
    

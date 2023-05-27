@@ -9,21 +9,24 @@
     <table class="table table-hover">
       <thead>
         <tr class="table-primary">
+          <th scope="col">IPO ID</th>
           <th scope="col">Code</th>
           <th scope="col">Quantity</th>
           <th scope="col">Price</th>
           <th scope="col">Issue Date</th>
+          <th scope="col">Expiry Date</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ipo of list;  let i = index" scope="row">
+          <td>{{ipo.ipoID}}</td>
           <td>{{ ipo.code }}</td>
           <td>{{ ipo.quantity }}</td>
           <td>{{ ipo.price }}</td>
-          <td>{{ ipo.date | date: "dd-MM-yyyy" }}</td>
-          <td><button (click)="open(content,i)" class="btn btn-primary"><i class="fas fa-plus"></i>
-            Apply</button></td>
+          <td>{{ ipo.issueDate | date: "dd-MM-yyyy" }}</td>
+          <td>{{ ipo.expiryDate | date: "dd-MM-yyyy" }}</td>
+          <td><button (click)="open(content,i)" class="btn btn-primary"><i class="fas fa-plus"></i>Apply</button></td>
         </tr>
       </tbody>
     </table>
@@ -36,6 +39,8 @@
     <table class="table table-hover">
       <thead>
         <tr class="table-primary">
+          <th scope="col">IPO ID</th>
+          <th scope="col">Apply ID</th>
           <th scope="col">Code</th>
           <th scope="col">Applied Quantity</th>
           <th scope="col">Allocated Quantity</th>
@@ -46,10 +51,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let ipo of list2" scope="row">
-          <td>{{ ipo.ipo.code }}</td>
-          <td>{{ ipo.ipo.quantity }}</td>
+          <td>{{ipo.ipoID}}</td>
+          <td>{{ipo.reqID}}</td>
+          <td>{{ ipo.code }}</td>
+          <td>{{ ipo.appliedQuantity }}</td>
           <td>{{ ipo.allocatedQuantity }}</td>
-          <td>{{ ipo.ipo.price }}</td>
+          <td>{{ ipo.price }}</td>
           <td>{{ ipo.applyDate| date: "dd-MM-yyyy" }}</td>
           <td>{{ ipo.status }}</td>
      
@@ -68,32 +75,42 @@
       <form  [formGroup]="myForm">
         <div class="form-group">
           <label for="code">Code:</label>
-          <input type="text" class="form-control" id="code" placeholder="{{selected.code}}" disabled>
+          <input type="text" class="form-control" id="code"  [(ngModel)]="order.tradeCode" placeholder="{{order.tradeCode}}" disabled>
         </div>
 
         <div class="form-group">
           <label for="price">Price:</label>
-          <input type="number" class="form-control" id="price" placeholder="{{selected.price}}" disabled>
+          <input type="number" class="form-control" id="price"  [(ngModel)]="order.price" placeholder="{{order.price}}" disabled>
         </div>
         
         <div class="form-group">
           <label for="quatity">Quantity:</label>
-          <input type="number" class="form-control" id="quatity"  formControlName="quantity" [(ngModel)]="sendIPO.ipo.quantity" name="quatity"
-           placeholder="{{selected.quantity}}" required max="{{selected.quantity}}" min="1">
+          <input type="number" class="form-control" id="quatity"  formControlName="quantity" [(ngModel)]="order.quantity" name="quatity"
+           placeholder="0"  min="1">
            <div
            *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
            <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
            <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
-               value.</small>
-           <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
-               {{selected.quantity}}.</small>
+               value.</small></div>
+               <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" [(ngModel)]="password" class="form-control" formControlName="password"
+                     required>
+                <div
+                    *ngIf="myForm.controls['password'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+                    <small *ngIf="myForm.controls['password'].hasError('required')">Password is required.</small>
+                </div>
+            </div>
+            <br>
+              <div><p>Ordered Price: {{order.quantity*order.price}}</p>
+              <p>Commission: {{order.quantity*order.price*0.004}}</p>
+              <p>Total Price: {{order.quantity*order.price*1.004}}</p></div>
        </div>
-        </div>
   
   
         <div class="col-md-12">
           <br>
-          <button type="submit" [disabled]="myForm.invalid" (click)="apply(); d('Cross click')" class="btn btn-success">Make Request</button>
+          <button type="submit" [disabled]="myForm.invalid" (click)="makeOrder(); d('Cross click')" class="btn btn-success">Make Request</button>
           <br><br><br><br>
         </div>
       </form>

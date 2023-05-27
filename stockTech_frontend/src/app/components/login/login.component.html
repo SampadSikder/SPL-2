@@ -1,38 +1,22 @@
+<div *ngIf="!isAuthenticated">
 <div id="left">
     <img src="assets/login.jpg" class="gif-image">
-
 </div>
 
 <div id="right">
-    
-    <form #signInForm="ngForm">
+    <form>
         <h1>Sign In</h1>
         <div>
-            <div class="form-group">
-                <label for="bo">BO Account Number:</label>
-                <input type="text" id="bo" [(ngModel)]="BO_no" name="bo" pattern="[0-9]{20}" required #bo="ngModel">
-                <div *ngIf="bo.invalid && (bo.dirty || bo.touched)">
-                    <small *ngIf="signInForm.controls['bo'].hasError('required')">BO Account Number is required.</small>
-                    <small *ngIf="signInForm.controls['bo'].hasError('pattern')">BO Account Number must be a 20-digit
-                        number.</small>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" [(ngModel)]="pass" name="password" required #password="ngModel">
-                <div *ngIf="password.invalid && (password.dirty || password.touched)">
-                    <small *ngIf="signInForm.controls['passwordInput'].hasError('required')">Password is
-                        required.</small>
-                </div>
-            </div>
-
-            <p class="txt"><input type="checkbox"> Remember me</p>
-           
-            <button type="submit"  class="btn btn-success" [disabled]="signInForm.invalid" (click)="matchInfo()">Sign In</button>
+            <p><label for="bo">BO Account Number: </label> <input type="text" id="bo" [(ngModel)]="bo" name="bo"
+                    pattern="[0-9]{20}" required></p>
+            <p><label for="password">Password:</label> <input type="password" id="password" [(ngModel)]="password"
+                    name="password" required></p>
+            <p id="txt"><input type="checkbox"> remember me</p>
+            <button type="submit" (click)="matchInfo()">Sign In</button>
         </div>
     </form>
-
-
-
+</div>
+</div>
+<div *ngIf="isAuthenticated">
+    <h1>Already Logged In</h1>
 </div>

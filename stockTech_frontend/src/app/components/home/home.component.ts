@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MarketDataService } from 'src/app/services/market-data.service';
-import { company, sector } from 'src/app/services/market-data.service';
-import { Observable } from 'rxjs';
+import { company } from 'src/app/services/market-data.service';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -37,10 +38,12 @@ export type ChartOptions = {
 })
 export class HomeComponent implements OnInit {
 
+
   dtOptions: DataTables.Settings = {};
   dataAvail = true;
   public spinner: boolean = true;
   y: number[] = Array(3).fill(0);
+
   public search: string = '';
   public lineGraph: Partial<ChartOptions> | any;
   public lineGraph2: Partial<ChartOptions> | any;
@@ -48,12 +51,13 @@ export class HomeComponent implements OnInit {
   public pieChart: Partial<ChartOptions> | any;
   public barGraph: Partial<ChartOptions> | any;
 
-  constructor(private MarketDataService: MarketDataService, private router: Router) { }
+  constructor(private http:HttpClient,private MarketDataService: MarketDataService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.renderDataTable();
     this.receiveMarketData().subscribe((data) => {
+      
       data = data.filter(function (dat: any) {
         return dat.trading_code != '';
       });
@@ -61,8 +65,8 @@ export class HomeComponent implements OnInit {
       this.dtOptions.data = data;
       this.dataAvail = true;
     });
-
-
+    console.log(this.http.post('http://localhost:4000/api/authorize/',{}));
+    
     this.renderIndiceGraph("dsex");
     this.renderIndiceGraph2("dses");
     this.renderIndiceGraph3("ds30");
@@ -97,7 +101,7 @@ export class HomeComponent implements OnInit {
         searchPlaceholder: "Search...",
         search: ""
       },
-      pageLength: 20,
+       pageLength: 20,
       columnDefs: [
         { width: '30em', targets: [0, 1, 2, 3, 4] },
         { name: 'some name', targets: 0 },
@@ -112,27 +116,21 @@ export class HomeComponent implements OnInit {
             if (type === 'display') {
               if (row.change < 0) {
                 data =
-                  '<a style="color:red;" href="' +
-                  row.scrip +
-                  '/' +
+                  '<a style="color:red;" href="company/' +
                   row.trading_code +
                   '">' +
                   data +
                   '</a>';
               } else if (row.change == 0) {
                 data =
-                  '<a style="color:#2a76e8;" href="' +
-                  row.scrip +
-                  '/' +
+                  '<a style="color:#2a76e8;" href="company/' +
                   row.trading_code +
                   '">' +
                   data +
                   '</a>';
               } else {
                 data =
-                  '<a style="color:green;" href="' +
-                  row.scrip +
-                  '/' +
+                  '<a style="color:green;" href="company/' +
                   row.trading_code +
                   '">' +
                   data +
@@ -145,8 +143,7 @@ export class HomeComponent implements OnInit {
         },
         { title: 'LTP', data: 'ltp' },
         { title: 'CLOSEP', data: 'closep' },
-        {
-          title: 'CHANGE', data: 'change',
+        { title: 'CHANGE', data: 'change',
           render: function (data, type, row) {
             if (type === 'display') {
               if (row.change < 0) {
@@ -170,7 +167,7 @@ export class HomeComponent implements OnInit {
         $('td', row).on('click', () => {
           self.someClickHandler(data);
         });
-
+      
         return row;
       }
     }
@@ -260,6 +257,7 @@ export class HomeComponent implements OnInit {
   }
 
   renderIndiceGraph3(index: string): void {
+
 
     this.receiveDseIndices().subscribe((data1) => {
       const data2 = data1[index]

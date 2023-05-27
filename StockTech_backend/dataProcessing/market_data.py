@@ -2,13 +2,6 @@ import requests
 from datetime import datetime, timedelta
 import json
 
-def percentage(part, whole):
-    if whole == 0:
-        return "N/A"
-    else:
-        percentage = 100 * float(part) / float(whole)
-        return round(percentage, 2)
-
 class company_data:
     def __init__(self, full_name, ltp, closep, change, ycp, trading_code):
         self.full_name = full_name
@@ -17,7 +10,6 @@ class company_data:
         self.change = change
         self.ycp = ycp
         self.trading_code = trading_code
-        self.percentage = percentage(abs(ycp - ltp), ycp)
 
 def get_market_data():
     arr = []
@@ -29,3 +21,25 @@ def get_market_data():
         arr.append(obj.__dict__)
 
     return arr
+
+def get_bullbear(request):
+    req=json.load(request)
+    code=req['code']
+    response = requests.get(
+        "https://www.amarstock.com/top/day/bullbear")
+    items=response.json()
+    item=items['AllBullBear']
+    item1=item[0]
+    bull=0
+    bear=0
+    neutral=0
+    for item2 in item1:
+        if(item2['Scrip']==code):
+            print(item2)
+            if(item2['Status']=='BULL'):
+                bull=item2['TotalVolume']
+            elif(item2['Status']=='BEAR'):
+                bear=item2['TotalVolume']
+            elif(item2['Status']=='NEUTRAL'):
+                neutral=item2['TotalVolume']
+    return {'bull':bull,'bear':bear,'neutral':neutral}

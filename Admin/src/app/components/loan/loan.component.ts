@@ -14,7 +14,13 @@ export class LoanComponent implements OnInit{
   isAuthenticated: boolean=false;
 
   ngOnInit(): void {
-    this.isAuthenticated=this.auth.isAuthenticated;
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
     this.getlist(); //add list here
 
   }

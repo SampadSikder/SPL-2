@@ -14,7 +14,7 @@ PATH = 'CNN'
 
 
 
-def getPrice(code,dateFrom):
+def getPricePrediction(code,dateFrom):
     
     response = requests.get(f"https://www.amarstock.com/data/afe01cd8b512070a/?scrip={code}&cycle=Day1&dtFrom={dateFrom}T05%3A02%3A13.318Z&fbclid=IwAR0qZBhgiqSV6L6xTerlCEsXvVwtaLMaQvTqqMfUmjloMfBO2jocwV95DE8")
     if (response.status_code == 200):
@@ -36,8 +36,8 @@ def get_OBV(cp, volume):
     OBV = []
     OBV.append(0)
     for i in range(1, len(cp)):
-        if cp[i] > cp[i - 1]:  
-            OBV.append(OBV[-1] + volume[i]) 
+        if cp[i] > cp[i - 1]:  # If the closing price is above the prior close price
+            OBV.append(OBV[-1] + volume[i])  # then: Current OBV = Previous OBV + Current Volume
         elif cp[i] < cp[i - 1]:
             OBV.append(OBV[-1] - volume[i])
         else:
@@ -48,19 +48,20 @@ def get_OBV(cp, volume):
 def buy_sell(closing_price, obv, obv_ema):
     sigPriceBuy = []
     sigPriceSell = []
-    flag = -1 
+    flag = -1  # A flag for the trend upward/downward
+    # Loop through the length of the data set
     for i in range(0, len(obv)):
-        
+        # if OBV > OBV_EMA  and flag != 1 then buy else sell
         if obv[i] > obv_ema[i] and flag != 1:
             sigPriceBuy.append(closing_price[i])
             sigPriceSell.append(-1)  # np.nan
             flag = 1
-        
+        # else  if OBV < OBV_EMA  and flag != 0 then sell else buy
         elif obv[i] < obv_ema[i] and flag != 0:
             sigPriceSell.append(closing_price[i])
             sigPriceBuy.append(-1)
             flag = 0
-        
+        # else   OBV == OBV_EMA  so append NaN
         else:
             sigPriceBuy.append(-1)
             sigPriceSell.append(-1)
@@ -76,7 +77,7 @@ def jsonTOArray(last_100_days, scaler):
     for days in last_100_days:
         l += [[days['Close'], days['Volume']]]
 
-  
+    # scaler = MinMaxScaler(feature_range=(0,1))
     scaled_data = scaler.fit_transform(l)
     # scaled_data
     np_array = np.array(scaled_data)
@@ -86,7 +87,7 @@ def jsonTOArray(last_100_days, scaler):
 
 
 def load_model(code):
-    
+    # company_name = input()
     files = os.listdir(PATH)
 
     if "CNN_1.0_" + code not in files:
@@ -147,9 +148,10 @@ def getPrediction(request):
     req=json.load(request)
     code=req['code']
     dateFrom=req['dateFrom']
-    last_100_days = getPrice(code,dateFrom)[-100:]
+    last_100_days = getPricePrediction(code,dateFrom)[-100:]
     
     if len(last_100_days) < 100:
+        print("hehe")
         return 0
 
     
@@ -159,8 +161,10 @@ def getPrediction(request):
     
     
     model = load_model(code)
+    print(model)
 
     if model == None:
+        print("haha")
         return 0
     closing_price, obv, days, sigPriceBuy, sigPriceSell, obv_ema = getPredictions(model, np_array, scaler, scaled_data,
                                                                                   n)
@@ -169,10 +173,6 @@ def getPrediction(request):
 
     return {
         "closing_price": closing_price,
-        "obv": obv,
-        "days": days,
-        "sigPriceBuy": sigPriceBuy,
-        "sigPriceSell": sigPriceSell,
-        "obv_ema": obv_ema
+        "days": days
     }
 

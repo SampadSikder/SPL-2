@@ -1,6 +1,6 @@
+<div *ngIf="!isAuthenticated">
 <div id="left">
         <img src="assets/login.jpg" class="gif-image">
-        <!-- kiujiouo -->
 </div>
 
 <div id="right">
@@ -13,7 +13,7 @@
                         <p><label for="phone">Phone Number: </label> <input type="tel" [(ngModel)]="phone" id="phone"
                                         name="phone" pattern="[0-9]{11}" required></p>
                         <p id="txt"><input type="checkbox" > Agree to the terms and policy</p>
-                        <p id="txt">Already have account ? <a href='login'> Sign in</a></p><br>
+                        <p id="txt">Already have account ? <a routerLink="/login"> Sign in</a></p><br>
                         <p *ngIf="showOtp"><label for="otp">OTP: </label> <input type="text" [(ngModel)]="OTP" id="otp"
                                         name="otp" required></p>
                         <button (click)="checkBO()" id="send" *ngIf="!showOtp">Send OTP</button>
@@ -26,9 +26,13 @@
                                         id="password" name="password" required></p>
                         <p><label for="password">Confirm Password:</label> <input type="password"
                                         [(ngModel)]="password2" id="password" name="password" required></p>
-                        <button class="btn btn-success"  (click)="matchPassword()" type="submit">Sign Up</button>
+                        <button class="btn btn-success" (click)="matchPassword()" type="submit">Sign Up</button>
 
                 </div>
 
         </form>
+</div>
+</div>
+<div *ngIf="isAuthenticated">
+        <h1>Already Logged In</h1>
 </div>

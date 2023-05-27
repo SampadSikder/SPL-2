@@ -2,12 +2,6 @@
     width: 100%;
    
 }
-
-.txt{
-    text-align: center;  
-}
-
-
 h2{
     text-align: center;
 }
@@ -25,11 +19,14 @@ h2{
 #number{
     padding: 5%; 
 }
-
-#denied{
-    height: 400px; 
-    width:100%;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
+h1{
+    text-align: center;
+    padding: 20px;
+    }
+    #denied{
+        height: 400px; 
+        width:100%;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }

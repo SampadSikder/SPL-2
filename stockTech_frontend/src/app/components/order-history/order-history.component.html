@@ -11,58 +11,54 @@
       <thead>
         <tr class="table-primary">
           <th scope="col">Order ID</th>
-          <th scope="col">Date</th>          
-          <th scope="col">Trade Code</th>
           <th scope="col">Type</th>
+          <th scope="col">Company</th>
+          <th scope="col">Quantity</th>
           <th scope="col">Price</th>
-          <th scope="col">Total Quantity</th>
+          <th scope="col">Order Date</th>
           <th scope="col">Pending Quantity</th>
-          <th scope="col">Status</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of runningList ; let i in index" scope="row">
-          <td>{{ order.orderID }}</td>
-          <td>{{ order.date  |  date: "dd-MM-yyyy" }}</td>
-          <td>{{ order.tradeCode }}</td>
-          <td>{{ order.type }}</td>          
-          <td>{{ order.price }}</td>
-          <td>{{ order.quantity }}</td>
-          <td>{{ order.pendingquantity }}</td>
-          <td>{{ order.status }}</td>
-          <td><button class="btn btn-danger" (click)="cancel(i)"><i class="fa fa-trash"></i></button></td>
-
+        <tr *ngFor="let order of orderList" scope="row">
+          <td>{{order.orderID}}</td>
+          <td>{{order.order_type}}</td>
+          <td>{{order.tradeCode}}</td>
+          <td>{{order.quantity}}</td>
+          <td>{{order.price}}</td>
+          <td>{{order.date}}</td>
+          <td>{{order.pendingquantity}}</td>
+          <td><button class="btn btn-danger" (click)="cancel(order.orderID)">Cancel</button></td>
         </tr>
       </tbody>
     </table>
-    <br><br>
-
-
-
+    <br>
     <h2>Order History</h2>
     <br>
     <table class="table table-hover">
       <thead>
         <tr class="table-primary">
           <th scope="col">Order ID</th>
-          <th scope="col">Date</th>          
-          <th scope="col">Trade Code</th>
           <th scope="col">Type</th>
-          <th scope="col">Price</th>
+          <th scope="col">Company</th>
           <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Pending Quantity</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of notRunningList" scope="row">
-          <td>{{ order.orderID }}</td>
-          <td>{{ order.date  |  date: "dd-MM-yyyy"}}</td>
-          <td>{{ order.tradeCode }}</td>
-          <td>{{ order.type }}</td>         
-          <td>{{ order.price }}</td>
-          <td>{{ order.quantity }}</td>
-          <td>{{ order.status }}</td>
+        <tr *ngFor="let order of orderList1" scope="row">
+          <td>{{order.orderID}}</td>
+          <td>{{order.order_type}}</td>
+          <td>{{order.tradeCode}}</td>
+          <td>{{order.quantity}}</td>
+          <td>{{order.price}}</td>
+          <td>{{order.date}}</td>
+          <td>{{order.pendingquantity}}</td>
+          <td>{{order.status}}</td>
         </tr>
       </tbody>
     </table>

@@ -15,7 +15,7 @@ def checkBO(request):
         cursor.execute(sql_query)
         rows = cursor.fetchall()
     
-    if len(rows) is 1:
+    if len(rows) == 1:
         message="BO account is already registered"
         return message
 
@@ -24,7 +24,7 @@ def checkBO(request):
         cursor.execute(sql_query)
         rows = cursor.fetchall()
     
-    if len(rows) is 0:
+    if len(rows) == 0:
         message="BO account does not exist"
         return message
     

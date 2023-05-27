@@ -120,18 +120,11 @@
     </div>
     <div *ngIf="otpBox" id="number">
       <label for="otp">Enter OTP</label>
-      <input type="password" class="form-control" id="otp" required>
-      <div [ngStyle]="{ 'display': timerFinished ? 'none' : 'block' }">
-        <p class="txt"><small>Time remaining: {{ minutes }}:{{ seconds | number: '2.0' }}</small></p>
-      </div>
+      <input type="password" [(ngModel)]=otp class="form-control" id="otp" required>
       <br>
-      <div *ngIf="timerFinished">
-        <button class="btn btn-outline-light" (click)="resendOTP()">Resend OTP</button>
-        <br>
-      </div>
       <br>
 
-      <button class="btn btn-outline-light" (click)="makePayment(); d('Cross click')">Pay</button>
+      <button class="btn btn-outline-light" (click)="makePayment();d('Cross click')">Pay</button>
       <button style="margin:5px;" class="btn btn-outline-light" (click)="d('Cross click')">Close</button>
     </div>
 

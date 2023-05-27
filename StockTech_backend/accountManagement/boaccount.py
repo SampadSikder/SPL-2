@@ -4,6 +4,8 @@ import json
 from django.db import connection
 
 greenweburl = "http://api.greenweb.com.bd/api.php"
+from django.db import models
+
 
 class boaccount:
     def __init__(self, boaccountno,accountType,operator,cycle,fhName,fhFatHus,fhMot,fhSex,fhDob,fhNid,fhPassport,fhPassportIssuePlace,fhPassportIssueDate,fhPassportExpiryDate,fhOccupation,fhTin,fhAddress,fhCity,fhDiv,fhZip,fhPhone,fhEmail,fhPic,fhSign,shName,shFatHus,shMot,shSex,shDob,shNid,shPassport,shPassportIssuePlace,shPassportIssueDate,shPassportExpiryDate,shOccupation,shTin,shAddress,shCity,shDiv,shZip,shPhone,shEmail,shPic,shSign,routingNo,bankName,branch,bankAC,numOfNominee,cheque,payment):
@@ -61,7 +63,7 @@ class boaccount:
 
     def join_values(self):
         attrs = inspect.signature(self.__init__).parameters
-        values = [f"'{getattr(self, attr)}'" if getattr(self, attr) is not "" else 'Null' for attr in attrs.keys()]
+        values = [f"'{getattr(self, attr)}'" if getattr(self, attr)!="" else 'Null' for attr in attrs.keys()]
         return ','.join(values)
 
 
@@ -80,6 +82,8 @@ def generate_boaccountno():
 
 def createBO(request):
     req=json.load(request)
+    print(req)
+    
     boaccountno=generate_boaccountno()
     sql_query = f"SELECT * FROM BOAccount;"
     with connection.cursor() as cursor:
@@ -107,9 +111,9 @@ def createBO(request):
 		'message': 'Your BO account has been created successfully. Your BO Account number is '+boaccountno+'.'} 
     responses = requests.post(url = greenweburl, data = data) 
     
-    if req['shPhone'] is not '':
+    if req['shPhone']!='':
         shphone='+88'+req['shPhone']
-    data = {'token':"914114232616767950065c3cba674655902f77c6a235eba15727", 
+        data = {'token':"914114232616767950065c3cba674655902f77c6a235eba15727", 
 		'to':shphone, 
 		'message': 'Your BO account has been created successfully. Your BO Account number is '+boaccountno+'.'} 
  

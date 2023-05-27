@@ -8,9 +8,9 @@
 </div>
 
 <div *ngFor="let notification of list">
-  <div id="article">
-      <!-- <small>{{notification.date}}</small> -->
+  <div id="article">   
       <h2>{{ notification.title }}</h2>
+      <p>{{ notification.date }}</p>
       <p>{{ notification.body }}</p>
       
     <br>

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as crypto from 'crypto-js';
+import { OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,7 +11,7 @@ import * as crypto from 'crypto-js';
   styleUrls: ['./sign-up.component.css']
 })
 
-export class SignUpComponent {
+export class SignUpComponent implements OnInit{
   bo: string = '';
   email: string = '';
   password: string = '';
@@ -19,14 +22,14 @@ export class SignUpComponent {
   showPhone: boolean = true;
   verifyOtp: boolean = true;
   verified: boolean = false;
-
+  isAuthenticated:boolean=false;
 
   baseUrl = 'http://localhost:4000/api/checkBO/';
   baseUrl1 = 'http://localhost:4000/api/checkotp/';
   baseUrl2 = 'http://localhost:4000/api/createAccount/';
 
   // form: FormGroup;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private auth:AuthService)  { }
 
   // ngOnInit() {
   //   this.form = this.formBuilder.group({
@@ -34,7 +37,16 @@ export class SignUpComponent {
   //     password: [null, Validators.required],
   //   });
   // }
+  ngOnInit(): void {
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
 
+  }
   checkBO() {
     this.http.post(this.baseUrl, { phone: this.phone,bo:this.bo }).subscribe(
       (res) => {
@@ -53,7 +65,7 @@ export class SignUpComponent {
   }
 
   checkOtp() {
-    this.http.post(this.baseUrl1, { otp: this.OTP }).subscribe({
+    this.http.post(this.baseUrl1, { phone:this.phone,otp: this.OTP }).subscribe({
       next: (res) => {
         if (res == "1") {
           this.verified = true;

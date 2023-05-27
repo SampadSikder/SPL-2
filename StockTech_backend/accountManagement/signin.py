@@ -5,13 +5,12 @@ import jwt
 from django.conf import settings
 from rest_framework.response import Response
 
-from accountManagement.sendOtp import *
+
 
 def login(request):
     req=json.load(request)
     password=req['password']
     bo=req['bo']
-    print(req)
     sql_query = f"SELECT BOAccountNo,Password FROM Investors where BOAccountNo='{bo}';"
     with connection.cursor() as cursor:
         cursor.execute(sql_query)

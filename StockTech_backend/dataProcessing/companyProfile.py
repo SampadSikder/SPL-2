@@ -1,11 +1,11 @@
 import requests, json
+import pandas as pd
+from accountManagement.authMiddle import *
 
 def getProfile(request):
-    # req=json.load(request)
-    # code=req['code']
-    # code=request
-    # print (request)
-    code='GP'
+    req=json.load(request)
+    code=req['code']
+    
     response = requests.get(f"https://www.amarstock.com/data/1258dca00155/{code}?fbclid=IwAR02-1IuXiqgdsEtkfTnWEhPjUsX29tMcMSo_8iFx576_7xYG3r89_v9lQc")
     if (response.status_code == 200):
         result = json.loads(response.text)
@@ -46,26 +46,26 @@ def getProfile(request):
         
     return data
 
-    response_json = response.json()
-    return response_json
-
 def getPrice(request):
     req=json.load(request)
     code=req['code']
     dateFrom=req['dateFrom']
-    # code='GP'
-    # dateFrom='2022-03-19'
-    
     response = requests.get(f"https://www.amarstock.com/data/afe01cd8b512070a/?scrip={code}&cycle=Day1&dtFrom={dateFrom}T05%3A02%3A13.318Z&fbclid=IwAR0qZBhgiqSV6L6xTerlCEsXvVwtaLMaQvTqqMfUmjloMfBO2jocwV95DE8")
-    if (response.status_code == 200):
-        result = json.loads(response.text)
+    result = json.loads(response.text)   
+    df=pd.DataFrame(result)
+    print(df)
+    my_array = df['DateEpoch'].values
+    date=my_array.astype(str).tolist()
+    close = df['Close'].values
+    open = df['Open'].values
+    high = df['High'].values
+    low = df['Low'].values
+    return {'date':date,'close':close,'open':open,'high':high,'low':low}
 
-    return result
 
 def getFinance(request):
-    # req=json.load(request)
-    # code=req['code']
-    code='GP'
+    req=json.load(request)
+    code=req['code']
     response = requests.get(f"https://www.amarstock.com/company/be23-4e69a2ba48b7/?symbol={code}")
     if (response.status_code == 200):
         result = json.loads(response.text)
@@ -73,9 +73,8 @@ def getFinance(request):
     return result
 
 def getNews(request):
-    # req=json.load(request)
-    # code=req['code']
-    code='GP'
+    req=json.load(request)
+    code=req['code']
     all_json_list = {}
     all_json_list["news"] = []
     response = requests.get(f"https://www.amarstock.com/data/1258dca00155/{code}?fbclid=IwAR02-1IuXiqgdsEtkfTnWEhPjUsX29tMcMSo_8iFx576_7xYG3r89_v9lQc")
@@ -93,12 +92,15 @@ def getNews(request):
 
             if title != '' and body != '':
                 jdata = {
+
                     "title": result[title],
                     "body": result[body],
+
                 }
                 all_json_list["news"].append(jdata)
                 title = ''
                 body = ''
+
 
     return all_json_list
 

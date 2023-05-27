@@ -1,6 +1,8 @@
 import requests
 import math, random
 import json
+from datetime import datetime, timedelta
+from django.db import connection
 greenweburl = "http://api.greenweb.com.bd/api.php"
 
 def generateOTP() :
@@ -19,8 +21,9 @@ def sendOTP(otp,phone):
     data = {'token':"914114232616767950065c3cba674655902f77c6a235eba15727", 
 		'to':phone, 
 		'message': message} 
- 
-    responses = requests.post(url = greenweburl, data = data) 
+    
+    responses = requests.post(url = greenweburl, data = data)
+    print(data) 
     response = responses.text 
 
 
@@ -28,15 +31,58 @@ def sendOTP(otp,phone):
 def sendOTPmessage(phone):
     global otp
     otp = generateOTP()
+    expiration_time = datetime.now() + timedelta(minutes=3)
+    sql_query = "insert into otp values ('"
+    sql_query += otp
+    sql_query += "','"
+    sql_query += phone
+    sql_query += "','"
+    datetime_string = expiration_time.strftime("%Y-%m-%d %H:%M:%S")
+    sql_query+=datetime_string
+    sql_query+="');"
+    print(sql_query)
+    with connection.cursor() as cursor:
+        cursor.execute(sql_query)
     sendOTP(otp,phone)
 
 
 def checkOTP(request):
     req=json.load(request)
     reqOTP=req['otp']
-    if(otp==reqOTP):
-        data=1
-    else:
-        data=0
-    
+    reqPhone=req['phone']
+    reqPhone="+88"+reqPhone
+    sql_query = f"SELECT * FROM otp;"
+    with connection.cursor() as cursor:
+        cursor.execute(sql_query)
+        rows = cursor.fetchall()
+    cursor=connection.cursor()
+    now = datetime.now()
+    for row in rows:
+        if(row[2]<now):
+            sql_query="delete from otp where otp='"
+            sql_query+=row[0]
+            sql_query+="' and phone='"
+            sql_query+=row[1]
+            sql_query+="';"
+            print(sql_query)
+            cursor.execute(sql_query)
+    # if(otp==reqOTP):
+    #     data=1
+    # else:
+    #     data=0
+    sql_query = f"SELECT * FROM otp;"
+    with connection.cursor() as cursor:
+        cursor.execute(sql_query)
+        rows = cursor.fetchall()
+
+    for row in rows:
+        print("req"+reqPhone)
+        print(row[1])
+        if(reqOTP==row[0] and reqPhone==row[1]):
+            data='1'
+            return data
+
+    data='0'
     return data
+
+

@@ -1,6 +1,9 @@
 export class IPO {
-    tradeCode: string='';
-    date: Date=new Date();
+    id:string='';
+    code: string='';
+    start: string='';
+    end: string='';
+    status: string='';
     price: number=0;
     quantity: number=0;
 

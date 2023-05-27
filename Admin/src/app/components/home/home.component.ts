@@ -1,102 +1,38 @@
 import { Investor } from 'src/app/models/investor.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  constructor(private auth: AuthService){}
+  constructor(private auth: AuthService,private http:HttpClient){}
     
   investors: Investor[] = [];
   isAuthenticated: boolean=false;
 
   ngOnInit(): void { 
-    //this.auth.isAuthenticated=true; //change here
-    this.isAuthenticated=this.auth.isAuthenticated;
+    this.auth.check1((isAuthenticated) => {
+        if (isAuthenticated) {
+          this.isAuthenticated=true;
+        } else {
+          this.isAuthenticated=false;
+        }
+      });
     this.getInvestorList();
   }
 
   getInvestorList() {
-    // add list here
-    this.investors = [
-      {
-          name: "John Doe",
-          BO_account_no: "123456789",
-          phone: "1234567890",
-          email: "johndoe@example.com",
-          nid: "1234567890123",
-          address: "123 Main St, Anytown, USA",
-          bank: "Example Bank",
-          bankNum: "9876543210",
-          withdrawRequests: [
-              {
-                  requestID: 1,
-                  BO: 123456789,
-                  date: new Date(),
-                  amount: 500,
-                  status: "pending"
-              },
-              {
-                  requestID: 2,
-                  BO: 123456789,
-                  date: new Date(),
-                  amount: 1000,
-                  status: "approved"
-              }
-          ],
-          deposits: [
-              {
-                  bo: "123456789",
-                  transID: 1,
-                  amount: 2000,
-                  date: new Date(),
-                 
-              },
-              {
-                  bo: "123456789",
-                  transID: 2,
-                  amount: 5000,
-                  date: new Date(),
-                 
-              }
-          ]
-      },
-      {
-          name: "Jane Doe",
-          BO_account_no: "987654321",
-          phone: "9876543210",
-          email: "janedoe@example.com",
-          nid: "9876543210987",
-          address: "456 Oak St, Anytown, USA",
-          bank: "Example Bank",
-          bankNum: "1234567890",
-          withdrawRequests: [
-              {
-                  requestID: 3,
-                  BO: 987654321,
-                  date: new Date(),
-                  amount: 1000,
-                  status: "approved"
-              }
-          ],
-          deposits: [
-              {
-                  bo: "987654321",
-                  transID: 3,
-                  amount: 10000,
-                  date: new Date(),
-                 
-              }
-          ]
-      }
-  ];
-  
-  
+    this.geInvestors().subscribe((data)=>{
+        this.investors = data['list'];
+    });
   }
- 
+  geInvestors() {
+    const url='http://localhost:4000/admin/getList/';
+    return this.http.post<any>(url,{});
+  }
 
 
   selectedInvestor: Investor =new Investor();
@@ -106,7 +42,10 @@ export class HomeComponent implements OnInit{
   }
 
   remove(investor: Investor): void {
-    //remove user
+    this.http.post('http://localhost:4000/admin/delete/',{bo:investor.bo}).subscribe((data)=>{
+        alert("Deleted Successfully.");
+        window.location.reload();
+    });
   }
 
 }

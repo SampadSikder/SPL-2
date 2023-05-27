@@ -3,14 +3,6 @@ h1,h2,h3{
     color: black;
   }
 
-  #denied{
-    height: 400px; 
-    width:100%;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-
   #left{
     height: 1000px;
     width: 60%;
@@ -26,7 +18,7 @@ h1,h2,h3{
     flex-direction: column;
   }
   
-  #right1,#right2,#right3,#right4{
+  #right1,#right2,#right3,#right4,#right5,#right6,#right7{
     float: left;
     height: 800px;
     width: 100%;

@@ -13,7 +13,7 @@
       <p><strong>Full Name:</strong> {{basicData.FullName}}</p>
       <p><strong>Trade Code:</strong> {{basicData.Scrip}}</p>
       <pre><a href="https://{{basicData.Web}}/">Click here to visit website</a></pre>
-     
+      <br>
       <div style="width: 100% ;text-align:center;">
         <button *ngIf="isAuthenticated" class="btn btn-success" (click)="open(content)"><i
             class="fas fa-shopping-cart"></i>
@@ -21,7 +21,7 @@
         <button style="margin:5px;" *ngIf="isAuthenticated" class="btn btn-success" (click)="showGraph()"><i
             class="fas fa-chart-line"></i>
           View Indicator</button>
-        <button style="margin:5px;" *ngIf="isAuthenticated" class="btn btn-success" (click)="add()"><i
+        <button style="margin:5px;" *ngIf="isAuthenticated" class="btn btn-success" (click)="sendWatchlist()"><i
             class="fas fa-star"></i>Add to Watchlist</button>
       </div>
     </div>
@@ -63,53 +63,36 @@
       <br>
       <h3>Performance graph</h3>
       <br><br><br>
-      <!-- <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis"></apx-chart> -->
+      <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis"></apx-chart>
     </div>
   </div>
   <div class="row">
-    
-      <div class=" col-md-6">
-        <div class="row">
-        <h3>Technical Data</h3>
-
-        <div class="col-md-6">
-          <pre>MA10: {{basicData.ma10}}</pre>
-          <pre>MA20: {{basicData.ma20}}</pre>
-          <pre>MA50: {{basicData.ma50}}</pre>
-          <pre>MA100: {{basicData.ma100}}</pre>
-          <pre>MA200: {{basicData.ma200}}</pre>
-        </div>
-
-        <div class="col-md-6">
-          <pre>EMA10: {{basicData.ema10}}</pre>
-          <pre>EMA20: {{basicData.ema20}}</pre>
-          <pre>EMA50: {{basicData.ema50}}</pre>
-          <pre>EMA100: {{basicData.ema100}}</pre>
-          <pre>EMA200: {{basicData.ema200}}</pre>
-        </div>
-      </div>
-    </div>
-
-
-
     <div class="col-md-6">
+      <h3>Bull vs Bear</h3><br>
+      <apx-chart [series]="pieChart3.series" [chart]="pieChart3.chart" [labels]="pieChart3.labels"
+        [xaxis]="pieChart3.xaxis" [colors]="pieChart3.colors"></apx-chart>
+    </div>
+    <div class="col-md-6" >
       <h3>Capital portion graph</h3>
       <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart" [labels]="pieChart2.labels"
         [xaxis]="pieChart2.xaxis" [colors]="pieChart2.colors"></apx-chart>
     </div>
   </div>
 
+  <!-- <div id="total1">
+  <h3>Corporate action</h3>
+</div> -->
+
   <div class="row">
     <div class="col-md-6">
       <h3>Shareholding pattern</h3>
       <pre style="text-align:center;">{{basicData.ShareHoldingPercentage}}</pre>
-
       <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [labels]="pieChart.labels" [xaxis]="pieChart.xaxis"
         [theme]="pieChart.theme"></apx-chart>
     </div>
     <div class="col-md-6" id="right4">
       <h3>News</h3>
-      <div *ngFor="let news of newsData.news">
+      <div *ngFor="let news of newsData">
         <strong>{{ news.title }}:</strong><br>
         <small>{{ news.body }}</small>
         <br><br>
@@ -117,6 +100,63 @@
 
     </div>
   </div>
+
+ <!-- <div class="row">
+    <div id="total2">
+      <h3>Financial Statement Summary</h3>
+      <table datatable [dtOptions]="dtOptions" class="hover"></table> 
+      <table>
+        <thead>
+          <tr>
+            <th>Particulars</th>
+            <th>2021</th>
+            <th>2020</th>
+            <th>2019</th>
+            <th>2018</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let row of financialData">
+            <td *ngIf="row.r=='cash-flow-statement'">{{row.k}}</td>
+            <td *ngIf="row.r=='balance-sheet' && row.y=='2021'">{{ row.l }}</td> 
+
+            <ng-container *ngFor="let row2 of financialData">
+              <ng-container *ngIf="row2.k==row.k && row2!=row && row2.r=='cash-flow-statement'">
+                <td *ngIf="row2.y=='2021'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2021'">-</td>
+                <td *ngIf="row2.y=='2020'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2020'">-</td>
+                <td *ngIf="row2.y=='2019'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2019'">-</td>
+                <td *ngIf="row2.y=='2018'">{{row2.l}}</td>
+                <td *ngIf="row2.y!='2018'">-</td>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngFor="let row2 of financialData">
+              <td *ngIf="row2.k==row.k && row2.r=='cash-flow-statement' && row.y!=row2.y  && row2.y=='2020'">{{row2.l}}
+              </td>
+            </ng-container>
+            <ng-container *ngFor="let row2 of financialData">
+              <td *ngIf="row2.k==row.k && row2.r=='cash-flow-statement' && row.y!=row2.y  && row2.y=='2019'">{{row2.l}}
+              </td>
+            </ng-container>
+            <ng-container *ngFor="let row2 of financialData">
+              <td *ngIf="row2.k==row.k && row2.r=='cash-flow-statement' && row.y!=row2.y  && row2.y=='2018'">{{row2.l}}
+              </td>
+            </ng-container> 
+
+          </tr>
+          <ng-template #elseBlock>
+            <td></td>
+          </ng-template>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div> -->
+
 </div>
 
 
@@ -129,37 +169,52 @@
     <form [formGroup]="myForm">
       <div class="form-group">
         <label for="tradeCode">Trade Code:</label>
-        <input type="text" id="tradeCode" class="form-control" placeholder="{{basicData.Scrip}}" disabled>
+        <input type="text" id="tradeCode" [(ngModel)]="order.tradeCode" class="form-control" placeholder="{{order.tradeCode}}" disabled>
       </div>
       <div class="form-group">
         <label for="tradeCode">Order Type</label>
-        <input type="text" id="tyoe" class="form-control" placeholder="Buy" disabled>
+        <input type="text" id="tyoe"  class="form-control" placeholder="Buy" disabled>
       </div>
       <div class="form-group">
         <label for="price">Price:</label>
-        <input type="number" id="price" class="form-control" formControlName="price"
-          placeholder="{{basicData.LastTrade}}" required>
+        <input type="number" id="price" [(ngModel)]="order.price" class="form-control" formControlName="price"
+            placeholder="{{order.price}}" required>
         <div
-          *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
-          <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
-          <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
+            *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
+            <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
+            <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
+            <small *ngIf="myForm.controls['price'].hasError('min')">Price cannot be so small.</small>
+          <small *ngIf="myForm.controls['price'].hasError('max')">Price cannot be so large.</small>
         </div>
-      </div>
+    </div>
 
       <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" class="form-control" formControlName="quantity"
-          placeholder="{{basicData.volume}}" required max="{{basicData.volume}}" min="0">
-        <div
-          *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
-          <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
-          <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
-            value.</small>
-          <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
-            {{basicData.volume}}.</small>
-        </div>
-      </div>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" [(ngModel)]="order.quantity" class="form-control" formControlName="quantity"
+                    placeholder="0" required max="{{basicData.volume}}" min="1">
+                <div
+                    *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+                    <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+                    <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+                        value.</small>
+                    <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
+                        {{basicData.volume}}.</small>
+                </div>
+            </div>
       <br>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" [(ngModel)]="password" class="form-control" formControlName="password"
+             required>
+        <div
+            *ngIf="myForm.controls['password'].invalid && (myForm.controls['password'].dirty || myForm.controls['password'].touched)">
+            <small *ngIf="myForm.controls['password'].hasError('required')">Password is required.</small>
+        </div>
+    </div>
+    <br>
+      <div><p>Ordered Price: {{order.quantity*order.price}}</p>
+      <p>Commission: {{order.quantity*order.price*0.004}}</p>
+      <p>Total Price: {{order.quantity*order.price*1.004}}</p></div>
       <button class="btn btn-success" [disabled]="myForm.invalid" (click)="makeOrder(); c('Save click')">Place
         Order</button>
     </form>

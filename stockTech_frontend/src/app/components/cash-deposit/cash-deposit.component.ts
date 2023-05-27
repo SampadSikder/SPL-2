@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Deposit, Withdraw } from 'src/app/models/deposit.model';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,15 +21,10 @@ export class CashDepositComponent implements OnInit{
  
   myForm!: FormGroup;
 
-  timeRemaining = 120;
-  minutes: number=0;
-  seconds: number=0;
-  timer: any;
-  timerFinished = false;
-
   otpBox: boolean=false;
+  otp:string='';
 
-  isAuthenticated: boolean = true;
+  isAuthenticated: boolean = false;
   invoice: number=0;
   
 
@@ -39,88 +35,30 @@ export class CashDepositComponent implements OnInit{
   newwithdraw: Withdraw=new Withdraw();
 
 
-  constructor(private http: HttpClient, private modalService: NgbModal) { }
+  constructor(private http: HttpClient, private modalService: NgbModal,private auth:AuthService) { }
   ngOnInit(): void {
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
+      }
+    });
    this.get_deposit_list();
    this.get_withdraw_list();
   }
 
-  setTimer() {
- 
-    this.minutes = Math.floor(this.timeRemaining / 60);
-    this.seconds = this.timeRemaining % 60;
- 
-    this.timer = setInterval(() => {
-      this.timeRemaining--;
-      this.minutes = Math.floor(this.timeRemaining / 60);
-      this.seconds = this.timeRemaining % 60;
- 
-      if (this.timeRemaining === 0) {
-        clearInterval(this.timer);
-        this.timerFinished = true;
-      }
-    }, 1000);
- 
-  }
-
-  resendOTP(){
-    this.timerFinished=false;
-    this.timeRemaining = 120;
-    this.setTimer();
-    //resend func
-  }
-
   get_deposit_list() {
-  this.depositList=[
-      {
-        bo: '1234',
-        transID: 1,
-        amount: 1000,
-        date: new Date('2023-04-29'),
-        phone: "1234567890"
-      },
-      {
-        bo: '5678',
-        transID: 2,
-        amount: 2000,
-        date: new Date('2023-04-28'),
-        phone: "9876543210"
-      },
-      {
-        bo: '9012',
-        transID: 3,
-        amount: 500,
-        date: new Date('2023-04-27'),
-        phone: "1112223333"
-      }
-    
-  ] ; 
+    this.getDeposits().subscribe((data1) => {
+      this.depositList=data1['deposits'];
+  });
   }
   get_withdraw_list() {
- this.withdrawList=[
-  {
-    requestID: 1,
-    BO: 1234,
-    date: new Date('2023-04-26'),
-    amount: 500,
-    status: 'Completed'
-  },
-  {
-    requestID: 2,
-    BO: 5678,
-    date: new Date('2023-04-25'),
-    amount: 1000,
-    status: 'Pending'
-  },
-  {
-    requestID: 3,
-    BO: 9012,
-    date: new Date('2023-04-24'),
-    amount: 200,
-    status: 'Cancelled'
-  }
- ];
-  }
+    this.getWithdraws().subscribe((data1) => {
+      this.withdrawList=data1['withdraws'];
+      console.log(this.withdrawList);
+  });
+}
 
   open(content: any) {
     this.myForm = new FormGroup({
@@ -130,10 +68,19 @@ export class CashDepositComponent implements OnInit{
     this.getInvoice();
   }
 
-  getOTP(){
-    this.otpBox=true;
-    this.setTimer();
-    console.log(this.newdeposit.phone);
+  makePayment(){
+    const url='http://localhost:4000/api/deposit/'
+    this.http.post(url,{phone:this.newdeposit.phone,otp:this.otp,amount:this.newdeposit.amount}).subscribe((data) => {
+      if(data=="1"){
+        alert("Successfully deposited");
+      }
+      else{
+        alert("OTP does not match. Deposit failed.");
+      }
+      this.otpBox=false;
+      window.location.reload();
+    });
+    
     //otp functionality
   }
 
@@ -141,15 +88,31 @@ export class CashDepositComponent implements OnInit{
     this.invoice= Math.floor(Math.random() * 900000) + 100000;
   }
 
-  makePayment(){
-    this.newdeposit.date=new Date();
-    //send amount and date
+  getOTP(){
+    const url='http://localhost:4000/api/depositOTP/'
+    this.http.post(url,{phone:this.newdeposit.phone}).subscribe((data) => {
+      this.otpBox=true;});
   }
+
+  withdrawReq():Observable<any>{
+    const url='http://localhost:4000/api/withdraw/'
+    return this.http.post<any>(url,{amount:this.newwithdraw.amount});}
 
   makeWithdraw(){
-    this.newwithdraw.date=new Date();
-     //send amount and date
-     alert("request sent successfully");
+    this.withdrawReq().subscribe((data) => {
+      alert(data['message']);
+      window.location.reload();}
+      );
+    
   }
 
+  getWithdraws(): Observable<any> {
+    const url='http://localhost:4000/api/withdraws/'
+    return this.http.post<any>(url, { });
+  }
+
+  getDeposits(): Observable<any> {
+    const url='http://localhost:4000/api/deposits/'
+    return this.http.post<any>(url, { });
+  }
 }

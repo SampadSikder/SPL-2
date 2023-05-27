@@ -1,126 +1,62 @@
 import { Component, OnInit } from '@angular/core';
-import { Order } from 'src/app/models/order.model';
-import { trigger, transition, style, animate } from '@angular/animations';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Order } from 'src/app/models/order';
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('500ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('500ms', style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
+  styleUrls: ['./order-history.component.css']
 })
-export class OrderHistoryComponent implements OnInit {
-  isAuthenticated: boolean = true;
-  runningList: Order[] = [];
 
-  notRunningList: Order[] = [];
-
+export class OrderHistoryComponent implements OnInit{
+  constructor(private http:HttpClient,private auth:AuthService){}
+  isAuthenticated: boolean = false;
   ngOnInit(): void {
-    this.getRunningList();
-    this.getNotRunningList();
-    
-  }
-
-
-  getRunningList() {
-    this.runningList = [
-      {
-          orderID: 1,
-          bo: "123456789",
-          date: new Date(),
-          tradeCode: "AAPL",
-          price: 150,
-          quantity: 10,
-          pendingquantity: 10,
-          type: "buy",
-          status: "pending"
-      },
-      {
-          orderID: 2,
-          bo: "987654321",
-          date: new Date(),
-          tradeCode: "GOOG",
-          price: 200,
-          quantity: 5,
-          pendingquantity:2,
-          type: "sell",
-          status: "partial"
-      },
-      {
-          orderID: 3,
-          bo: "123456789",
-          date: new Date(),
-          tradeCode: "AAPL",
-          price: 160,
-          quantity: 15,
-          pendingquantity: 10,
-          type: "sell",
-          status: "partial"
+    this.auth.check1((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.isAuthenticated=true;
+      } else {
+        this.isAuthenticated=false;
       }
-  ];
-  
+    });
+   this.getOrderList();
+   this.getPastOrderList();
   }
-  getNotRunningList() {
-    this.notRunningList=[
-      {
-        orderID: 1,
-        bo: "123456789",
-        date: new Date(),
-        tradeCode: "AAPL",
-        price: 150,
-        quantity: 10,
-        pendingquantity: 10,
-        type: "buy",
-        status: "cancelled"
-    },
-    {
-        orderID: 2,
-        bo: "987654321",
-        date: new Date(),
-        tradeCode: "GOOG",
-        price: 200,
-        quantity: 5,
-        pendingquantity: 10,
-        type: "sell",
-        status: "executed"
-    },
-    {
-        orderID: 3,
-        bo: "123456789",
-        date: new Date(),
-        tradeCode: "AAPL",
-        price: 160,
-        quantity: 15,
-        pendingquantity: 10,
-        type: "sell",
-        status: "cancelled"
-    }
-    ];
-  }
+  orderList:Order[]=[];
+  orderList1:Order[]=[];
   
+fetchPendingOrders(){
+  const baseUrl='http://localhost:4000/api/getPending/'; 
+    return this.http.post<any>(baseUrl,{});
+}
+fetchPastOrders(){
+  const baseUrl='http://localhost:4000/api/getPast/'; 
+    return this.http.post<any>(baseUrl,{});
+}
 
-  cancel(order: Order){
-   
-    if (confirm('Are you sure you want to cancel order '+order.orderID+'?')) {
-      alert("Order "+order.orderID+" is cancellled");
-      // User clicked "OK", so proceed with the delete action
-      //remove from db
-    } else {
-      // User clicked "Cancel", so do nothing
-      alert("Order "+order.orderID+" is not cancellled");
-    }
-    
-    
-  }
+cancelOrder(oid:string){
+  const baseUrl='http://localhost:4000/api/cancelOrder/'; 
+    return this.http.post<any>(baseUrl,{id:oid});
+}
+
+cancel(oid:string) {
+  this.cancelOrder(oid).subscribe((data)=>{
+    alert(data['message']);
+    window.location.reload();
+  });
+}
+ getOrderList() {
+  this.fetchPendingOrders().subscribe((data)=>{
+    this.orderList=data['pendings'];
+  });
+}
+
+getPastOrderList() {
+  this.fetchPastOrders().subscribe((data)=>{
+    this.orderList1=data['past'];
+  });
+}
 
 }
 

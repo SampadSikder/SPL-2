@@ -49,6 +49,12 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-md-4"><label>City:</label></div>
+            <div class="col-md-8">
+              <p>{{user.city}}</p>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-4"><label>Bank name:</label></div>
             <div class="col-md-8">
               <p>{{user.bank}}</p>
@@ -60,56 +66,24 @@
               <p>{{user.bankNum}}</p>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-4"><label>Balance:</label></div>
+            <div class="col-md-8">
+              <p>{{user.balance}}</p>
+            </div>
+          </div>
           <hr>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#editProfileModal">Edit
-              Profile</button>
-            <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#getotp">Change Password</button>
+            <!-- <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button> -->
+            <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#getotp" (click)="sendOTP()">Change Password</button>
+</div>
+          
           </div>
-
-        </div>
       </div>
     </div>
   </div>
   <br>
 </div>
-
-<!-- Modal for edit profile-->
-<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" class="form-control" id="phone" [(ngModel)]="user.phone" placeholder="{{user.phone}}"
-              name="phone">
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" [(ngModel)]="user.email" placeholder="{{user.email}}"
-              name="email">
-          </div>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="edit()">Save Changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 
 <!-- Modal for change password (get otp)-->
 <div class="modal fade" id="getotp" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel"
@@ -122,16 +96,15 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
+      <div class="modal-body" >
+        <form *ngIf="otpBox">
           <div class="form-group">
             <p>We sent an OTP to your phone number</p>
             <label for="otp">OTP:</label>
             <input type="text" class="form-control" id="otp" placeholder="Enter OTP" name="otp" [(ngModel)]='otp'>
           </div>
         </form>
-        <br>
-        <button class="btn btn-primary mx-2" data-toggle="modal" (click)="matchOTP(otp)"
+        <button class="btn btn-primary mx-2" data-toggle="modal" (click)="matchOTP()"
           data-target="#editPassword" data-dismiss="modal">Change Password</button>
       </div>
     </div>
@@ -165,7 +138,7 @@
           <button type="button" class="btn btn-primary" (click)="changePassword()">Save Changes</button>
         </div>
       </div>
-      <div  *ngIf="!otpMatched">
+      <div *ngIf="!otpMatched">
         <div class="modal-body">
             <h3>OTP did not match</h3>
         </div>

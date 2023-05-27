@@ -21,16 +21,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let request of list">
-          <td>{{ request.requestID }}</td>
-          <td>{{ request.BO }}</td>
-          <td>{{ request.date | date: "dd-MM-yyyy" }}</td>
-          <td>{{ request.amount | currency }}</td>
+          <td>{{ request.id }}</td>
+          <td>{{ request.bo }}</td>
+          <td>{{ request.date  }}</td>
+          <td>{{ request.amount }}</td>
           <td>{{ request.status }}</td>
-          <td *ngIf="request.status === 'Pending'">
+          <td *ngIf="request.status == 'pending'">
             <button type="button" class="btn btn-success" (click)="acceptRequest(request)">Accept</button>
             <button type="button" class="btn btn-danger" (click)="rejectRequest(request)">Reject</button>
           </td>
-          <td *ngIf="request.status !== 'Pending'">N/A</td>
+          <td *ngIf="request.status != 'pending'">N/A</td>
         </tr>
       </tbody>
     </table>

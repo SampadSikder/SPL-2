@@ -1,7 +1,7 @@
 
 
 <div *ngIf="isAuthenticated" id="denied" class="container">
-  <h1>You already signed in.</h1>
+  <h1>You are already signed in.</h1>
 </div>
 
 
@@ -24,13 +24,13 @@
             <input type="{{ passwordFieldType }}" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="Password" required>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
-                <i class="{{ passwordFieldIcon }}"></i>
+                <i class="{{passwordFieldIcon}}"></i>
               </button>
             </div>
           </div>
         </div>
         <br><br>
-        <button type="submit" (click)="signin()" class="btn btn-primary">Submit</button>
+        <button type="submit" (click)="matchInfo()" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
