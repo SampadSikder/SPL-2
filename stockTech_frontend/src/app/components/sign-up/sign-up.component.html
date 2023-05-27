@@ -1,5 +1,5 @@
 <div id="left">
-
+        <img src="assets/login.jpg" class="gif-image">
 </div>
 
 <div id="right">
@@ -11,7 +11,7 @@
                       
                         <p><label for="phone">Phone Number: </label> <input type="tel" [(ngModel)]="phone" id="phone"
                                         name="phone" pattern="[0-9]{11}" required></p>
-                        <p id="txt"><input type="checkbox" > Agree the terms and policy</p>
+                        <p id="txt"><input type="checkbox" > Agree to the terms and policy</p>
                         <p id="txt">Already have account ? <a href='login'> Sign in</a></p><br>
                         <p *ngIf="showOtp"><label for="otp">OTP: </label> <input type="text" [(ngModel)]="OTP" id="otp"
                                         name="otp" required></p>
