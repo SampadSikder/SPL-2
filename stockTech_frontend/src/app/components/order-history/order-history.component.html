@@ -26,10 +26,10 @@
           <td>{{order.order_type}}</td>
           <td>{{order.tradeCode}}</td>
           <td>{{order.quantity}}</td>
-          <td>{{order.price}}</td>
-          <td>{{order.date}}</td>
+          <td [style.color]="order.order_type === 'buy' ? 'red' : 'green'">{{order.price}}</td>
+          <td>{{order.date | date: "dd-MM-yyyy"}}</td>
           <td>{{order.pendingquantity}}</td>
-          <td><button class="btn btn-danger" (click)="cancel(order.orderID)">Cancel</button></td>
+          <td><button class="btn btn-danger" (click)="cancel(order.orderID)"><i class="fa-solid fa-trash-can"></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -55,8 +55,8 @@
           <td>{{order.order_type}}</td>
           <td>{{order.tradeCode}}</td>
           <td>{{order.quantity}}</td>
-          <td>{{order.price}}</td>
-          <td>{{order.date}}</td>
+          <td [style.color]="order.order_type === 'buy' ? 'red' : 'green'">{{order.price}}</td>
+          <td>{{order.date | date: "dd-MM-yyyy"}}</td>
           <td>{{order.pendingquantity}}</td>
           <td>{{order.status}}</td>
         </tr>

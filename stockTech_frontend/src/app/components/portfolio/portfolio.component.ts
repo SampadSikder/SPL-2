@@ -123,7 +123,7 @@ export class PortfolioComponent implements OnInit {
     this.pieChart = {
       chart: {
         type: 'pie',
-        width: '65%',
+        width: '60%',
       },
 
       series: this.list2.map((d) => d.volumeCumulative),
