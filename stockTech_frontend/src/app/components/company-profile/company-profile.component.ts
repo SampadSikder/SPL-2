@@ -141,7 +141,6 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
     return this.MarketDataService.getBullBear(this.code);
   }
 
-
   receiveMarketData(): Observable<any> {
     return this.MarketDataService.getMarketData();
   }
@@ -173,10 +172,10 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
 
   receivePrice(): Observable<any> {
     return this.MarketDataService.getPrice(this.code,this.dateString);
-
   }
-  renderPriceGraph(): void {
 
+
+  renderPriceGraph(): void {
     this.receivePrice().subscribe((data1) => {
       const date=data1['date'];
       const open=data1['open'];
@@ -218,11 +217,18 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
             format: 'dd/MM',
           }
         },
+        yaxis: 
+          {
+            labels: {
+              formatter: function(value: number) {
+                return value.toFixed(2);
+              }
+            }
+          },
       };
       this.lineGraph.render();
     })
   }
-
  
 
   renderPieChart(): void {
@@ -236,16 +242,20 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
             },
             theme: {
               monochrome: {
-                enabled: true
+                enabled: true,
+                color: '#255aee',
+               
               }
             },
             series:[this.graphdata.Institute,this.graphdata.Foreign, this.graphdata.Public,this.graphdata.Govt,this.graphdata.SponsorDirector], 
            labels: categories,            
           };
+          
           this.pieChart.render();
         },
        );
      }
+
 
   renderPieChart3(): void {
       this.getData1().subscribe ((data)=> {
@@ -254,13 +264,12 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
             this.pieChart3 = {
               chart: {
                 type: 'pie',
-                 width: '55%',
+                 width: '50%',
               },
               theme: {
-                monochrome: {
-                  enabled: true
-                }
+                palette: 'palette1' // upto palette10
               },
+              
               series:[this.graphdata1.bull,this.graphdata1.bear, this.graphdata1.neutral], 
              labels: categories,            
             };
@@ -277,13 +286,14 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
             this.pieChart2 = {
               chart: {
                 type: 'pie',
-                 width: '70%',
+                 width: '65%',
+             
               },
               theme: {
-                monochrome: {
-                  enabled: true
-                }
+                palette: 'palette4' // upto palette10
               },
+              
+              
               series:[this.graphdata.AuthorizedCap,this.graphdata.PaidUpCap],
              labels: categories,            
             };

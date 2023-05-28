@@ -65,7 +65,9 @@ def fetchPending(request):
         for row1 in rows1:
             pending=order(row1[0],row1[1],row1[2],row1[3],row1[4],row1[5],row1[6],row1[7],row1[8])
             pendings.append(pending.__dict__)
+       
         return {'pendings':pendings}
+    
     return {'Not Authenticated'}
 
 def fetchPast(request):
@@ -73,7 +75,8 @@ def fetchPast(request):
     req=json.load(request)
     result=authorize(req['token'])
     if(result['isAuthenticated']=='true'):
-        sql_query = f"SELECT * from orders where status='executed' or status='cancelled' and bo='{result['bo']}';"
+        sql_query = f"SELECT * from orders where (status='executed' OR status='cancelled') and bo='{result['bo']}';"
+        print(sql_query)
         with connection.cursor() as cursor:
                 cursor.execute(sql_query)
                 rows1 = cursor.fetchall()

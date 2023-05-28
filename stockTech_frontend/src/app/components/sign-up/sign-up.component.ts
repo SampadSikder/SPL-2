@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as crypto from 'crypto-js';
 import { OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit{
   baseUrl2 = 'http://localhost:4000/api/createAccount/';
 
   // form: FormGroup;
-  constructor(private http: HttpClient,private auth:AuthService)  { }
+  constructor(private http: HttpClient,private auth:AuthService, private router: Router)  { }
 
   // ngOnInit() {
   //   this.form = this.formBuilder.group({
@@ -93,6 +93,7 @@ export class SignUpComponent implements OnInit{
           } else {
             alert('Sign up failed: ' + response.error);
           }
+          this.router.navigate(["home"]);
         });
     }
     else {

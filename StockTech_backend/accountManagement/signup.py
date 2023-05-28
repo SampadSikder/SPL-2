@@ -30,8 +30,10 @@ def checkBO(request):
     
     row=rows[0]
     if phone==row[0]:
+        phone="+88"+phone
         sendOTPmessage(phone)
     elif phone==row[1]:
+        phone="+88"+phone
         sendOTPmessage(phone)
     else:
         message="Phone number does not match"

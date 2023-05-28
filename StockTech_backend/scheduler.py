@@ -7,4 +7,4 @@ def run_my_task():
     Command().executeIPO()
     print("sss")
 
-# schedule.every(20).seconds.do(run_my_task)
+schedule.every(30).seconds.do(run_my_task)

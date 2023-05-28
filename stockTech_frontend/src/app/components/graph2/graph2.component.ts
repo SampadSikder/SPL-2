@@ -42,6 +42,15 @@ export class Graph2Component implements OnInit{
   dateString :string ='';
   code:string='';
   isAuthenticated:boolean=false;
+
+  rsi: string = "The Relative Strength Index (RSI) is represented on a scale of 0 to 100, the RSI helps traders and investors assess whether an asset is overbought or oversold. Readings above 70 indicate an overbought condition, suggesting a potential downward correction, while readings below 30 indicate an oversold condition, suggesting a potential upward correction.";
+  stoch: string = "The Stoch graph consists of two lines, %K and %D, which represent the current closing price relative to the high-low range over a specified period. %K reflects price momentum and %D is a smoothed version of %K. Interpreting the graph involves analyzing the positions of %K and %D. When %K crosses above %D and rises above 20, it indicates a buying opportunity. Conversely, when %K crosses below %D and falls below 80, it suggests a selling opportunity. The graph oscillates between 0 and 100, reflecting potential price movements and overbought/oversold conditions.";
+  bb: string="Bollinger Bands consist of a moving average (usually 20-day) with an upper band and a lower band that represent two standard deviations from the moving average. They help identify periods of high or low volatility and potential price reversals. When the price moves near the upper band, it suggests an overbought condition and a potential bearish reversal. Conversely, when the price approaches the lower band, it indicates an oversold condition and a potential bullish reversal.";
+  ema: string="Exponential Moving Average is a type of moving average that places more weight on recent price data, making it more responsive to price changes compared to Simple Moving Average (SMA). It calculates the average price over a specified period, with more weight given to recent prices. EMA is often used to identify short-term trends and generate trading signals. Traders commonly use combinations of different EMAs, such as the 9-day EMA and the 50-day EMA, to analyze price movements and identify potential entry and exit points. When the price is consistently above the moving averages, it suggests a bullish trend. Conversely, when the price consistently stays below them, it indicates a bearish trend.";
+  sma: string="Simple Moving Average is a basic moving average that calculates the average price over a specific period, giving equal weight to each data point in that period. SMA is widely used to smooth out price fluctuations and identify longer-term trends. Traders often use SMA crossovers, such as the 50-day SMA crossing above or below the 200-day SMA, as signals to enter or exit trades. When the price is consistently above the moving averages, it suggests a bullish trend. Conversely, when the price consistently stays below them, it indicates a bearish trend.";
+  macd: string="MACD is a trend-following momentum indicator that calculates the difference between two exponential moving averages (usually 12-day and 26-day). It also includes a signal line (typically a 9-day EMA) to generate trading signals when the MACD line crosses above or below the signal line. When the MACD line (fast line) crosses above the signal line (slow line), it generates a bullish signal. Conversely, when the MACD line crosses below the signal line, it generates a bearish signal.";
+  prediction: string="The graph represents the price forecast for the next 30 days. It provides an insight into the expected direction and potential movement of the price over the specified period. ";
+
   ngOnInit(): void {
     this.auth.check1((isAuthenticated) => {
       if (isAuthenticated) {
@@ -135,13 +144,17 @@ export class Graph2Component implements OnInit{
         chart: {
           type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
             autoScaleYaxis: true,
           },
         },
+        stroke: {
+          width: 2
+        },
+        colors: ['#0B6623', '#d32f2f', '#546E7A', '#E91E63', '#FF9800'],
         series: [
           {
             name: 'K',
@@ -158,39 +171,21 @@ export class Graph2Component implements OnInit{
             }))
           }
         ],
-        legend: {
-          show: true,
-          position: 'top',
-          horizontalAlign: 'right',
-          markers: {
-            width: 40,
-            height: 8,
-            strokeWidth: 0,
-            radius: 0,
-            customHTML: undefined,
-            onClick: undefined,
-            offsetX: 0,
-            offsetY: 0,
-          },
-        },
+        
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
-        yaxis: [
+        yaxis: 
           {
             labels: {
-              formatter: function (val: any) {
-                if (val) return val.toFixed(2);
-              },
-            },
-            tooltip: {
-              enabled: true,
-            },
+              formatter: function(value: number) {
+                return value.toFixed(2);
+              }
+            }
           },
-        ],
       };
 
       this.lineGraph.render();
@@ -215,9 +210,9 @@ export class Graph2Component implements OnInit{
       console.log(data);
       this.lineGraph6 = {
         chart: {
-          type: 'line',
+          // type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
@@ -227,6 +222,7 @@ export class Graph2Component implements OnInit{
         series: [
           {
             name: 'MACD',
+            type: 'line',
             data: data.map(item => ({
               x: new Date(item.date),
               y: item.macd,
@@ -234,45 +230,32 @@ export class Graph2Component implements OnInit{
           },
           {
             name: 'signal',
+            type: "bar",
             data: data.map(item => ({
               x: new Date(item.date),
               y: item.signal,
             }))
           }
         ],
-        legend: {
-          show: true,
-          position: 'top',
-          horizontalAlign: 'right',
-          markers: {
-            width: 40,
-            height: 8,
-            strokeWidth: 0,
-            radius: 0,
-            customHTML: undefined,
-            onClick: undefined,
-            offsetX: 0,
-            offsetY: 0,
-          },
-        },
+        // plotOptions: {
+        //   column: {
+        //     columnWidth: '1%', // Adjust the width of the columns as desired
+        //   }
+        // },
+       
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
-        yaxis: [
-          {
-            labels: {
-              formatter: function (val: any) {
-                if (val) return val.toFixed(2);
-              },
-            },
-            tooltip: {
-              enabled: true,
-            },
-          },
-        ],
+        yaxis: {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
+          }
+        },
       };
 
       this.lineGraph6.render();
@@ -299,7 +282,7 @@ export class Graph2Component implements OnInit{
         chart: {
           type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
@@ -322,39 +305,20 @@ export class Graph2Component implements OnInit{
             }))
           }
         ],
-        legend: {
-          show: true,
-          position: 'top',
-          horizontalAlign: 'right',
-          markers: {
-            width: 40,
-            height: 8,
-            strokeWidth: 0,
-            radius: 0,
-            customHTML: undefined,
-            onClick: undefined,
-            offsetX: 0,
-            offsetY: 0,
-          },
-        },
+       
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
-        yaxis: [
-          {
-            labels: {
-              formatter: function (val: any) {
-                if (val) return val.toFixed(2);
-              },
-            },
-            tooltip: {
-              enabled: true,
-            },
-          },
-        ],
+        yaxis:  {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
+          }
+        },
       };
 
       this.lineGraph4.render();
@@ -381,7 +345,7 @@ export class Graph2Component implements OnInit{
         chart: {
           type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
@@ -404,39 +368,20 @@ export class Graph2Component implements OnInit{
             }))
           }
         ],
-        legend: {
-          show: true,
-          position: 'top',
-          horizontalAlign: 'right',
-          markers: {
-            width: 40,
-            height: 8,
-            strokeWidth: 0,
-            radius: 0,
-            customHTML: undefined,
-            onClick: undefined,
-            offsetX: 0,
-            offsetY: 0,
-          },
-        },
+       
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
-        yaxis: [
-          {
-            labels: {
-              formatter: function (val: any) {
-                if (val) return val.toFixed(2);
-              },
-            },
-            tooltip: {
-              enabled: true,
-            },
-          },
-        ],
+        yaxis: {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
+          }
+        },
       };
 
       this.lineGraph5.render();
@@ -452,7 +397,7 @@ export class Graph2Component implements OnInit{
         chart: {
           type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
@@ -467,6 +412,13 @@ export class Graph2Component implements OnInit{
           type: 'datetime',
           labels: {
             format: 'dd/MM',
+          }
+        },
+        yaxis: {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
           }
         },
       };
@@ -494,7 +446,7 @@ export class Graph2Component implements OnInit{
         chart: {
           type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
@@ -510,39 +462,20 @@ export class Graph2Component implements OnInit{
             }))
           }
         ],
-        legend: {
-          show: true,
-          position: 'top',
-          horizontalAlign: 'right',
-          markers: {
-            width: 40,
-            height: 8,
-            strokeWidth: 0,
-            radius: 0,
-            customHTML: undefined,
-            onClick: undefined,
-            offsetX: 0,
-            offsetY: 0,
-          },
-        },
+       
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
-        yaxis: [
-          {
-            labels: {
-              formatter: function (val: any) {
-                if (val) return val.toFixed(2);
-              },
-            },
-            tooltip: {
-              enabled: true,
-            },
-          },
-        ],
+        yaxis: {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
+          }
+        },
       };
       this.lineGraph7.render();
     });
@@ -569,7 +502,7 @@ export class Graph2Component implements OnInit{
         chart: {
           type: 'line',
           height: '250%',
-          width: '90%',
+          width: '95%',
           zoom: {
             type: 'x',
             enabled: true,
@@ -599,39 +532,20 @@ export class Graph2Component implements OnInit{
             }))
           }
         ],
-        legend: {
-          show: true,
-          position: 'top',
-          horizontalAlign: 'right',
-          markers: {
-            width: 40,
-            height: 8,
-            strokeWidth: 0,
-            radius: 0,
-            customHTML: undefined,
-            onClick: undefined,
-            offsetX: 0,
-            offsetY: 0,
-          },
-        },
+        
         xaxis: {
           type: 'datetime',
           labels: {
             format: 'dd/MM',
           }
         },
-        yaxis: [
-          {
-            labels: {
-              formatter: function (val: any) {
-                if (val) return val.toFixed(2);
-              },
-            },
-            tooltip: {
-              enabled: true,
-            },
-          },
-        ],
+        yaxis: {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
+          }
+        },
       };
 
       this.lineGraph3.render();

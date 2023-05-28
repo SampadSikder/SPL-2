@@ -63,7 +63,7 @@
       <br>
       <h3>Performance graph</h3>
       <br><br><br>
-      <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis"></apx-chart>
+      <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis"  [yaxis]="lineGraph.yaxis"></apx-chart>
     </div>
   </div>
   <div class="row">
@@ -71,13 +71,13 @@
       <br><br>
       <h3>Bull vs Bear</h3><br>
       <apx-chart [series]="pieChart3.series" [chart]="pieChart3.chart" [labels]="pieChart3.labels"
-        [xaxis]="pieChart3.xaxis" [colors]="pieChart3.colors"></apx-chart>
+        [xaxis]="pieChart3.xaxis" [colors]="pieChart3.colors" [theme]="pieChart3.theme"></apx-chart>
     </div>
-    <div class="col-md-6" >
+    <div class="col-md-6">
       <br><br>
       <h3>Capital portion graph</h3>
       <apx-chart [series]="pieChart2.series" [chart]="pieChart2.chart" [labels]="pieChart2.labels"
-        [xaxis]="pieChart2.xaxis" [colors]="pieChart2.colors"></apx-chart>
+        [xaxis]="pieChart2.xaxis" [colors]="pieChart2.colors" [theme]="pieChart2.theme"></apx-chart>
     </div>
   </div>
 
@@ -114,52 +114,55 @@
     <form [formGroup]="myForm">
       <div class="form-group">
         <label for="tradeCode">Trade Code:</label>
-        <input type="text" id="tradeCode" [(ngModel)]="order.tradeCode" class="form-control" placeholder="{{order.tradeCode}}" disabled>
+        <input type="text" id="tradeCode" [(ngModel)]="order.tradeCode" class="form-control"
+          placeholder="{{order.tradeCode}}" disabled>
       </div>
       <div class="form-group">
         <label for="tradeCode">Order Type</label>
-        <input type="text" id="tyoe"  class="form-control" placeholder="Buy" disabled>
+        <input type="text" id="tyoe" class="form-control" placeholder="Buy" disabled>
       </div>
       <div class="form-group">
         <label for="price">Price:</label>
         <input type="number" id="price" [(ngModel)]="order.price" class="form-control" formControlName="price"
-            placeholder="{{order.price}}" required>
+          placeholder="{{order.price}}" required>
         <div
-            *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
-            <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
-            <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
-            <small *ngIf="myForm.controls['price'].hasError('min')">Price cannot be so small.</small>
+          *ngIf="myForm.controls['price'].invalid && (myForm.controls['price'].dirty || myForm.controls['price'].touched)">
+          <small *ngIf="myForm.controls['price']?.errors?.['required']">Price is required.</small>
+          <small *ngIf="myForm.controls['price']?.errors?.['min']">Price must be a positive value.</small>
+          <small *ngIf="myForm.controls['price'].hasError('min')">Price cannot be so small.</small>
           <small *ngIf="myForm.controls['price'].hasError('max')">Price cannot be so large.</small>
         </div>
-    </div>
+      </div>
 
       <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" [(ngModel)]="order.quantity" class="form-control" formControlName="quantity"
-                    placeholder="0" required max="{{basicData.volume}}" min="1">
-                <div
-                    *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
-                    <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
-                    <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
-                        value.</small>
-                    <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
-                        {{basicData.volume}}.</small>
-                </div>
-            </div>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" [(ngModel)]="order.quantity" class="form-control" formControlName="quantity"
+          placeholder="0" required max="{{basicData.volume}}" min="1">
+        <div
+          *ngIf="myForm.controls['quantity'].invalid && (myForm.controls['quantity'].dirty || myForm.controls['quantity'].touched)">
+          <small *ngIf="myForm.controls['quantity'].hasError('required')">Quantity is required.</small>
+          <small *ngIf="myForm.controls['quantity'].hasError('min')">Quantity must be a positive
+            value.</small>
+          <small *ngIf="myForm.controls['quantity'].hasError('max')">Quantity cannot be greater than
+            {{basicData.volume}}.</small>
+        </div>
+      </div>
       <br>
       <div class="form-group">
         <label for="password">Password:</label>
         <input type="password" id="password" [(ngModel)]="password" class="form-control" formControlName="password"
-             required>
+          required>
         <div
-            *ngIf="myForm.controls['password'].invalid && (myForm.controls['password'].dirty || myForm.controls['password'].touched)">
-            <small *ngIf="myForm.controls['password'].hasError('required')">Password is required.</small>
+          *ngIf="myForm.controls['password'].invalid && (myForm.controls['password'].dirty || myForm.controls['password'].touched)">
+          <small *ngIf="myForm.controls['password'].hasError('required')">Password is required.</small>
         </div>
-    </div>
-    <br>
-      <div><p>Ordered Price: {{order.quantity*order.price}}</p>
-      <p>Commission: {{order.quantity*order.price*0.004}}</p>
-      <p>Total Price: {{order.quantity*order.price*1.004}}</p></div>
+      </div>
+      <br>
+      <div>
+        <p>Ordered Price: {{order.quantity*order.price}}</p>
+        <p>Commission: {{order.quantity*order.price*0.004}}</p>
+        <p>Total Price: {{order.quantity*order.price*1.004}}</p>
+      </div>
       <button class="btn btn-success" [disabled]="myForm.invalid" (click)="makeOrder(); c('Save click')">Place
         Order</button>
     </form>

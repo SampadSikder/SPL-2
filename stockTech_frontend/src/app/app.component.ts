@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
     this.isAuthenticated=false;
-    window.location.reload();
+    const targetUrl = 'home'; 
+    window.location.href = targetUrl;
   }
 }

@@ -175,7 +175,6 @@ export class HomeComponent implements OnInit {
   }
 
   renderIndiceGraph(index: string): void {
-
     this.receiveDseIndices().subscribe((data1) => {
       const data2 = data1[index];
       const data = Object.entries(data2).map(([x, y]) => ({ x: parseInt(x), y: y }));
@@ -191,10 +190,7 @@ export class HomeComponent implements OnInit {
             autoScaleYaxis: true,
           },
         },
-        // title: {
-        //   text: index,
-        //   align: 'center',
-        // },
+     
         series: [{
           name: 'Index',
           data: data,
@@ -205,20 +201,18 @@ export class HomeComponent implements OnInit {
             format: 'h:mm',
           }
         },
-        fill: {
-          colors: ['#ffffff'],
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.7,
-            opacityTo: 0.6,
-            stops: [0, 90, 100],
-          },
+        yaxis: {
+          decimalsInFloat: 2, // Display two decimal places
         },
-        grid: {
-          borderColor: '#f1f1f1',
+        stroke: {
+          width: 1.5,
+          
         },
+        
+        dataLabels: {
+          enabled: false 
+        },
+        
 
       };
       this.lineGraph.render();
@@ -252,6 +246,9 @@ export class HomeComponent implements OnInit {
             format: 'h:mm',
           }
         },
+        yaxis: {
+          decimalsInFloat: 2, // Display two decimal places
+        },
       };
       this.lineGraph.render();
     })
@@ -284,6 +281,13 @@ export class HomeComponent implements OnInit {
           type: 'datetime',
           labels: {
             format: 'h:mm',
+          }
+        },
+        yaxis: {
+          labels: {
+            formatter: function(value: number) {
+              return value.toFixed(2);
+            }
           }
         },
       };
@@ -341,7 +345,7 @@ export class HomeComponent implements OnInit {
         }, {
           name: 'Neutral',
           data: data1["Neutral"],
-          color: '#2196f3',
+          color: '#00008B',
 
 
         }],
@@ -377,16 +381,9 @@ export class HomeComponent implements OnInit {
 
 
         },
-        yaxis: {
-          title: {
-            text: undefined
-          },
-
-        },
-
         fill: {
           opacity: 1,
-          colors: ['#0B6623', '#d32f2f', '#2196f3']// set colors for each series,
+          colors: ['#0B6623', '#d32f2f', '#00008B']// set colors for each series,
         },
         legend: {
           position: 'top',

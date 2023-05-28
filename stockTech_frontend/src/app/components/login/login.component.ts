@@ -52,5 +52,6 @@ export class LoginComponent implements OnInit {
           alert('Sign in failed.');
         }
       });
+      
   }
 }

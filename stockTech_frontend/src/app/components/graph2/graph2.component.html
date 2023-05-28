@@ -1,41 +1,135 @@
 <div *ngIf="isAuthenticated">
-  <div id="right1">
-    <h3>STOCH</h3>
-    <apx-chart [series]="lineGraph.series" [chart]="lineGraph.chart" 
-    [xaxis]="lineGraph.xaxis"></apx-chart>
+  <br><br>
+  <!-- stoch -->
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>STOCH</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph.series" [colors]="lineGraph.colors" [stroke]="lineGraph.stroke"
+          [chart]="lineGraph.chart" [xaxis]="lineGraph.xaxis" [yaxis]="lineGraph.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <div class="description">
+
+        <h5>Interpretation</h5>
+        <p>{{ stoch }}</p>
+      </div>
+    </div>
   </div>
 
-  <div id="right2">
-    <h3>RSI</h3>
-    <apx-chart [series]="lineGraph2.series" [chart]="lineGraph2.chart" 
-    [xaxis]="lineGraph2.xaxis"></apx-chart>
+  <!-- rsi -->
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>RSI</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph2.series" [chart]="lineGraph2.chart" [xaxis]="lineGraph2.xaxis"  [yaxis]="lineGraph2.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <div class="description">
+
+        <h5>Interpretation</h5>
+        <p>{{ rsi }}</p>
+      </div>
+    </div>
   </div>
 
-  <div id="right3">
-    <h3>BB</h3>
-    <apx-chart [series]="lineGraph3.series" [chart]="lineGraph3.chart" 
-    [xaxis]="lineGraph3.xaxis"></apx-chart>
+  <!-- bb -->
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>BB</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph3.series" [chart]="lineGraph3.chart" [xaxis]="lineGraph3.xaxis"  [yaxis]="lineGraph3.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <div class="description">
+        <h5>Interpretation</h5>
+        <p>{{ bb }}</p>
+      </div>
+    </div>
   </div>
-  <div id="right4">
-    <h3>EMA</h3>
-    <apx-chart [series]="lineGraph4.series" [chart]="lineGraph4.chart" 
-    [xaxis]="lineGraph4.xaxis"></apx-chart>
+
+  <!-- ema -->
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>EMA</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph4.series" [chart]="lineGraph4.chart" [xaxis]="lineGraph4.xaxis"  [yaxis]="lineGraph4.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <div class="description">
+        <h5>Interpretation</h5>
+        <p>{{ ema }}</p>
+      </div>
+    </div>
   </div>
-  <div id="right5">
-    <h3>SMA</h3>
-    <apx-chart [series]="lineGraph5.series" [chart]="lineGraph5.chart" 
-    [xaxis]="lineGraph5.xaxis"></apx-chart>
+
+  <!-- sma -->
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>SMA</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph5.series" [chart]="lineGraph5.chart" [xaxis]="lineGraph5.xaxis "  [yaxis]="lineGraph5.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <div class="description">
+        <h5>Interpretation</h5>
+        <p>{{ sma }}</p>
+      </div>
+    </div>
   </div>
-  <div id="right6">
-    <h3>MACD</h3>
-    <apx-chart [series]="lineGraph6.series" [chart]="lineGraph6.chart" 
-    [xaxis]="lineGraph6.xaxis"></apx-chart>
+
+
+  <!-- macd -->
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>MACD</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph6.series" [plotOptions]="lineGraph6.plotOptions" [chart]="lineGraph6.chart" [xaxis]="lineGraph6.xaxis"  [yaxis]="lineGraph6.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <div class="description">
+        <h5>Interpretation</h5>
+        <p>{{ macd }}</p>
+      </div>
+    </div>
   </div>
-  <div id="right7">
-    <h3>Price Estimation (for 30 days)</h3>
-    <apx-chart [series]="lineGraph7.series" [chart]="lineGraph7.chart" 
-    [xaxis]="lineGraph7.xaxis"></apx-chart>
+
+  <!-- prediction -->
+  <div class="row">
+    <div class="col-sm-9">
+      <h3>Price Estimation (for 30 days)</h3>
+      <br>
+      <div class="left">
+        <apx-chart [series]="lineGraph7.series" [chart]="lineGraph7.chart" [xaxis]="lineGraph7.xaxis"  [yaxis]="lineGraph7.yaxis"></apx-chart>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <br>
+      <div class="description">
+        <h5>Interpretation</h5>
+        <p>{{ prediction }}</p>
+      </div>
+    </div>
   </div>
+
 </div>
 <div *ngIf="!isAuthenticated" id="denied" class="container">
   <h1>PLease sign in first</h1>
