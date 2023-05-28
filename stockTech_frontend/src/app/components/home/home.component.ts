@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // window.location.reload();
     this.renderDataTable();
     this.receiveMarketData().subscribe((data) => {
       

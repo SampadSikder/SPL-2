@@ -56,7 +56,8 @@ export class SignUpComponent implements OnInit{
         }
         else{
         this.showOtp = true;
-        this.checkOtp();}
+        // this.checkOtp();
+      }
       },
       (error) => {
         console.error('Error:', error);

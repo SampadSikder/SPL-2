@@ -3,6 +3,7 @@ import math, random
 import json
 from datetime import datetime, timedelta
 from django.db import connection
+import os
 greenweburl = "http://api.greenweb.com.bd/api.php"
 
 def generateOTP() :
@@ -18,7 +19,7 @@ def generateOTP() :
 
 def sendOTP(otp,phone):
     message='Your OTP for StockTech is '+otp+'.'
-    data = {'token':"914114232616767950065c3cba674655902f77c6a235eba15727", 
+    data = {'token':os.getenv('OTP_TOKEN'), 
 		'to':phone, 
 		'message': message} 
     

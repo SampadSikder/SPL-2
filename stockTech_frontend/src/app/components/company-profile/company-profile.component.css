@@ -5,62 +5,14 @@ h1,h2,h3,h4,h5 {
 p,pre{
 padding-left: 10%;
 }
-
-#left1,#left2,#left3,#left4,#right1,#right2,#right3,#right4 {
+#right4 {
     float: left;
     width: 50%;
 }
 
-#left1 {
-    background-color: rgba(245, 251, 227, 0.87);
-    height: 200px;
-}
-
-#left2 {
-    background-color: rgba(248, 232, 244, 0.87);
-    height: 300px;
-}
-
-#left3 {
-    background-color: rgba(244, 248, 232, 0.87);
-    height: 300px;
-}
-
-#left4 {
-    background-color: rgba(232, 246, 249, 0.87);
-    height: 300px;
-}
-
-#total1 {
-    float: left;
-    background-color: rgba(244, 248, 232, 0.87);
-    height: 200px;
-    width: 100%;
-}
-
-#total2 {
-    float: left;
-    background-color: rgba(225, 247, 252, 0.87);
-    width: 100%;
-}
-
-#right1 {
-    background-color: rgba(227, 251, 245, 0.87);
-    height: 200px;
-}
-
-#right2 {
-    background-color: rgba(240, 255, 227, 0.87);
-    height: 300px;
-}
-
-#right3 {
-    background-color: rgba(237, 232, 248, 0.87);
-    height: 300px;
-}
 
 #right4 {
-    background-color: rgba(249, 232, 232, 0.87);
+    background-color: rgba(232, 232, 249, 0.87);
     overflow-y: auto;
     height: 300px;
 }

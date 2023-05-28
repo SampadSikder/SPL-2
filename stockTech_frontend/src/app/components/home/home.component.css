@@ -8,6 +8,7 @@
     width: 60%;
     float: left;        
     padding-top: 20px;
+    padding-right: 80px;
   }
 
   #left2{
@@ -43,5 +44,5 @@ a {
 
 table{
     margin: auto;
-    width: 70%;   
+    width: 100%;   
 }

@@ -199,6 +199,7 @@ export class BoaccountopeningComponent implements OnInit {
       alert("BO account created successfully.");
       
     });
+    this.router.navigate(["home"]);
 
     }
 

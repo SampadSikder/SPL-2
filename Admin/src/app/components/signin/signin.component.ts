@@ -16,8 +16,8 @@ export class SigninComponent implements OnInit {
   email: string = '';
   password: string = '';
 
-  passwordFieldType = 'password';
-  passwordFieldIcon = 'far fa-eye';
+  passwordFieldType = 'text';
+  passwordFieldIcon = 'far fa-eye-slash';
 
 
   ngOnInit(): void {
@@ -37,8 +37,8 @@ export class SigninComponent implements OnInit {
 
 
   togglePassword() {
-    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
-    this.passwordFieldIcon = this.passwordFieldType === 'password' ? 'far fa-eye' : 'far fa-eye-slash';
+    this.passwordFieldType = this.passwordFieldType === 'text' ? 'password' : 'text';
+    this.passwordFieldIcon = this.passwordFieldType === 'text' ? 'far fa-eye-slash' : 'far fa-eye';
   }
 
   matchInfo(){
@@ -55,7 +55,9 @@ export class SigninComponent implements OnInit {
           // this.auth.setAuth(true);
          
           this.isAuthenticated=true;
-          window.location.reload();
+          // window.location.reload();
+          const targetUrl = 'home'; 
+          window.location.href = targetUrl;
           
 
         } else {

@@ -1,6 +1,7 @@
 import requests
 import math, random,inspect
 import json
+import os
 from django.db import connection
 
 greenweburl = "http://api.greenweb.com.bd/api.php"
@@ -106,14 +107,14 @@ def createBO(request):
 
     message="Account Created Successfully"
     fhphone='+88'+req['fhPhone']
-    data = {'token':"914114232616767950065c3cba674655902f77c6a235eba15727", 
+    data = {'token':os.getenv('OTP_TOKEN'), 
 		'to':fhphone, 
 		'message': 'Your BO account has been created successfully. Your BO Account number is '+boaccountno+'.'} 
     responses = requests.post(url = greenweburl, data = data) 
     
     if req['shPhone']!='':
         shphone='+88'+req['shPhone']
-        data = {'token':"914114232616767950065c3cba674655902f77c6a235eba15727", 
+        data = {'token':os.getenv('OTP_TOKEN'), 
 		'to':shphone, 
 		'message': 'Your BO account has been created successfully. Your BO Account number is '+boaccountno+'.'} 
  

@@ -25,7 +25,11 @@ export class NavbarComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
     this.isAuthenticated=false;
-    window.location.reload();
+    // window.location.reload();
+
+    const targetUrl = '/'; 
+    window.location.href = targetUrl;
+
   }
   
 

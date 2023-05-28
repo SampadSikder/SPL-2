@@ -7,7 +7,7 @@
 <div *ngFor="let news of newsData.articles">
   <div id="article">
     <a href="{{news.url}}" id="link" target="_blank">
-      <h2>{{ news.title }}</h2>
+      <h4>{{ news.title }}</h4>
       <small>{{ news.publishedAt }}</small>
       <p>{{ news.author }}</p>
       <p>{{ news.content }}</p>

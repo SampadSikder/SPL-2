@@ -4,13 +4,15 @@
 
 
 <div *ngIf="isAuthenticated" class="container">
+  <br>
   <h2>Notifications</h2>
+  <br>
 </div>
 
 <div *ngFor="let notification of list">
   <div id="article">   
-      <h2>{{ notification.title }}</h2>
-      <p>{{ notification.date }}</p>
+      <h4>{{ notification.title }}</h4>
+      <pre>{{ notification.date }}</pre>
       <p>{{ notification.body }}</p>
       
     <br>

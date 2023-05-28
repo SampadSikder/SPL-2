@@ -12,11 +12,11 @@
             <p><label for="password">Password:</label> <input type="password" id="password" [(ngModel)]="password"
                     name="password" required></p>
             <p id="txt"><input type="checkbox"> remember me</p>
-            <button type="submit" (click)="matchInfo()">Sign In</button>
+            <button class="btn btn-success" type="submit" (click)="matchInfo()">Sign In</button>
         </div>
     </form>
 </div>
 </div>
-<div *ngIf="isAuthenticated">
+<div *ngIf="isAuthenticated" id="denied">
     <h1>Already Logged In</h1>
 </div>

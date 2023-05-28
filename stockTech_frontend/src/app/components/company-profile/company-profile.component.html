@@ -102,63 +102,6 @@
 
     </div>
   </div>
-
- <!-- <div class="row">
-    <div id="total2">
-      <h3>Financial Statement Summary</h3>
-      <table datatable [dtOptions]="dtOptions" class="hover"></table> 
-      <table>
-        <thead>
-          <tr>
-            <th>Particulars</th>
-            <th>2021</th>
-            <th>2020</th>
-            <th>2019</th>
-            <th>2018</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr *ngFor="let row of financialData">
-            <td *ngIf="row.r=='cash-flow-statement'">{{row.k}}</td>
-            <td *ngIf="row.r=='balance-sheet' && row.y=='2021'">{{ row.l }}</td> 
-
-            <ng-container *ngFor="let row2 of financialData">
-              <ng-container *ngIf="row2.k==row.k && row2!=row && row2.r=='cash-flow-statement'">
-                <td *ngIf="row2.y=='2021'">{{row2.l}}</td>
-                <td *ngIf="row2.y!='2021'">-</td>
-                <td *ngIf="row2.y=='2020'">{{row2.l}}</td>
-                <td *ngIf="row2.y!='2020'">-</td>
-                <td *ngIf="row2.y=='2019'">{{row2.l}}</td>
-                <td *ngIf="row2.y!='2019'">-</td>
-                <td *ngIf="row2.y=='2018'">{{row2.l}}</td>
-                <td *ngIf="row2.y!='2018'">-</td>
-              </ng-container>
-            </ng-container>
-            <ng-container *ngFor="let row2 of financialData">
-              <td *ngIf="row2.k==row.k && row2.r=='cash-flow-statement' && row.y!=row2.y  && row2.y=='2020'">{{row2.l}}
-              </td>
-            </ng-container>
-            <ng-container *ngFor="let row2 of financialData">
-              <td *ngIf="row2.k==row.k && row2.r=='cash-flow-statement' && row.y!=row2.y  && row2.y=='2019'">{{row2.l}}
-              </td>
-            </ng-container>
-            <ng-container *ngFor="let row2 of financialData">
-              <td *ngIf="row2.k==row.k && row2.r=='cash-flow-statement' && row.y!=row2.y  && row2.y=='2018'">{{row2.l}}
-              </td>
-            </ng-container> 
-
-          </tr>
-          <ng-template #elseBlock>
-            <td></td>
-          </ng-template>
-        </tbody>
-      </table>
-
-
-    </div>
-  </div> -->
-
 </div>
 
 

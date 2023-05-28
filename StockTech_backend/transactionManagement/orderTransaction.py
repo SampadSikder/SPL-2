@@ -112,7 +112,6 @@ def cancel(request):
         
         # Create smart contract instance
         contract = web3.eth.contract(address=contract_address, abi=abi)
-        # print(dir(contract.functions.takeOrder))  --> to get all the function related to contract
 
         Chain_id = web3.eth.chain_id
         orderID1=int(req['id'])

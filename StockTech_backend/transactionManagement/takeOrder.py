@@ -9,7 +9,7 @@ from accountManagement.sendOtp import *
 from django.db import models
 from accountManagement.authMiddle import *
 from accountManagement.verifyPhone import *
-import os
+
 
 def takeOrder(request):
     req=json.load(request)
