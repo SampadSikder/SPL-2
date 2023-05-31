@@ -20,8 +20,12 @@ def getSMA(request):
     date=my_array.astype(str).tolist()
     sma = ta.trend.sma_indicator(df['Close'], window=200)
     df['SMA200']=sma
+    sma = ta.trend.sma_indicator(df['Close'], window=20)
+    df['SMA20']=sma
+    sma = ta.trend.sma_indicator(df['Close'], window=100)
+    df['SMA100']=sma
     df = df.fillna(0)
-    return {'date':date,'sma50':df['SMA50'],'sma200':df['SMA200']}
+    return {'date':date,'sma50':df['SMA50'],'sma200':df['SMA200'],'sma20':df['SMA20'],'sma100':df['SMA100']}
 
 def getEMA(request):
     df=fetchData(request)
@@ -31,8 +35,12 @@ def getEMA(request):
     date=my_array.astype(str).tolist()
     ema = ta.trend.ema_indicator(df['Close'], window=200)
     df['EMA200']=ema
+    ema = ta.trend.ema_indicator(df['Close'], window=20)
+    df['EMA20']=ema
+    ema = ta.trend.ema_indicator(df['Close'], window=100)
+    df['EMA100']=ema
     df = df.fillna(0)
-    return {'date':date,'ema50':df['EMA50'],'ema200':df['EMA200']}
+    return {'date':date,'ema50':df['EMA50'],'ema200':df['EMA200'],'ema20':df['EMA20'],'ema100':df['EMA100']}
 
 def getMACD(request):
     df=fetchData(request)

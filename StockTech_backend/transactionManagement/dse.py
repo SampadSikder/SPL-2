@@ -171,55 +171,92 @@ class Command(BaseCommand):
                     commission=total*0.004
                     total-=commission
                     bo=sell[selected]['bo']
-                    sql_query= f"select balance from investors where BoAccountNo='{bo}';"
-                        #print(sql_query)
+                    balance=row1[0]+total
+                    sql_query=f"update investors set balance={balance} where BoAccountNo='{sell[selected]['bo']}';"
                     with connection.cursor() as cursor:
                         cursor.execute(sql_query)
-                        rows1 = cursor.fetchall()
+                    remaining-=quantity
+                    sql_query=f"update orders set remaining={remaining} where orderID='{sell[selected]['id']}';"
+                    with connection.cursor() as cursor:
+                        cursor.execute(sql_query)
+                    trxid=str(random.randint(80000,90000))
+                    time = datetime.now() + timedelta(minutes=3)
+                    datetime_string = time.strftime("%Y-%m-%d %H:%M:%S")
+                    sql_query=f"insert into executions values ('{trxid}','{sell[selected]['id']}','{sell[selected]['bo']}','{sell[selected]['code']}',{sell[selected]['price']},{quantity},{commission},{total},'sell','{datetime_string}');"
+                    with connection.cursor() as cursor:
+                        cursor.execute(sql_query)
+                    if(remaining==0):
+                        sql_query=f"update orders set status='executed' where orderID='{sell[selected]['id']}';"
+                        with connection.cursor() as cursor:
+                            cursor.execute(sql_query)
+                    message=f"Sell transaction complete.\nQuantity: {quantity}.\nCode: {sell[selected]['code']}.\nOrder ID:{sell[selected]['id']}.\nAdded amount: {total}.\nTransaction ID: {trxid}.\nNew Balance:{balance}."
+                    sql_query=f"select FirstHolderPhone from boaccount where BOAccountNo='{sell[selected]['bo']}';"
+                    with connection.cursor() as cursor:
+                        cursor.execute(sql_query)
+                        rows1=cursor.fetchall()
                     for row1 in rows1:
-                        if(row1[0]>=total):
-                            balance=row1[0]+total
-                            sql_query=f"update investors set balance={balance} where BoAccountNo='{sell[selected]['bo']}';"
-                            with connection.cursor() as cursor:
-                                cursor.execute(sql_query)
-                            remaining-=quantity
-                            sql_query=f"update orders set remaining={remaining} where orderID='{sell[selected]['id']}';"
-                            with connection.cursor() as cursor:
-                                cursor.execute(sql_query)
-                            trxid=str(random.randint(80000,90000))
-                            time = datetime.now() + timedelta(minutes=3)
-                            datetime_string = time.strftime("%Y-%m-%d %H:%M:%S")
-                            sql_query=f"insert into executions values ('{trxid}','{sell[selected]['id']}','{sell[selected]['bo']}','{sell[selected]['code']}',{sell[selected]['price']},{quantity},{commission},{total},'sell','{datetime_string}');"
-                            with connection.cursor() as cursor:
-                                cursor.execute(sql_query)
-                            if(remaining==0):
-                                sql_query=f"update orders set status='executed' where orderID='{sell[selected]['id']}';"
+                        phone=row1[0]
+                    sendMessage(phone,message)
+                    sql_query=f"select volume, transID from portfolio where bo='{buy[selected]['bo']}' and code='{buy[selected]['code']}';"
+                    with connection.cursor() as cursor:
+                        cursor.execute(sql_query)
+                        rows2=cursor.fetchall()
+                    for row2 in rows2:
+                        if(quantity>0):
+                            if(row2[0]<=quantity):
+                                sql_query=f"delete from portfolio where transID='{row2[1]}';"
                                 with connection.cursor() as cursor:
                                     cursor.execute(sql_query)
-                            message=f"Sell transaction complete.\nQuantity: {quantity}.\nCode: {sell[selected]['code']}.\nOrder ID:{sell[selected]['id']}.\nAdded amount: {total}.\nTransaction ID: {trxid}.\nNew Balance:{balance}."
-                            sql_query=f"select FirstHolderPhone from boaccount where BOAccountNo='{sell[selected]['bo']}';"
-                            with connection.cursor() as cursor:
-                                cursor.execute(sql_query)
-                                rows1=cursor.fetchall()
-                            for row1 in rows1:
-                                phone=row1[0]
-                            sendMessage(phone,message)
-                            sql_query=f"select volume, transID from portfolio where bo='{buy[selected]['bo']}' and code='{buy[selected]['code']}';"
-                            with connection.cursor() as cursor:
-                                cursor.execute(sql_query)
-                                rows2=cursor.fetchall()
-                            for row2 in rows2:
-                                if(quantity>0):
-                                    if(row2[0]<=quantity):
-                                        sql_query=f"delete from portfolio where transID='{row2[1]}';"
-                                        with connection.cursor() as cursor:
-                                            cursor.execute(sql_query)
-                                        quantity=quantity-row2[0]
-                                    else:
-                                        sql_query=f"update portfolio set volume={row2[0]-quantity} where transID='{row2[1]}';"
-                                        with connection.cursor() as cursor:
-                                            cursor.execute(sql_query)
-                                        quantity=quantity-row2[0]
+                                quantity=quantity-row2[0]
+                            else:
+                                sql_query=f"update portfolio set volume={row2[0]-quantity} where transID='{row2[1]}';"
+                                with connection.cursor() as cursor:
+                                    cursor.execute(sql_query)
+                                quantity=quantity-row2[0]
 
-                                
-                                
+
+def executeImmediate():
+        sql_query="select * from orders where status='running' and type='buy';"
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query)
+            rows1 = cursor.fetchall()
+        buy=[]
+        for row1 in rows1:
+            obj=order(row1[0],row1[2],row1[3],row1[4],row1[5],row1[6])
+            buy.append(obj.__dict__)
+        sql_query="select * from orders where status='running' and type='sell';"
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query)
+            rows1 = cursor.fetchall()
+        sell=[]
+        for row1 in rows1:
+            obj=order(row1[0],row1[2],row1[3],row1[4],row1[5],row1[6])
+            sell.append(obj.__dict__)
+
+        if(len(buy)>0 and len(sell)>0):
+            
+            for buy1 in buy:
+                for sell1 in sell:
+                    if((buy1['code']==sell1['code']) and (buy1['price']==sell1['price']) and (buy1['bo']!=sell1['bo']) and (buy1['remaining']>sell1['remaining'])):
+                        buy1['remaining']-=sell1['remaining']
+                        quantity=sell1['remaining']
+                        sell1['remaining']=0
+                        sell1['status']='executed'
+                        sql_query=f"update orders set status='executed' where orderID='{sell1['id']}';"
+                        with connection.cursor() as cursor:
+                            cursor.execute(sql_query)
+                        trxid=str(random.randint(80000,90000))
+                        trxid1=str(random.randint(80000,90000))
+                        time = datetime.now() + timedelta(minutes=3)
+                        datetime_string = time.strftime("%Y-%m-%d %H:%M:%S")
+                        total=quantity*sell1['price']
+                        commission=total*0.004
+                        selltotal-=commission
+                        buytotal+=commission
+                        sql_query=f"insert into executions values ('{trxid}','{sell1['id']}','{sell1['bo']}','{sell1['code']}',{sell1['price']},{quantity},{commission},{selltotal},'sell','{datetime_string}');"
+                        sql_query1=f"insert into executions values ('{trxid1}','{buy1['id']}','{buy1['bo']}','{sell1['code']}',{sell1['price']},{quantity},{commission},{buytotal},'buy','{datetime_string}');"
+                        with connection.cursor() as cursor:
+                            cursor.execute(sql_query)
+                            cursor.execute(sql_query1)
+
+

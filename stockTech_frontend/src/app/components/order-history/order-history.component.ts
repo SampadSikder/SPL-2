@@ -41,6 +41,7 @@ cancelOrder(oid:string){
 }
 
 cancel(oid:string) {
+  alert("cancel request pending.");
   this.cancelOrder(oid).subscribe((data)=>{
     alert(data['message']);
     window.location.reload();

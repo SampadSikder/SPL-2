@@ -267,12 +267,16 @@ export class Graph2Component implements OnInit{
       const date = data1['date'];
       const ema50 = data1['ema50'];
       const ema200 = data1['ema200'];
+      const ema20 = data1['ema20'];
+      const ema100 = data1['ema100'];
       const data = [];
       for (let i = 0; i < date.length; i++) {
         const item = {
           date: parseInt(date[i]),
           ema50: ema50[i],
-          ema200: ema200[i]
+          ema200: ema200[i],
+          ema20: ema20[i],
+          ema100: ema100[i]
         };
         data.push(item);
         
@@ -303,6 +307,20 @@ export class Graph2Component implements OnInit{
               x: new Date(item.date),
               y: item.ema200,
             }))
+          },
+          {
+            name: 'ema100',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.ema100,
+            }))
+          },
+          {
+            name: 'ema20',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.ema20,
+            }))
           }
         ],
        
@@ -330,16 +348,21 @@ export class Graph2Component implements OnInit{
       const date = data1['date'];
       const sma50 = data1['sma50'];
       const sma200 = data1['sma200'];
+      const sma20 = data1['sma20'];
+      const sma100 = data1['sma100'];
       const data = [];
       for (let i = 0; i < date.length; i++) {
         const item = {
           date: parseInt(date[i]),
           sma50: sma50[i],
-          sma200: sma200[i]
+          sma200: sma200[i],
+          sma20: sma20[i],
+          sma100: sma100[i]
         };
         data.push(item);
         
       }
+      console.log(data);
       console.log(data);
       this.lineGraph5 = {
         chart: {
@@ -366,7 +389,23 @@ export class Graph2Component implements OnInit{
               x: new Date(item.date),
               y: item.sma200,
             }))
-          }
+          },
+          {
+            name: 'sma20',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.sma20,
+            }))
+          },
+          {
+            name: 'sma100',
+            data: data.map(item => ({
+              x: new Date(item.date),
+              y: item.sma100,
+            }))
+          },
+          
+          
         ],
        
         xaxis: {
