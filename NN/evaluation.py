@@ -1,0 +1,28 @@
+import os
+import numpy as np
+import tensorflow as tf
+from sklearn.metrics import mean_squared_error
+
+from sklearn.metrics import mean_squared_error
+from configuration import *
+from data_processing import generate_test_dataset
+
+def evaluate(data_file):
+    X_test, Y_test = generate_test_dataset(data_file)
+    X_test = np.reshape(X_test, (X_test.shape[0], 25, 4, 2)) 
+    if X_test.shape[0] == 0:
+      return 0
+    result_save_path = os.path.join(result_dir, model_name)
+    model = "{}_{}_{}".format(model_name, version, data_file.split('.')[0])
+    model_save_path = os.path.join(result_save_path, model)
+   
+    loaded_model = tf.keras.models.load_model(model_save_path)
+    
+    predictions = loaded_model.predict(X_test)
+    predictions = scaler.inverse_transform(predictions)
+    Y_test = scaler.inverse_transform(Y_test)
+
+    first=predictions[:,0]
+    second=Y_test[:,0]
+    rmse = np.sqrt(mean_squared_error(first, second))
+    return rmse

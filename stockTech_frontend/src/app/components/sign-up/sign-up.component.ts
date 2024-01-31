@@ -48,21 +48,23 @@ export class SignUpComponent implements OnInit{
 
   }
   checkBO() {
-    this.http.post(this.baseUrl, { phone: this.phone,bo:this.bo }).subscribe(
-      (res) => {
-        alert(res);
-        if((res=="BO account is already registered")||(res=="BO account does not exist")||(res=="Phone number does not match")){
-          alert(res);
-        }
-        else{
-        this.showOtp = true;
-        // this.checkOtp();
-      }
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
+    // this.http.post(this.baseUrl, { phone: this.phone,bo:this.bo }).subscribe(
+    //   (res) => {
+    //     alert(res);
+    //     if((res=="BO account is already registered")||(res=="BO account does not exist")||(res=="Phone number does not match")){
+    //       alert(res);
+    //     }
+    //     else{
+    //     this.showOtp = true;
+    //     // this.checkOtp();
+    //   }
+    //   },
+    //   (error) => {
+    //     console.error('Error:', error);
+    //   }
+    // );
+
+    this.showOtp = true;
   }
 
   checkOtp() {

@@ -506,7 +506,8 @@ export class Graph2Component implements OnInit{
           type: 'datetime',
           labels: {
             format: 'dd/MM',
-          }
+          },
+          enabled:false
         },
         yaxis: {
           labels: {

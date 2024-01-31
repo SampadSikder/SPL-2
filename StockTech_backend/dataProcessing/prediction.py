@@ -19,6 +19,8 @@ def getPricePrediction(code,dateFrom):
     response = requests.get(f"https://www.amarstock.com/data/afe01cd8b512070a/?scrip={code}&cycle=Day1&dtFrom={dateFrom}T05%3A02%3A13.318Z&fbclid=IwAR0qZBhgiqSV6L6xTerlCEsXvVwtaLMaQvTqqMfUmjloMfBO2jocwV95DE8")
     if (response.status_code == 200):
         result = json.loads(response.text)
+
+
     return result
 
 
@@ -77,9 +79,12 @@ def jsonTOArray(last_100_days, scaler):
     for days in last_100_days:
         l += [[days['Close'], days['Volume']]]
 
+    #print(l)
+
     # scaler = MinMaxScaler(feature_range=(0,1))
     scaled_data = scaler.fit_transform(l)
     # scaled_data
+    #print(scaled_data)
     np_array = np.array(scaled_data)
     np_array = np.reshape(np_array, (1, 25, 4, 2))
 
@@ -126,7 +131,9 @@ def getPredictions(model, np_array, scaler, scaled_data, n):
 
         prediction = scaler.inverse_transform(prediction)
         predictions.append(prediction)
+    
 
+    
     predictions = np.array(predictions)
     predictions = np.reshape(predictions, (predictions.shape[0], predictions.shape[2]))
 
@@ -148,11 +155,19 @@ def getPrediction(request):
     req=json.load(request)
     code=req['code']
     dateFrom=req['dateFrom']
-    last_100_days = getPricePrediction(code,dateFrom)[-100:]
+    last_100_days=getPricePrediction(code,dateFrom)[-100:]
+    #last_100_days=getPricePrediction(code,dateFrom)[:-40]
+    #last_100_days = last_100_days[-100:]
+    df = pd.DataFrame(last_100_days)
+    df.to_csv('output.csv', index=False)
     
-    if len(last_100_days) < 100:
+    #print(last_100_days)
+    
+    if len(last_100_days) != 100:
         print("hehe")
         return 0
+    else:
+        print("GG")
 
     
     scaler = MinMaxScaler(feature_range=(0, 1))

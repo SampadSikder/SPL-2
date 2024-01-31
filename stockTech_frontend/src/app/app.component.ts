@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   title: any;
+  mail: string='info@StockTech.com';
   isAuthenticated: boolean=false;
   constructor(private auth:AuthService){}
   ngOnInit(): void {

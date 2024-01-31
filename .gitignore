@@ -2,7 +2,7 @@ stockTech_frontend/node_modules
 stockTech_frontend/.angular
 Admin/node_modules
 Admin/.angular
-StockTech_backend/myenv
+StockTech_backend/venv
 StockTech_backend/CNN
 StockTech_backend/.env
 contract/cache
@@ -10,3 +10,7 @@ contract/.env
 contract/node_modules
 contract/.vscode
 StockTech NN/DSECompanyData
+StockTech NN/results
+NN/CompanyData
+NN/results
+venv/

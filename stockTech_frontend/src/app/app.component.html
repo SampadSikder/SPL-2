@@ -6,12 +6,13 @@
       <div class="row">
         <div class="col-6 col-md-4">
           <div id="logo">
-            <img src="assets/logo6.png" alt="Logo" class="img-fluid" class="logo-image">
+            <img src="assets/logo6.png" alt="Logo" class="img-fluid logo-image">
           </div>
           <small>
             <pre>     StockTech</pre>
           </small>
         </div>
+        
         <div class="col-6 col-md-8">
           <nav class="navbar navbar-expand-md">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -32,24 +33,25 @@
             </div>
 
             <div *ngIf="!isAuthenticated" id="options" class="options ml-auto">
-              <a routerLink="signUp" class="btn btn-outline-primary">Sign Up</a>
-              <a routerLink="login" class="btn btn-outline-primary">Sign In</a>
-              <a routerLink="boaccount" class="btn btn-outline-primary">Open BO Account</a>
+              <a routerLink="signUp" class="btn btn-outline-primary custom-btn">Sign Up</a>
+              <a routerLink="login" class="btn btn-outline-primary custom-btn">Sign In</a>
+              <!-- <a routerLink="boaccount" class="btn btn-outline-primary">Open BO Account</a> -->
             </div>
-
+            
+            
             <div *ngIf="isAuthenticated" id="signInMenu" class="pos-f-t nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img src="assets/avatar.png" alt="Avatar" style="width:40px;" class="rounded-pill">
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" routerLink="profile">View Profile</a></li>
-                <li><a class="dropdown-item" routerLink="deposit">Cash Deposit/Withdraw</a></li>
+                <!-- <li><a class="dropdown-item" routerLink="profile">View Profile</a></li> -->
+                <!-- <li><a class="dropdown-item" routerLink="deposit">Cash Deposit/Withdraw</a></li> -->
                 <li><a class="dropdown-item" routerLink="portfolio">Portfolio</a></li>
                 <li><a class="dropdown-item" routerLink="ipo">IPO</a></li>
                 <li><a class="dropdown-item" routerLink="watchlist">Watchlist</a></li>
-                <li><a class="dropdown-item" routerLink="transaction">Transaction</a></li>
-                <li><a class="dropdown-item" routerLink="history">Order History</a></li>
+                <!-- <li><a class="dropdown-item" routerLink="transaction">Transaction</a></li> -->
+                <!-- <li><a class="dropdown-item" routerLink="history">Order History</a></li> -->
                 <li><a class="dropdown-item" routerLink="notification">Notification</a></li>
                 <li><a class="dropdown-item"   (click)="logout()" routerLink="home">Logout</a></li>
               </div>
@@ -90,7 +92,7 @@
           <ul class="list-unstyled">
             <li><i class="fas fa-map-marker-alt mr-2"></i> Suhrawardi Udyan Rd, Dhaka 1200</li>
             <li><i class="fas fa-phone-alt mr-2"></i> (+880)1779-482994</li>
-            <li><i class="fas fa-envelope mr-2"></i> info@StockTech.com</li>
+            <li><i class="fas fa-envelope mr-2"></i> {{mail}}</li>
           </ul>
         </div>
         <!-- <hr class="my-4"> -->
@@ -104,13 +106,13 @@
 
         <div class="col-md-6 text-md-right text-center">
           <ul class="list-inline mb-0">
-            <li class="list-inline-item"><a href="#" class="text-light">
+            <li class="list-inline-item p-3"><a href="#" class="text-light">
                 <h5>Privacy Policy</h5>
               </a></li>
-              <li class="list-inline-item"><a href="#" class="text-light">
+              <li class="list-inline-item p-3"><a href="#" class="text-light">
                 <h5>Terms of Use</h5>
               </a></li>
-              <li class="list-inline-item"><a href="#" class="text-light">
+              <li class="list-inline-item p-3"><a href="#" class="text-light">
                 <h5>Cookie Policy</h5>
               </a></li>
           </ul>

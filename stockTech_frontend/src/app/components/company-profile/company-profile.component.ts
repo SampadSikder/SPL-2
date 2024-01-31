@@ -198,7 +198,7 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
         chart: {
           type: 'candlestick',
           height: '250%',
-          width: '90%',
+          width: '100%',
           zoom: {
             type: 'x',
             enabled: true,

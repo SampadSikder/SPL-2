@@ -63,3 +63,7 @@ footer{
 a{
   text-decoration: none;
 }
+
+.custom-btn {
+  margin-right: 10px;
+}

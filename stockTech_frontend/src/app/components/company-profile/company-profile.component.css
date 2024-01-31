@@ -36,3 +36,9 @@ table {
     align-items: center;
     justify-content: center;
 }
+
+.custom-chart {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 12px;
+}
